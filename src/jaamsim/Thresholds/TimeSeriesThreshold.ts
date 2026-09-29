@@ -48,6 +48,7 @@ const TWO_64 = 2n ** 64n;
  * Java の long の a + b（桁あふれも Java と同じ）。
  * TS では Long.MAX_VALUE が 2^53-1 なので、それを Java の 2^63-1 と見なして足し、2^64 で折り返す。
  */
+// TODO(移植): 桁あふれの再現は Long.MAX_VALUE が片方にあるときだけ（ほかの long の足し算は 2^53 未満の前提）
 function longAdd(a: number, b: number): number {
 	if (a !== Long.MAX_VALUE && b !== Long.MAX_VALUE)
 		return a + b;

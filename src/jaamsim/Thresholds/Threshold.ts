@@ -95,6 +95,7 @@ export class Threshold extends StateEntity implements SubjectEntity {
 		this.closedCount = 0;
 
 		this.userList.length = 0;
+		// TODO(移植): ThresholdUser の判定は関数の有無（isThresholdUser）。StateUserEntity.ts に abstract thresholdChanged が無く、tsc は ThresholdUser と認めない
 		for (const each of this.getJaamSimModel().getClonesOfIterator(Entity, isThresholdUser)) {
 			const tu = each as unknown as ThresholdUser;
 			if (tu.getThresholds().includes(this))

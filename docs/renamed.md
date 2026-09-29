@@ -61,3 +61,10 @@ Entity.error(fmt, ...args): 中で tr(fmt) してから jformat する。戻り�
 - `DoubleCalculation`・`WaveGenerator`・`Polynomial`・`WeightedSum` の `getNextSample(double)`（出力 Value）と `getNextSample(Entity, double)` は、引数の数で見分ける 1 つの関数（名前は変えていない）（担当: I）
 - 引数なしの関数と、同じ値を返す出力の関数を 1 つにした（名前は変えていない）: `Controller.getCount(simTime?)`、`FluidComponent.getFlowArea/getVelocity/getInletPressure/getOutletPressure/getFluidVolume(simTime?)`、`FluidTank.getFluidLevel(simTime?)`、`FluidFlowCalculation.getFlowRate(simTime?)`（担当: I）
 - `DoubleCalculation.unitType`・`inputValue`（Java は protected）は、同じパッケージの WaveGenerator・WeightedSum から読むので public readonly にした（担当: I）
+- ThresholdUser（interface）: x instanceof ThresholdUser → isThresholdUser(x)（getThresholds・thresholdChanged の関数があるか）（担当: H）
+- `TimeSeriesThreshold.doOpenClose`（ProcessTarget のフィールド）→ `doOpenCloseTarget`（関数 doOpenClose() とぶつかるため）（担当: H）
+- `ExpressionThreshold.getOpenConditionValue(double)`・`(double, boolean)` は 1 つの `getOpenConditionValue(simTime, val?)`。名前の無いクラスから呼ぶため `superIsOpen()`（Java の ExpressionThreshold.super.isOpen()）と `processSetOpen()`（setOpenTarget の中身）を足した（担当: H）
+- `KeywordCommand` の 3 つのコンストラクタ `(ent, kws...)`・`(ent, ind, kws...)`・`(ent, ind, kws0[], kws1[])` は 1 つで引数の形から見分ける（名前は変えていない。`new KeywordCommand(ent, kwArray)` も可）。`DefineCommand(sim, cls, name)`・`(sim, cls, proto, name)` も同じ（担当: H）
+- `JSONParser.parse(ArrayList<Token>)`・`parse(String)`（static）は 1 つの static `parse(toks | json)`。インスタンスの `parse()` はそのまま（担当: H）
+- `JSONTokenizer.Token` → `JSONTokenizer_Token`（`JSONTokenizer.Token` でも引ける）。`JSONError` の 2 つのコンストラクタは 1 つ（後ろの引数があれば jformat）（担当: H）
+- `JSONValue.mapVal`（Java の HashMap）は `JavaHashOrder<JSONValue>`（ProcessFlow/MappedTreeSet.ts。set・get・entries。Java の HashMap と同じ順番で書き出すため）（担当: H）

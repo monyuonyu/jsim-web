@@ -58,6 +58,7 @@ export class DefineViewCommand implements Command {
 		}
 
 		// Display the window
+		// TODO(移植): 窓を開く・選ぶのは画面を作るときに（GUIListener の createWindow などへ）
 		// 描画: 省略（three.js の画面を作るときに）RenderManager.inst().createWindow(view)・FrameBox.setSelectedEntity(view, false)
 		InputAgent.applyArgs(view, "ShowWindow", "TRUE");
 

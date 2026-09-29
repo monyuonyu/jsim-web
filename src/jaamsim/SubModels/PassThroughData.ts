@@ -15,3 +15,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { jformat, type JClass } from "../java/lang.ts";
+import type { Unit } from "../units/Unit.ts";
+
+export class PassThroughData {
+
+	private readonly name: string;
+	private readonly unitType: JClass<Unit>;
+
+	constructor(nm: string, ut: JClass<Unit>) {
+		this.name = nm;
+		this.unitType = ut;
+	}
+
+	getName(): string {
+		return this.name;
+	}
+
+	getUnitType(): JClass<Unit> {
+		return this.unitType;
+	}
+
+	equals(obj: unknown): boolean {
+		if (obj == null)
+			return false;
+
+		if (!(obj instanceof PassThroughData))
+			return false;
+
+		const data = obj;
+		return this.name === data.name && this.unitType === data.unitType;
+	}
+
+	toString(): string {
+		return jformat("(%s, %s)", this.name, ClassRegistry.simpleName(this.unitType));
+	}
+
+}

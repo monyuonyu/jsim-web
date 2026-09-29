@@ -199,6 +199,7 @@ export class ExpressionThreshold extends Threshold implements ObserverEntity {
 			}
 			catch (_e) {
 				// Java の catch (Exception e) {}
+				// TODO(移植): TS ではすべての例外を捕まえる（Java は Error 系を捕まえない）
 			}
 		},
 	};

@@ -23,6 +23,7 @@
 
 import { JavaHashOrder } from "../ProcessFlow/MappedTreeSet.ts";
 
+// TODO(移植): 同じ添え字に 9 個以上たまった（木になった）HashMap の順番は JavaHashOrder で再現していない
 export class JSONValue {
 	public mapVal: JavaHashOrder<JSONValue> = null as unknown as JavaHashOrder<JSONValue>;
 	public listVal: JSONValue[] = null as unknown as JSONValue[];
