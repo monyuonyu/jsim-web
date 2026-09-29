@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noImplicitOverride": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "outDir": "dist",
+    "rootDir": "."
+  },
+  "include": ["src", "test"]
+}
