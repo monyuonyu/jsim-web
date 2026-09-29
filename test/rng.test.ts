@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { MRG1999a } from "../src/core/rng/MRG1999a.ts";
+import { MRG1999a } from "../src/jaamsim/rng/MRG1999a.ts";
 
 function bits(x: number): string {
 	const v = new DataView(new ArrayBuffer(8));

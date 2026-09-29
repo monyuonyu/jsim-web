@@ -1,7 +1,7 @@
 // 事象の順番が Java 版と同じ規則になること: 時刻 → 優先度 → FIFO は後ろへ・LIFO は前へ
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { EventManager, EventHandle, ProcessTarget } from "../src/core/events/EventManager.ts";
+import { EventManager, EventHandle, ProcessTarget } from "../src/jaamsim/events/EventManager.ts";
 
 class Rec extends ProcessTarget {
 	constructor(private log: string[], private name: string, private then?: () => void) { super(); }
