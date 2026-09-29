@@ -220,8 +220,9 @@ function javaFormatStringsAndDoubles(fmt: string, args: (string | number)[]): st
 		out.push((c === "s" || c === "S") && typeof v === "number" ? jstr(v) : v);
 	}
 	// jformat は引数を順に使うので、%1$s などの番号つきは番号を外して並べ直した書式で呼ぶ
-	const plainFmt = fmt.replace(/%(\d+\$)([-#+ 0,(<]*)(\d+)?(\.\d+)?([a-zA-Z%])/g,
-			(_all, _p: string, f: string, w: string | undefined, pr: string | undefined, c: string) => `%${f}${w ?? ""}${pr ?? ""}${c}`);
+	const plainFmt = fmt.replace(/%%|%(\d+\$)([-#+ 0,(<]*)(\d+)?(\.\d+)?([a-zA-Z%])/g,
+			(all: string, _p: string | undefined, f: string, w: string | undefined, pr: string | undefined, c: string) =>
+				all === "%%" ? all : `%${f}${w ?? ""}${pr ?? ""}${c}`);
 	return jformat(plainFmt, ...out);
 }
 
