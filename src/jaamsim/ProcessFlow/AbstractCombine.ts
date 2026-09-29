@@ -234,6 +234,7 @@ export abstract class AbstractCombine extends LinkedService {
 	 * 引数なし（Java の getMatchValue()）は LinkedService のまま。
 	 * 引数あり（出力の getMatchValue(double)）は null（Delete 'MatchValue' output）。
 	 */
+	// TODO(移植): Java は @Output なしの上書きで出力 MatchValue を消す。TS の出力の表には消す仕組みが無く、null を返す出力として残る
 	override getMatchValue(simTime?: number): string | null {
 		if (simTime === undefined)
 			return super.getMatchValue();

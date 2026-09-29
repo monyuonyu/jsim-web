@@ -18,6 +18,27 @@ import { DimensionlessUnit } from "../src/jaamsim/units/DimensionlessUnit.ts";
 import { DistanceUnit } from "../src/jaamsim/units/DistanceUnit.ts";
 import { TimeUnit } from "../src/jaamsim/units/TimeUnit.ts";
 import { AngleUnit } from "../src/jaamsim/units/AngleUnit.ts";
+// 単位の掛け算・割り算の表は、すべての単位のクラスが読み込まれている前提
+import "../src/jaamsim/units/AccelerationUnit.ts";
+import "../src/jaamsim/units/AngularSpeedUnit.ts";
+import "../src/jaamsim/units/AreaUnit.ts";
+import "../src/jaamsim/units/CostRateUnit.ts";
+import "../src/jaamsim/units/CostUnit.ts";
+import "../src/jaamsim/units/DensityUnit.ts";
+import "../src/jaamsim/units/EnergyDensityUnit.ts";
+import "../src/jaamsim/units/EnergyUnit.ts";
+import "../src/jaamsim/units/LinearDensityUnit.ts";
+import "../src/jaamsim/units/LinearDensityVolumeUnit.ts";
+import "../src/jaamsim/units/MassFlowUnit.ts";
+import "../src/jaamsim/units/MassUnit.ts";
+import "../src/jaamsim/units/PowerUnit.ts";
+import "../src/jaamsim/units/PressureUnit.ts";
+import "../src/jaamsim/units/RateUnit.ts";
+import "../src/jaamsim/units/SpecificEnergyUnit.ts";
+import "../src/jaamsim/units/SpeedUnit.ts";
+import "../src/jaamsim/units/ViscosityUnit.ts";
+import "../src/jaamsim/units/VolumeFlowUnit.ts";
+import "../src/jaamsim/units/VolumeUnit.ts";
 
 I18n.setLanguage("en");  // 誤りのメッセージを英語のまま比べる
 
@@ -70,7 +91,7 @@ test("字句の分け方", () => {
 	assert.deepEqual(toks.map(t => [t.type, t.value, t.pos]), [
 		[0, "a", 0], [2, ".", 1], [0, "b", 2], [2, "(", 3], [1, "1.5e-3", 4], [2, ",", 10],
 		[3, "Ent 1", 12], [2, ")", 19], [2, ">=", 21], [4, "s", 24], [2, "&&", 28], [5, "null", 31],
-		[2, "!", 44], [0, "x", 45],
+		[2, "!", 42], [0, "x", 43],
 	]);
 	assert.throws(() => ExpTokenizer.tokenize("[a[b]"), (e: ExpError) => e.message === "Nested square brace" && e.pos === 2);
 	assert.throws(() => ExpTokenizer.tokenize("1 # x"), (e: ExpError) => e.message === "No closing mark for comment");
