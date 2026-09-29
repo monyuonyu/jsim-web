@@ -41,6 +41,13 @@ export interface QueueUser {
 }
 
 export const QueueUser = {
+	/** Java の完全な名前（InterfaceEntityInput などに渡すため。JInterface の形） */
+	javaName: "com.jaamsim.ProcessFlow.QueueUser",
+
+	isInstance(o: unknown): o is QueueUser {
+		return o instanceof (QueueUser as unknown as JClass);
+	},
+
 	/** Java の「implements QueueUser」の代わり */
 	register(cls: JClass): void {
 		(cls.prototype as Record<symbol, unknown>)[MARK] = true;

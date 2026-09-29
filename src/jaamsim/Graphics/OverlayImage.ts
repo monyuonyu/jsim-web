@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2013 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2018 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import { IconModel } from "../DisplayModels/IconModel.ts";
 import { ImageModel } from "../DisplayModels/ImageModel.ts";
 import { Entity } from "../basicsim/Entity.ts";
@@ -13,9 +30,13 @@ import { OverlayEntity } from "./OverlayEntity.ts";
  * @author Matt Chudleight, with modifications by Harry King
  *
  */
+/*
+ * 移植の注意: 入力のフィールド size は、DisplayEntity の private の size（大きさ）と、JS では同じ
+ * プロパティになってしまうので imageSize にした。
+ */
 export class OverlayImage extends OverlayEntity {
 
-	private readonly size: IntegerListInput;
+	private readonly imageSize: IntegerListInput;  // Java の size（DisplayEntity の private の size とぶつかるため）
 
 	constructor() {
 		super();
@@ -28,16 +49,16 @@ export class OverlayImage extends OverlayEntity {
 		const defSize = new IntegerVector(2);
 		defSize.add(100);
 		defSize.add(100);
-		this.size = new IntegerListInput("ImageSize", Entity.GRAPHICS, defSize);
-		this.setKeywordDoc(this.size, "The size of the image. Value is in pixels",
+		this.imageSize = new IntegerListInput("ImageSize", Entity.GRAPHICS, defSize);
+		this.setKeywordDoc(this.imageSize, "The size of the image. Value is in pixels",
 				["200 100"]);
-		this.size.setValidCount(2);
-		this.size.setValidRange(0, 2500);
-		this.addInput(this.size);
+		this.imageSize.setValidCount(2);
+		this.imageSize.setValidRange(0, 2500);
+		this.addInput(this.imageSize);
 	}
 
 	getImageSize(): IntegerVector {
-		return this.size.getValue();
+		return this.imageSize.getValue()!;
 	}
 }
 

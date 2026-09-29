@@ -29,6 +29,13 @@ export interface EntityGen {
 }
 
 export const EntityGen = {
+	/** Java の完全な名前（InterfaceEntityInput などに渡すため。JInterface の形） */
+	javaName: "com.jaamsim.ProcessFlow.EntityGen",
+
+	isInstance(o: unknown): o is EntityGen {
+		return o instanceof (EntityGen as unknown as JClass);
+	},
+
 	/** Java の「implements EntityGen」の代わり */
 	register(cls: JClass): void {
 		(cls.prototype as Record<symbol, unknown>)[MARK] = true;

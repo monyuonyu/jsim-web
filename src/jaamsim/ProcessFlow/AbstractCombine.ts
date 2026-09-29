@@ -30,7 +30,7 @@ import { SampleInput } from "../Samples/SampleInput.ts";
 import { SampleListInput } from "../Samples/SampleListInput.ts";
 import { Entity } from "../basicsim/Entity.ts";
 import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
 import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { TimeUnit } from "../units/TimeUnit.ts";
 import { LinkedService } from "./LinkedService.ts";
@@ -255,3 +255,6 @@ defineOutput(AbstractCombine, {
 	returnType: "ArrayList",
 	get: (e, simTime) => e.getConsumedEntityList(simTime),
 });
+
+// Java は @Output の付かない関数で上書きして、次の出力を消している
+hideOutput(AbstractCombine, "MatchValue");

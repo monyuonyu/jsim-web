@@ -46,3 +46,6 @@ GUIListener: Java に無い「?」付きの関数（invokeErrorDialog・updateUI
 Entity.error(fmt, ...args): 中で tr(fmt) してから jformat する。戻り値の型は never（担当: D）
 - `Seize.stateChanged()`・`EntityProcessor.stateChanged()`（引数なし） → `resourceStateChanged`（StateEntity.stateChanged(StateRecord, StateRecord) とぶつかり、1 つにすると状態の切り替えのたびに呼ばれてしまうため。事象の説明は元の "stateChanged" のまま）（担当: E）
 - `EntityProcessor.getUnitsInUse()` と出力の `getUnitsInUse(double)` → `getUnitsInUse(simTime?)`（同じ中身なので 1 つにした）（担当: E）
+- `ExpError` の 3 つのコンストラクタは 1 つ: `new ExpError(src, pos, msg)`・`(src, pos, msg, cause: Error)`・`(src, pos, fmt, ...args)`（後ろの引数で見分ける。名前は変えていない）（担当: B）
+- `ExpValResult.makeErrorRes(ArrayList)`・`makeErrorRes(ExpError)`、`ExpParser.appendEntityReferences(Assignment|Expression|ExpNode, list)`、`ExpParser.assertResultType(exp, type)`・`(exp, types...)` は、それぞれ 1 つの関数で引数を見分ける（名前は変えていない）（担当: B）
+- `ExpParser.ParseContext` などの入れ子のクラスは `ExpParser_ParseContext` として書き出し、`ExpParser.ParseContext` とも書ける（namespace）。`ExpEvaluator.EntityParseContext`・`EntityEvalContext`、`ExpResult.Collection`・`Iterator`、`ExpTokenizer.Token`、`ExpValResult.State` も同じ（担当: B）

@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2013 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2018-2023 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
 import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
 import type { EntityLabel } from "../Graphics/EntityLabel.ts";
@@ -163,7 +180,7 @@ export class TextModel extends AbstractShapeModel implements TextEntity {
 	} as InputCallback;
 
 	updatefontstyle(): void {
-		this.style = TextModel.getStyle(this.fontStyle.getValue());
+		this.style = TextModel.getStyle(this.fontStyle.getValue()!);
 	}
 
 	static readonly textheightCallback: InputCallback = {
@@ -258,7 +275,7 @@ export class TextModel extends AbstractShapeModel implements TextEntity {
 
 	/** TextEntity の getStyle()（static の getStyle(ArrayList<String>) とは別） */
 	getStyle(): number {
-		return TextModel.getStyle(this.fontStyle.getValue());
+		return TextModel.getStyle(this.fontStyle.getValue()!);
 	}
 
 	/** TextEntity の isBold()（static の isBold(int) とは別） */
@@ -280,7 +297,7 @@ export class TextModel extends AbstractShapeModel implements TextEntity {
 	}
 
 	getDropShadowOffset(): Vec3d {
-		return this.dropShadowOffset.getValue();
+		return this.dropShadowOffset.getValue()!;
 	}
 
 }

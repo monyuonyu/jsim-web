@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2013 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2023-2026 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
 import { LateClasses } from "../Graphics/LateClasses.ts";
 import type { View } from "../Graphics/View.ts";
@@ -97,14 +114,14 @@ export abstract class DisplayModel extends Entity {
 	} as InputCallback;
 
 	updateRangeVisibility(): void {
-		let minDist = this.drawRange.getValue().get(0);
-		const maxDist = this.drawRange.getValue().get(1);
+		let minDist = this.drawRange.getValue()!.get(0);
+		const maxDist = this.drawRange.getValue()!.get(1);
 		// It's possible for the distance to be behind the camera, yet have the object visible (distance is to center)
 		// So instead use negative infinity in place of zero to never cull when close to the camera.
 		if (minDist === 0.0) {
 			minDist = Double.NEGATIVE_INFINITY;
 		}
-		this.visInfo = { views: this.visibleViews.getValue(), minDist, maxDist };
+		this.visInfo = { views: this.visibleViews.getValue()!, minDist, maxDist };
 	}
 
 	getVisibilityInfo(): VisibilityInfo {
@@ -113,7 +130,7 @@ export abstract class DisplayModel extends Entity {
 	}
 
 	getModelScale(): Vec3d {
-		return this.modelScale.getValue();
+		return this.modelScale.getValue()!;
 	}
 
 	/** Java の getUserList() と、出力の getUserList(double simTime)（同じ結果） */

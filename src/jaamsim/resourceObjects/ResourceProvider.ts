@@ -88,6 +88,7 @@ export interface ResourceProvider {
 }
 
 export const ResourceProvider = {
+	javaName: "com.jaamsim.resourceObjects.ResourceProvider",
 
 	[Symbol.hasInstance](o: unknown): o is ResourceProvider {
 		return isResourceProvider(o);

@@ -38,7 +38,7 @@ import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
 import { EventManager } from "../events/EventManager.ts";
 import { ColourInput } from "../input/ColourInput.ts";
 import { InputErrorException } from "../input/InputErrorException.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
 import type { Color4d } from "../math/Color4d.ts";
 import { MathUtils } from "../math/MathUtils.ts";
 import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
@@ -683,3 +683,8 @@ defineOutput(EntityConveyor, {
 });
 
 ClassRegistry.register("com.jaamsim.ProcessFlow.EntityConveyor", EntityConveyor);
+
+// Java は @Output の付かない関数で上書きして、次の出力を消している
+hideOutput(EntityConveyor, "MatchValue");
+hideOutput(EntityConveyor, "ServiceDuration");
+hideOutput(EntityConveyor, "ServicePerformed");

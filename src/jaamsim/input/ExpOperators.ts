@@ -109,6 +109,7 @@ function javaTrim(s: string): string {
 /** Java の String.split(regex, limit)（Pattern.split と同じ手順） */
 function javaSplit(input: string, regex: string, limit: number): string[] {
 	let re: RegExp;
+	// TODO(移植): 正規表現は JS の RegExp で読む。Java の正規表現と書き方が違う所（所有的な量指定子 *+、\p{javaXxx} など）は違う結果になる
 	try {
 		re = new RegExp(regex, "g");
 	}
@@ -198,6 +199,7 @@ function javaFormatStringsAndDoubles(fmt: string, args: (string | number)[]): st
 			throw new JavaFormatError(`${c} != ${typeName}`);
 		if ("eEfgGaA".includes(c) && !isDouble)
 			throw new JavaFormatError(`${c} != ${typeName}`);
+		// TODO(移植): Java が書式のフラグの組み合わせを咎める所（%-s の幅なし、%s に 0 など）は写していない
 		if (c === "h" || c === "H")
 			throw new JavaFormatError(`Conversion = '${c}'`);  // TODO(移植): %h（hashCode）は写していない
 	}

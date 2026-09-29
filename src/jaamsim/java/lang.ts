@@ -240,9 +240,12 @@ export function jformat(fmt: string, ...args: unknown[]): string {
 				break;
 			}
 			case "e":
-			case "E":
-				s = jexp(Number(v), prec ?? 6, conv === "E");
+			case "E": {
+				const x = Number(v);
+				s = jexp(x, prec ?? 6, conv === "E");
+				if (flags.includes("+") && !s.startsWith("-") && !Number.isNaN(x)) s = "+" + s;
 				break;
+			}
 			case "g":
 			case "G": {
 				const x = Number(v);
@@ -399,4 +402,25 @@ export function jEquals(a: unknown, b: unknown): boolean {
 	if (a == null || b == null) return false;
 	const eq = (a as { equals?: (o: unknown) => boolean }).equals;
 	return typeof eq === "function" ? eq.call(a, b) : false;
+}
+
+/** Java の (int) x（double から int へ。NaN は 0、範囲の外は端に丸める。0 の方向へ切り捨て） */
+export function jint(x: number): number {
+	if (Number.isNaN(x)) return 0;
+	if (x >= Integer.MAX_VALUE) return Integer.MAX_VALUE;
+	if (x <= Integer.MIN_VALUE) return Integer.MIN_VALUE;
+	return Math.trunc(x);
+}
+
+/** Java の (long) x（NaN は 0、範囲の外は端に丸める。ここでの long の端は 2^53-1） */
+export function jlong(x: number): number {
+	if (Number.isNaN(x)) return 0;
+	if (x >= Long.MAX_VALUE) return Long.MAX_VALUE;
+	if (x <= Long.MIN_VALUE) return Long.MIN_VALUE;
+	return Math.trunc(x);
+}
+
+/** Java の ArrayList.toString（"[a, b]"。要素は toString で。double は呼ぶ側で jstr にしておく） */
+export function jlistStr(list: readonly unknown[]): string {
+	return "[" + list.map(v => (v === null || v === undefined ? "null" : String(v))).join(", ") + "]";
 }

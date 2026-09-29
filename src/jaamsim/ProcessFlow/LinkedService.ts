@@ -49,9 +49,12 @@ import { QueueUser } from "./QueueUser.ts";
 
 /**
  * Java の SubjectEntity.class の代わり（SubjectEntity には値が無いので、instanceof で使える物を作った）。
- * TODO(移植): InterfaceEntityListInput に渡すインターフェースの形を まとまり C（input）に合わせる
  */
 const SubjectEntityClass = {
+	javaName: "com.jaamsim.basicsim.SubjectEntity",
+	isInstance(o: unknown): o is SubjectEntity {
+		return isSubjectEntity(o);
+	},
 	[Symbol.hasInstance](o: unknown): o is SubjectEntity {
 		return isSubjectEntity(o);
 	},

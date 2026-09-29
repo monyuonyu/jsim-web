@@ -32,7 +32,7 @@ import { EventManager } from "../events/EventManager.ts";
 import { Input } from "../input/Input.ts";
 import { InputAgent } from "../input/InputAgent.ts";
 import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
 import { StringInput } from "../input/StringInput.ts";
 import { ClassRegistry } from "../java/ClassRegistry.ts";
 import { Double } from "../java/lang.ts";
@@ -294,3 +294,6 @@ defineOutput(EntityGenerator, {
 	returnType: "double",
 	get: (e, simTime) => e.getElapsedTime(simTime),
 });
+
+// Java は @Output の付かない関数で上書きして、次の出力を消している
+hideOutput(EntityGenerator, "MatchValue");

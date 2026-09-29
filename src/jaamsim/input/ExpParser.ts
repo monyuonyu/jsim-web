@@ -1012,6 +1012,7 @@ function fixError(ex: unknown, source: string, pos: number): ExpError {
 	if (isStackOverflow(ex))
 		throw ex;
 	if (!(ex instanceof ExpError) || ex.source === null) {
+		// TODO(移植): Java の NullPointerException などは JS では TypeError になり、メッセージの文が違う（誤りのときだけの差）
 		const msg = ex instanceof ExpError ? ex.getMessage()
 				: ex instanceof Error ? ex.message : String(ex);
 		return new ExpError(source, pos, msg, ex instanceof Error ? ex : null);

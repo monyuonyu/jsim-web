@@ -70,6 +70,13 @@ export interface EntContainer extends StateUser {
 }
 
 export const EntContainer = {
+	/** Java の完全な名前（InterfaceEntityInput などに渡すため。JInterface の形） */
+	javaName: "com.jaamsim.ProcessFlow.EntContainer",
+
+	isInstance(o: unknown): o is EntContainer {
+		return o instanceof (EntContainer as unknown as JClass);
+	},
+
 	/** Java の「implements EntContainer」の代わり */
 	register(cls: JClass): void {
 		(cls.prototype as Record<symbol, unknown>)[MARK] = true;

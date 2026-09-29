@@ -27,7 +27,7 @@ import { SampleListInput } from "../Samples/SampleListInput.ts";
 import { Entity } from "../basicsim/Entity.ts";
 import { EventManager } from "../events/EventManager.ts";
 import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
 import { Double } from "../java/lang.ts";
 import { ResourceProvider } from "../resourceObjects/ResourceProvider.ts";
 import type { ResourceUser } from "../resourceObjects/ResourceUser.ts";
@@ -204,3 +204,8 @@ defineOutput(AbstractLinkedResourceUser, {
 	returnType: "int[]",
 	get: (e, simTime) => e.getSeizedUnits(simTime),
 });
+
+// Java は @Output の付かない関数で上書きして、次の出力を消している
+hideOutput(AbstractLinkedResourceUser, "ServiceDuration");
+hideOutput(AbstractLinkedResourceUser, "ServicePerformed");
+hideOutput(AbstractLinkedResourceUser, "FractionCompleted");

@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2009-2013 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2017-2026 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import { GraphModel } from "../DisplayModels/GraphModel.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
 import { Entity } from "../basicsim/Entity.ts";
@@ -157,7 +174,7 @@ export abstract class AbstractGraph extends DisplayEntity {
 		// Format category
 
 		const defLineColor: Color4d[] = [];
-		defLineColor.push(ColourInput.getColorWithName("red"));
+		defLineColor.push(ColourInput.getColorWithName("red")!);
 		this.lineColorsList = new ColorListInput("LineColours", Entity.FORMAT, defLineColor);
 		this.setKeywordDoc(this.lineColorsList, "A list of colours for the lines graphed against the primary y-axis. "
 		                     + "If only one colour is provided, it is used for all the lines.",
@@ -177,7 +194,7 @@ export abstract class AbstractGraph extends DisplayEntity {
 		this.addInput(this.lineWidths);
 
 		const defSecondaryLineColor: Color4d[] = [];
-		defSecondaryLineColor.push(ColourInput.getColorWithName("black"));
+		defSecondaryLineColor.push(ColourInput.getColorWithName("black")!);
 		this.secondaryLineColorsList = new ColorListInput("SecondaryLineColours", Entity.FORMAT, defSecondaryLineColor);
 		this.setKeywordDoc(this.secondaryLineColorsList, "A list of colours for the lines graphed against the secondary y-axis. "
 		                     + "If only one colour is provided, it is used for all the lines.",
@@ -240,7 +257,7 @@ export abstract class AbstractGraph extends DisplayEntity {
 		this.addInput(this.xLines);
 
 		const defXlinesColor: Color4d[] = [];
-		defXlinesColor.push(ColourInput.getColorWithName("gray50"));
+		defXlinesColor.push(ColourInput.getColorWithName("gray50")!);
 		this.xLinesColor = new ColorListInput("XLinesColor", X_AXIS, defXlinesColor);
 		this.setKeywordDoc(this.xLinesColor, "The colours for the vertical gridlines defined by input to the "
 		                     + "'XLines' keyword. "
@@ -293,7 +310,7 @@ export abstract class AbstractGraph extends DisplayEntity {
 		this.addInput(this.yLines);
 
 		const defYlinesColor: Color4d[] = [];
-		defYlinesColor.push(ColourInput.getColorWithName("gray50"));
+		defYlinesColor.push(ColourInput.getColorWithName("gray50")!);
 		this.yLinesColor = new ColorListInput("YLinesColor", Y_AXIS, defYlinesColor);
 		this.setKeywordDoc(this.yLinesColor, "The colours for the vertical gridlines defined by input to the "
 		                     + "'YLines' keyword. "
@@ -353,14 +370,14 @@ export abstract class AbstractGraph extends DisplayEntity {
 
 	static readonly unitTypeCallback: InputCallback = {
 		callback(ent: Entity, inp: Input<unknown>): void {
-			const ut = (inp as unknown as UnitTypeInput).getUnitType();
+			const ut = (inp as unknown as UnitTypeInput).getUnitType()!;
 			(ent as AbstractGraph).setYAxisUnit(ut);
 		},
 	} as InputCallback;
 
 	static readonly secondaryUnitTypeCallback: InputCallback = {
 		callback(ent: Entity, inp: Input<unknown>): void {
-			const ut = (inp as unknown as UnitTypeInput).getUnitType();
+			const ut = (inp as unknown as UnitTypeInput).getUnitType()!;
 			(ent as AbstractGraph).setSecondaryYAxisUnit(ut);
 		},
 	} as InputCallback;
@@ -437,7 +454,7 @@ export abstract class AbstractGraph extends DisplayEntity {
 	/** Java の getLineColor(int index, ArrayList<Color4d> colorList) と getLineColor(int index) */
 	protected getLineColor(index: number, colorList?: Color4d[]): Color4d {
 		if (colorList === undefined)
-			return this.getLineColor(index, this.lineColorsList.getValue());
+			return this.getLineColor(index, this.lineColorsList.getValue()!);
 		index = Math.min(index, colorList.length-1);
 		return colorList[index];
 	}
@@ -445,109 +462,109 @@ export abstract class AbstractGraph extends DisplayEntity {
 	/** Java の getLineWidth(int index, DoubleVector widthList) と getLineWidth(int index) */
 	protected getLineWidth(index: number, widthList?: DoubleVector): number {
 		if (widthList === undefined)
-			return this.getLineWidth(index, this.lineWidths.getValue());
+			return this.getLineWidth(index, this.lineWidths.getValue()!);
 		index = Math.min(index, widthList.size()-1);
 		return jint(widthList.get(index));
 	}
 
 	protected getSecondaryLineColor(index: number): Color4d {
-		return this.getLineColor(index, this.secondaryLineColorsList.getValue());
+		return this.getLineColor(index, this.secondaryLineColorsList.getValue()!);
 	}
 
 	protected getSecondaryLineWidth(index: number): number {
-		return this.getLineWidth(index, this.secondaryLineWidths.getValue());
+		return this.getLineWidth(index, this.secondaryLineWidths.getValue()!);
 	}
 
 	getTitle(): string {
-		return this.title.getValue();
+		return this.title.getValue()!;
 	}
 
 	getXAxisTitle(): string {
-		return this.xAxisTitle.getValue();
+		return this.xAxisTitle.getValue()!;
 	}
 
 	getXAxisUnit(): Unit | null {
-		return this.xAxisUnit.getValue();
+		return this.xAxisUnit.getValue()!;
 	}
 
 	getXAxisStart(): number {
-		return this.xAxisStart.getValue();
+		return this.xAxisStart.getValue()!;
 	}
 
 	getXAxisEnd(): number {
-		return this.xAxisEnd.getValue();
+		return this.xAxisEnd.getValue()!;
 	}
 
 	getXAxisInterval(): number {
-		return this.xAxisInterval.getValue();
+		return this.xAxisInterval.getValue()!;
 	}
 
 	getXAxisLabelFormat(): string {
-		return this.xAxisLabelFormat.getValue();
+		return this.xAxisLabelFormat.getValue()!;
 	}
 
 	getYAxisTitle(): string {
-		return this.yAxisTitle.getValue();
+		return this.yAxisTitle.getValue()!;
 	}
 
 	getYAxisUnit(): Unit | null {
-		return this.yAxisUnit.getValue();
+		return this.yAxisUnit.getValue()!;
 	}
 
 	getYAxisStart(): number {
-		return this.yAxisStart.getValue();
+		return this.yAxisStart.getValue()!;
 	}
 
 	getYAxisEnd(): number {
-		return this.yAxisEnd.getValue();
+		return this.yAxisEnd.getValue()!;
 	}
 
 	getYAxisInterval(): number {
-		return this.yAxisInterval.getValue();
+		return this.yAxisInterval.getValue()!;
 	}
 
 	getYAxisLabelFormat(): string {
-		return this.yAxisLabelFormat.getValue();
+		return this.yAxisLabelFormat.getValue()!;
 	}
 
 	getSecondaryYAxisTitle(): string {
-		return this.secondaryYAxisTitle.getValue();
+		return this.secondaryYAxisTitle.getValue()!;
 	}
 
 	getSecondaryYAxisUnit(): Unit | null {
-		return this.secondaryYAxisUnit.getValue();
+		return this.secondaryYAxisUnit.getValue()!;
 	}
 
 	getSecondaryYAxisStart(): number {
-		return this.secondaryYAxisStart.getValue();
+		return this.secondaryYAxisStart.getValue()!;
 	}
 
 	getSecondaryYAxisEnd(): number {
-		return this.secondaryYAxisEnd.getValue();
+		return this.secondaryYAxisEnd.getValue()!;
 	}
 
 	getSecondaryYAxisInterval(): number {
-		return this.secondaryYAxisInterval.getValue();
+		return this.secondaryYAxisInterval.getValue()!;
 	}
 
 	getSecondaryYAxisLabelFormat(): string {
-		return this.secondaryYAxisLabelFormat.getValue();
+		return this.secondaryYAxisLabelFormat.getValue()!;
 	}
 
 	getXLines(): DoubleVector {
-		return this.xLines.getValue();
+		return this.xLines.getValue()!;
 	}
 
 	getXLineColours(): Color4d[] {
-		return this.xLinesColor.getValue();
+		return this.xLinesColor.getValue()!;
 	}
 
 	getYLines(): DoubleVector {
-		return this.yLines.getValue();
+		return this.yLines.getValue()!;
 	}
 
 	getYLineColours(): Color4d[] {
-		return this.yLinesColor.getValue();
+		return this.yLinesColor.getValue()!;
 	}
 
 	isTimeTrace(): boolean {

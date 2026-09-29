@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2015 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2018-2026 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import type { VisibilityInfo } from "../DisplayModels/DisplayModel.ts";
 import { Entity } from "../basicsim/Entity.ts";
 import { tr } from "../i18n/I18n.ts";
@@ -126,7 +143,7 @@ export class EntityLabel extends TextBasics {
 		const ent: Entity | null = this.getTarget();
 		if (ent === null || ent.getName() === null || ent.getName() === undefined)
 			return "ERROR";
-		return ent.getLocalName();
+		return ent.getLocalName()!;
 	}
 
 	override setEditMode(bool: boolean): void {
@@ -142,7 +159,7 @@ export class EntityLabel extends TextBasics {
 			// Rename both the target entity and the label
 			const ent = this.getTarget();
 			const localName = this.getText();
-			gui.renameEntity(ent, localName);
+			gui.renameEntity(ent!, localName);
 			super.acceptEdits();
 		}
 		catch (e) {
@@ -153,14 +170,14 @@ export class EntityLabel extends TextBasics {
 
 	private getTarget(): DisplayEntity | null {
 		if (!this.targetEntity.getIsDef())
-			return this.targetEntity.getValue();
+			return this.targetEntity.getValue()!;
 		if (this.getParent() instanceof DisplayEntity)
 			return this.getParent() as DisplayEntity;
 		return null;
 	}
 
 	updateForTargetNameChange(): void {
-		const targetName = this.getTarget()!.getLocalName();
+		const targetName = this.getTarget()!.getLocalName()!;
 		this.setText(targetName);
 		this.resizeForText();
 	}
@@ -176,7 +193,7 @@ export class EntityLabel extends TextBasics {
 		// Create the EntityLabel object
 		const simModel = ent.getJaamSimModel();
 		const proto = EntityLabel.getLabel(ent.getPrototype());
-		const label = InputAgent.defineEntityWithUniqueName(simModel, EntityLabel, proto, ent.getName() + ".Label", "", true);
+		const label = InputAgent.defineEntityWithUniqueName(simModel, EntityLabel, proto, ent.getName() + ".Label", "", true)!;
 
 		// Set the label's position
 		InputAgent.applyVec3d(label, "Position", label.getDefaultPosition(), DistanceUnit);

@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2002-2011 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2017-2026 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
 import { KeywordCommand } from "../Commands/KeywordCommand.ts";
 import type { CompoundEntity } from "../SubModels/CompoundEntity.ts";
@@ -293,7 +310,7 @@ export class DisplayEntity extends Entity {
 
 		// Determine whether the entity should sit on top of the x-y plane
 		let alignBottom = true;
-		const displayModels = this.displayModelListInput.getValue();
+		const displayModels = this.displayModelListInput.getValue()!;
 		if (displayModels !== null && displayModels.length > 0) {
 			const dm0 = displayModels[0];
 			if (LateClasses.isInstance(dm0, SHAPE_MODEL) || LateClasses.isInstance(dm0, IMAGE_MODEL)
@@ -316,7 +333,7 @@ export class DisplayEntity extends Entity {
 
 			if (de.usePointsInput())
 				return;
-			de.setPosition(v3dinp.getValue());
+			de.setPosition(v3dinp.getValue()!);
 		},
 	} as InputCallback;
 
@@ -327,7 +344,7 @@ export class DisplayEntity extends Entity {
 
 			if (!de.usePointsInput())
 				return;
-			de.updateForPointsInput(v3dinp.getValue());
+			de.updateForPointsInput(v3dinp.getValue()!);
 		},
 	} as InputCallback;
 
@@ -336,7 +353,7 @@ export class DisplayEntity extends Entity {
 			const de = ent as DisplayEntity;
 			const v3dinp = inp as unknown as Vec3dInput;
 
-			de.setSize(v3dinp.getValue());
+			de.setSize(v3dinp.getValue()!);
 		},
 	} as InputCallback;
 
@@ -345,7 +362,7 @@ export class DisplayEntity extends Entity {
 			const de = ent as DisplayEntity;
 			const v3dinp = inp as unknown as Vec3dInput;
 
-			de.setOrientation(v3dinp.getValue());
+			de.setOrientation(v3dinp.getValue()!);
 		},
 	} as InputCallback;
 
@@ -354,7 +371,7 @@ export class DisplayEntity extends Entity {
 			const de = ent as DisplayEntity;
 			const v3dinp = inp as unknown as Vec3dInput;
 
-			de.setAlignment(v3dinp.getValue());
+			de.setAlignment(v3dinp.getValue()!);
 		},
 	} as InputCallback;
 
@@ -379,7 +396,7 @@ export class DisplayEntity extends Entity {
 
 	displayModelCallback(): void {
 		const bool = this.usePointsInput();
-		this.setDisplayModelList(this.displayModelListInput.getValue());
+		this.setDisplayModelList(this.displayModelListInput.getValue()!);
 		this.setGraphicsKeywords();
 
 		// Refresh the contents of the Input Editor
@@ -406,15 +423,15 @@ export class DisplayEntity extends Entity {
 		if (this.visibleViews.isDefault() && this.drawRange.isDefault()) {
 			this.visInfo = null;
 		}
-		let minDist = this.drawRange.getValue().get(0);
-		const maxDist = this.drawRange.getValue().get(1);
+		let minDist = this.drawRange.getValue()!.get(0);
+		const maxDist = this.drawRange.getValue()!.get(1);
 		// It's possible for the distance to be behind the camera, yet have the object visible (distance is to center)
 		// So instead use negative infinity in place of zero to never cull when close to the camera.
 		if (minDist === 0.0) {
 			minDist = Double.NEGATIVE_INFINITY;
 		}
 		// 描画: VisibilityInfo の代わりに、中身だけを持つ（three.js の画面を作るときに）
-		this.visInfo = { views: this.visibleViews.getValue(), minDist, maxDist };
+		this.visInfo = { views: this.visibleViews.getValue()!, minDist, maxDist };
 	}
 
 	override postDefine(): void {
@@ -487,9 +504,9 @@ export class DisplayEntity extends Entity {
 		if (this.isDead())
 			return;
 
-		if (this.namedChildren.get(ent.getLocalName()) !== undefined)
+		if (this.namedChildren.get(ent.getLocalName()!) !== undefined)
 			throw new ErrorException("Entity name: %s is already in use.", ent.getName());
-		this.namedChildren.set(ent.getLocalName(), ent);
+		this.namedChildren.set(ent.getLocalName()!, ent);
 	}
 
 	override removeChild(ent: Entity): void {
@@ -497,8 +514,8 @@ export class DisplayEntity extends Entity {
 		if (this.isDead())
 			return;
 
-		const prev = this.namedChildren.get(ent.getLocalName()) ?? null;
-		this.namedChildren.delete(ent.getLocalName());
+		const prev = this.namedChildren.get(ent.getLocalName()!) ?? null;
+		this.namedChildren.delete(ent.getLocalName()!);
 		if (ent !== prev)
 			throw new ErrorException("Named Children Internal Consistency error: %s", ent);
 	}
@@ -523,51 +540,51 @@ export class DisplayEntity extends Entity {
 
 		// Normal objects
 		if (!this.usePointsInput()) {
-			this.setPosition(this.positionInput.getValue());
+			this.setPosition(this.positionInput.getValue()!);
 			this.pointsInput.reset();
 		}
 
 		// Polyline objects
 		else {
-			this.updateForPointsInput(this.pointsInput.getValue());
+			this.updateForPointsInput(this.pointsInput.getValue()!);
 			this.positionInput.reset();
 		}
 
-		this.setSize(this.sizeInput.getValue());
-		this.setAlignment(this.alignmentInput.getValue());
-		this.setOrientation(this.orientationInput.getValue());
-		this.setDisplayModelList(this.displayModelListInput.getValue());
-		this.setRegion(this.regionInput.getValue());
+		this.setSize(this.sizeInput.getValue()!);
+		this.setAlignment(this.alignmentInput.getValue()!);
+		this.setOrientation(this.orientationInput.getValue()!);
+		this.setDisplayModelList(this.displayModelListInput.getValue()!);
+		this.setRegion(this.regionInput.getValue()!);
 		this.setShow(this.getShowInput());
 	}
 
 	isPositionNominal(): boolean {
-		return this.position.equals3(this.positionInput.getValue());
+		return this.position.equals3(this.positionInput.getValue()!);
 	}
 
 	isPointsNominal(): boolean {
-		return jListEquals(this.points, this.pointsInput.getValue());
+		return jListEquals(this.points, this.pointsInput.getValue()!);
 	}
 
 	isSizeNominal(): boolean {
-		return this.size.equals3(this.sizeInput.getValue());
+		return this.size.equals3(this.sizeInput.getValue()!);
 	}
 
 	isAlignmentNominal(): boolean {
-		return this.align.equals3(this.alignmentInput.getValue());
+		return this.align.equals3(this.alignmentInput.getValue()!);
 	}
 
 	isOrientationNominal(): boolean {
-		return this.orient.equals3(this.orientationInput.getValue());
+		return this.orient.equals3(this.orientationInput.getValue()!);
 	}
 
 	isDisplayModelNominal(): boolean {
 		return this.displayModelList.length === 0 && this.displayModelListInput.getValue() === null
-				|| jListEquals(this.displayModelList, this.displayModelListInput.getValue());
+				|| jListEquals(this.displayModelList, this.displayModelListInput.getValue()!);
 	}
 
 	isRegionNominal(): boolean {
-		return this.getCurrentRegion() === this.regionInput.getValue();
+		return this.getCurrentRegion() === this.regionInput.getValue()!;
 	}
 
 	isShowNominal(): boolean {
@@ -593,7 +610,7 @@ export class DisplayEntity extends Entity {
 	}
 
 	usePointsInput(): boolean {
-		const dmList = this.displayModelListInput.getValue();
+		const dmList = this.displayModelListInput.getValue()!;
 		if (dmList === null || dmList.length === 0)
 			return false;
 		return LateClasses.isInstance(dmList[0], POLYLINE_MODEL);
@@ -722,11 +739,11 @@ export class DisplayEntity extends Entity {
 	}
 
 	getVisibleViews(): View[] | null {
-		return this.visibleViews.getValue();
+		return this.visibleViews.getValue()!;
 	}
 
 	getParentOptions(): string[] {
-		return this.parentInput.getValidOptions(this);
+		return this.parentInput.getValidOptions(this)!;
 	}
 
 	/**
@@ -738,7 +755,7 @@ export class DisplayEntity extends Entity {
 		if (arg instanceof Quaternion) {
 			const rotQ = arg;
 			const q = new Quaternion();
-			q.setEuler3(this.orientationInput.getValue());
+			q.setEuler3(this.orientationInput.getValue()!);
 			q.mult(rotQ, q);
 			this.setOrientation(q.getEuler3());
 			return;
@@ -760,7 +777,7 @@ export class DisplayEntity extends Entity {
 		const zdir = new Vec3d(0.0, 0.0, ret.z);
 
 		const mat = new Mat4d();
-		mat.setEuler3(this.orientationInput.getValue());
+		mat.setEuler3(this.orientationInput.getValue()!);
 		xdir.mult3(mat, xdir);
 		ydir.mult3(mat, ydir);
 		zdir.mult3(mat, zdir);
@@ -1065,7 +1082,7 @@ export class DisplayEntity extends Entity {
 	 * @return first DisplayModel that is an instance of the class or implements the interface
 	 */
 	getDisplayModel<T>(klass: JClass<T> | { isInstance(o: unknown): o is T }): T | null {
-		const list = this.displayModelListInput.getValue();
+		const list = this.displayModelListInput.getValue()!;
 		if (list === null)
 			return null;
 		for (const model of list) {
@@ -1129,7 +1146,7 @@ export class DisplayEntity extends Entity {
 
 		// Polyline objects
 		const dist = new Vec3d(newPos);
-		const pts = this.pointsInput.getValue();
+		const pts = this.pointsInput.getValue()!;
 		dist.sub3(pts[0]);
 		const kw = KeywordIndex.formatPointsInputs(this, this.pointsInput.getKeyword(), pts, dist);
 		InputAgent.apply(this, kw);
@@ -1318,7 +1335,7 @@ export class DisplayEntity extends Entity {
 	}
 
 	protected getCurveType(): PolylineInfo_CurveType {
-		return this.curveTypeInput.getValue();
+		return this.curveTypeInput.getValue()!;
 	}
 
 	setTagColour(tagName: string, ca: Color4d): void {
@@ -1387,8 +1404,8 @@ export class DisplayEntity extends Entity {
 	 * @return arrival location
 	 */
 	getSourcePoint(dir: boolean = true): Vec3d {
-		if (this.usePointsInput() && this.pointsInput.getValue().length !== 0) {
-			const points = this.pointsInput.getValue();
+		if (this.usePointsInput() && this.pointsInput.getValue()!.length !== 0) {
+			const points = this.pointsInput.getValue()!;
 			let localPt = points[0];
 			if (dir)
 				localPt = points[points.length - 1];
@@ -1404,8 +1421,8 @@ export class DisplayEntity extends Entity {
 	 * @return departure location
 	 */
 	getSinkPoint(dir: boolean = true): Vec3d {
-		if (this.usePointsInput() && this.pointsInput.getValue().length !== 0) {
-			const points = this.pointsInput.getValue();
+		if (this.usePointsInput() && this.pointsInput.getValue()!.length !== 0) {
+			const points = this.pointsInput.getValue()!;
 			let localPt = points[0];
 			if (!dir)
 				localPt = points[points.length - 1];

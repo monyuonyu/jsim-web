@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2013 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2018-2026 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
 import { KeywordCommand } from "../Commands/KeywordCommand.ts";
 import { Entity } from "../basicsim/Entity.ts";
@@ -221,7 +238,7 @@ export class View extends Entity {
 	}
 
 	getViewPosition(): Vec3d {
-		return this.position.getValue();
+		return this.position.getValue()!;
 	}
 
 
@@ -237,11 +254,11 @@ export class View extends Entity {
 	getViewDirection(): Vec3d {
 		if (this.direction.getIsDef() && !this.center.getIsDef()) {
 			const ret = new Vec3d();
-			ret.sub3(this.center.getValue(), this.getViewPosition());
+			ret.sub3(this.center.getValue()!, this.getViewPosition());
 			ret.normalize3();
 			return ret;
 		}
-		return this.direction.getValue();
+		return this.direction.getValue()!;
 	}
 
 	/**
@@ -264,13 +281,13 @@ export class View extends Entity {
 
 		// Check if this is following a script
 		if (this.directionScriptInput.hasKeys()) {
-			const ret = this.directionScriptInput.getValueForTime(simTime);
+			const ret = this.directionScriptInput.getValueForTime(simTime)!;
 			ret.normalize3();
 			return ret;
 		}
 		if (this.centerScriptInput.hasKeys()) {
 			const ret = new Vec3d();
-			ret.sub3(this.centerScriptInput.getValueForTime(simTime), this.getGlobalPosition(simTime));
+			ret.sub3(this.centerScriptInput.getValueForTime(simTime)!, this.getGlobalPosition(simTime));
 			ret.normalize3();
 			return ret;
 		}
@@ -288,14 +305,14 @@ export class View extends Entity {
 
 		// Check if this is following a script
 		if (this.positionScriptInput.hasKeys()) {
-			return this.positionScriptInput.getValueForTime(simTime);
+			return this.positionScriptInput.getValueForTime(simTime)!;
 		}
 
 		// Is this view following an entity?
-		const follow = this.followEntityInput.getValue();
+		const follow = this.followEntityInput.getValue()!;
 		if (follow !== null) {
 			const ret = follow.getGlobalPosition();
-			ret.add3(this.position.getValue());
+			ret.add3(this.position.getValue()!);
 			return ret;
 		}
 
@@ -364,19 +381,19 @@ export class View extends Entity {
 	}
 
 	getRegion(): Region | null {
-		return this.region.getValue();
+		return this.region.getValue()!;
 	}
 
 	setWindowPosSize(x: number, y: number, width: number, height: number): void {
 		const kwList: KeywordIndex[] = [];
 
-		const pos = this.windowPos.getValue();
+		const pos = this.windowPos.getValue()!;
 		if (pos.get(0) !== x || pos.get(1) !== y) {
 			const posKw = KeywordIndex.formatIntegers(this.windowPos.getKeyword(), x, y);
 			kwList.push(posKw);
 		}
 
-		const size = this.windowSize.getValue();
+		const size = this.windowSize.getValue()!;
 		if (size.get(0) !== width || size.get(1) !== height) {
 			const sizeKw = KeywordIndex.formatIntegers(this.windowSize.getKeyword(), width, height);
 			kwList.push(sizeKw);
@@ -390,8 +407,8 @@ export class View extends Entity {
 
 	getWindowPosSize(): IntegerVector {
 		const ret = new IntegerVector(4);
-		const pos = this.windowPos.getValue();
-		const size = this.windowSize.getValue();
+		const pos = this.windowPos.getValue()!;
+		const size = this.windowSize.getValue()!;
 
 		ret.add(pos.get(0));
 		ret.add(pos.get(1));
@@ -455,7 +472,7 @@ export class View extends Entity {
 	}
 
 	getSkyboxTexture(): ReturnType<FileInput["getValue"]> | null {
-		const file = this.skyboxImage.getValue();
+		const file = this.skyboxImage.getValue()!;
 		if (file === null || file === undefined || String(file) === "") {
 			return null;
 		}

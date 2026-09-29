@@ -36,6 +36,13 @@ export interface Linkable {
 }
 
 export const Linkable = {
+	/** Java の完全な名前（InterfaceEntityInput などに渡すため。JInterface の形） */
+	javaName: "com.jaamsim.ProcessFlow.Linkable",
+
+	isInstance(o: unknown): o is Linkable {
+		return o instanceof (Linkable as unknown as JClass);
+	},
+
 	/** Java の「implements Linkable」の代わり */
 	register(cls: JClass): void {
 		(cls.prototype as Record<symbol, unknown>)[MARK] = true;

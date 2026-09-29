@@ -1,4 +1,21 @@
-//@@HEADER@@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2013 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2018-2026 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * TypeScript への移植 (C) 2026 shota
+ */
 import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
 import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
 import { KeywordCommand } from "../Commands/KeywordCommand.ts";
@@ -187,7 +204,7 @@ export class OverlayText extends OverlayEntity implements TextEntity, EditableTe
 	} as InputCallback;
 
 	updateFormattextValue(): void {
-		this.setText(this.formatText.getValue());
+		this.setText(this.formatText.getValue()!);
 	}
 
 	static readonly unittypeCallback: InputCallback = {
@@ -397,14 +414,14 @@ export class OverlayText extends OverlayEntity implements TextEntity, EditableTe
 
 		// Dynamic text is to be displayed
 		try {
-			let ret: string | null = this.dataSource.getNextString(this, simTime, this.formatText.getValue(), siFactor);
+			let ret: string | null = this.dataSource.getNextString(this, simTime, this.formatText.getValue()!, siFactor);
 			if (ret === null || ret === undefined)
 				ret = "null";
 			return ret;
 		}
 		catch (e) {
 			// Java: catch (Throwable e)
-			return this.failText.getValue();
+			return this.failText.getValue()!;
 		}
 	}
 
@@ -462,7 +479,7 @@ export class OverlayText extends OverlayEntity implements TextEntity, EditableTe
 		if (this.fontStyle.isDefault()) {
 			return this.getTextModel().getStyle();
 		}
-		return TextModel.getStyle(this.fontStyle.getValue());
+		return TextModel.getStyle(this.fontStyle.getValue()!);
 	}
 
 	getTessFontKey(): TessFontKey {
@@ -494,7 +511,7 @@ export class OverlayText extends OverlayEntity implements TextEntity, EditableTe
 		if (this.dropShadowOffset.isDefault()) {
 			return this.getTextModel().getDropShadowOffset();
 		}
-		return this.dropShadowOffset.getValue();
+		return this.dropShadowOffset.getValue()!;
 	}
 
 	isBold(): boolean {
