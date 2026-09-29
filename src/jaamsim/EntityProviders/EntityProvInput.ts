@@ -65,7 +65,7 @@ export class EntityProvInput<T extends Entity> extends Input<EntityProvider<T>> 
 			if (!each.isRegistered())
 				continue;
 
-			if (!this.isValid(each))
+			if (!this.isValidEntity(each))
 				continue;
 
 			list.push(each.getName());
@@ -78,7 +78,7 @@ export class EntityProvInput<T extends Entity> extends Input<EntityProvider<T>> 
 		this.invalidClasses.push(aClass);
 	}
 
-	private isValid(ent: T): boolean {
+	private isValidEntity(ent: T): boolean {
 
 		for (const cls of this.invalidClasses) {
 			if (jIsAssignableFrom(cls, ent.constructor as JClass)) {

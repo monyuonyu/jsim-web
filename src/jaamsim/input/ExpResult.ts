@@ -109,8 +109,8 @@ export class ExpResult {
 			let factor = 1.0;
 			let unitString = Unit.getSIUnit(this.unitType);
 			if (simModel !== null) {
-				factor = simModel.getDisplayedUnitFactor(this.unitType);
-				unitString = simModel.getDisplayedUnit(this.unitType);
+				factor = simModel.getDisplayedUnitFactor(this.unitType!);
+				unitString = simModel.getDisplayedUnit(this.unitType!);
 			}
 			if (unitString === "")
 				return jstr(this.value);

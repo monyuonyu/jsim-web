@@ -117,7 +117,7 @@ export class TextModel extends AbstractShapeModel implements TextEntity {
 		this.textHeight.setCallback(TextModel.textheightCallback);
 		this.addInput(this.textHeight);
 
-		this.textHeightInPixels = new SampleInput("TextHeightInPixels", Entity.KEY_INPUTS, 10);
+		this.textHeightInPixels = SampleInput.ofInt("TextHeightInPixels", Entity.KEY_INPUTS, 10);
 		this.setKeywordDoc(this.textHeightInPixels, "The height of the text in pixels, used by billboard text and "
 		                     + "overlay text.",
 				["15"]);

@@ -517,3 +517,6 @@ export class ColourInput extends Input<Color4d> {
 		return ColourInput.toString(this.value);
 	}
 }
+
+// Input.parseColour から色の名前を引く呼び口（Input.ts が ColourInput を import しないため。Input.ts の注）
+Input.colourNameResolver = (name: string): Color4d | null => ColourInput.getColorWithName(name);

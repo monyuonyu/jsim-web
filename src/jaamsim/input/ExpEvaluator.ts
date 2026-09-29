@@ -210,7 +210,7 @@ class CachedResolver implements ExpParser_OutputResolver {
 		}
 
 		if (this.isExpResult) {
-			return this.handle.getValue(simTime, ExpResult) as ExpResult;
+			return this.handle.getValue(simTime, "ExpResult") as ExpResult;
 		}
 
 		switch (this.type) {
@@ -357,7 +357,7 @@ export class ExpEvaluator {
 		const retType = oh.getReturnType();
 		if (isExpResultType(retType)) {
 			// This is already an expression, so return it
-			return oh.getValue(simTime, ExpResult) as ExpResult;
+			return oh.getValue(simTime, "ExpResult") as ExpResult;
 		}
 		if (isStringType(retType)) {
 			return ExpResult.makeStringResult(oh.getValue(simTime, String) as string | null);
@@ -374,7 +374,7 @@ export class ExpEvaluator {
 		}
 
 		if (isDirectedEntityType(retType)) {
-			const de = oh.getValue(simTime, AbstractDirectedEntity) as AbstractDirectedEntity;
+			const de = oh.getValue(simTime, AbstractDirectedEntity) as AbstractDirectedEntity<Entity>;
 			return ExpResult.makeEntityResult(de.getEntity());
 		}
 

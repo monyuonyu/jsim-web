@@ -36,7 +36,7 @@ export class Arrow extends DisplayEntity implements LineEntity {
 		this.addSynonym(this.color, "Color");
 		this.addSynonym(this.color, "Colour");
 
-		this.width = new SampleInput("LineWidth", Entity.FORMAT, 1);
+		this.width = SampleInput.ofInt("LineWidth", Entity.FORMAT, 1);
 		this.setKeywordDoc(this.width, "The width of the Arrow line segments in pixels.",
 				["1"]);
 		this.width.setValidRange(1, Double.POSITIVE_INFINITY);

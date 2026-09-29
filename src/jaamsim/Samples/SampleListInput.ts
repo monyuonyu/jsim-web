@@ -333,8 +333,8 @@ export class SampleListInput extends ArrayListInput<SampleProvider> {
 				sb += jstr(samp.getNextSample(thisEnt, simTime));
 			}
 			else {
-				const unitString = simModel.getDisplayedUnit(ut);
-				const sifactor = simModel.getDisplayedUnitFactor(ut);
+				const unitString = simModel.getDisplayedUnit(ut!);
+				const sifactor = simModel.getDisplayedUnitFactor(ut!);
 				sb += jstr(samp.getNextSample(thisEnt, simTime) / sifactor);
 				sb += "[" + unitString + "]";
 			}

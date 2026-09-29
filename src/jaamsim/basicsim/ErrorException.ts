@@ -1,3 +1,21 @@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2002-2011 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2016-2025 JaamSim Software Inc.
+ * TypeScript への移植 (C) 2026 shota
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { jformat } from "../java/lang.ts";
 import { tr } from "../i18n/I18n.ts";
 import { ExpError } from "../input/ExpError.ts";
@@ -19,9 +37,9 @@ export class ErrorException extends Error {
 	public entName: string;
 	public keyword: string;
 	public index: number;  // index (1, 2, etc.) for list type inputs
-	public source: string;
+	public source: string | null;
 	public position: number;
-	public cause: unknown;
+	public override cause: unknown;
 
 	constructor(...args: unknown[]) {
 		const p = ErrorException.parseArgs(args);
@@ -39,7 +57,7 @@ export class ErrorException extends Error {
 				&& typeof (o as { getName?: unknown }).getName === "function";
 	}
 
-	private static parseArgs(a: unknown[]): { src: string; pos: number; name: string; key: string; ind: number; msg: string | null; cause: unknown } {
+	private static parseArgs(a: unknown[]): { src: string | null; pos: number; name: string; key: string; ind: number; msg: string | null; cause: unknown } {
 		// (String src, int pos, String name, String key, int ind, String msg, Throwable cause)
 		if (a.length === 7 && typeof a[0] === "string" && typeof a[1] === "number"
 				&& typeof a[2] === "string" && typeof a[3] === "string" && typeof a[4] === "number") {

@@ -27,6 +27,8 @@
 // - Java の interface（SampleProvider など）を Class として渡す所は、JInterface（isInstance を持つ物）を渡す。
 // - Java の enum の Class は、TS の文字列の enum（値 = 名前）か、values() を持つ物（JEnumClass）。
 // - 利用者に見せる文（INP_ERR_… と VALID_…）は、使う所で tr(...) に包む（PORTING.md の 10）。
+// - 読み込みの順の循環を避けるため、Input を継承するクラス（BooleanInput・ColourInput）は値として import しない。
+//   BooleanInput.TRUE・FALSE は文字列をそのまま書き、色の名前は colourNameResolver（ColourInput.ts が入れる）で引く。
 import { jstr, jIsAssignableFrom, Integer, Double, NumberFormatException } from "../java/lang.ts";
 import type { JClass } from "../java/lang.ts";
 import { ClassRegistry } from "../java/ClassRegistry.ts";
@@ -64,8 +66,6 @@ import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { TimeUnit } from "../units/TimeUnit.ts";
 import { Unit } from "../units/Unit.ts";
 import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { ColourInput } from "./ColourInput.ts";
-import { BooleanInput } from "./BooleanInput.ts";
 import { ExpError } from "./ExpError.ts";
 import { InputAgent } from "./InputAgent.ts";
 import type { InputCallback } from "./InputCallback.ts";
@@ -279,6 +279,8 @@ export function javaToString(o: unknown, isInt = false): string {
 		return o ? "true" : "false";
 	if (Array.isArray(o))
 		return "[" + o.map(e => javaToString(e, isInt)).join(", ") + "]";
+	if (typeof o === "function")
+		return "class " + ClassRegistry.javaName(o);  // Java の Class.toString()
 	return String(o);
 }
 
@@ -1861,13 +1863,25 @@ export abstract class Input<T> {
 		return temp;
 	}
 
+	/**
+	 * ColourInput.getColorWithName の呼び口。Input.ts が子のクラス（ColourInput）を import すると、
+	 * 読み込みの順の循環で `class ColourInput extends Input` が TDZ の誤りになるので、ColourInput.ts が読み込まれたときに入れる。
+	 */
+	static colourNameResolver: ((name: string) => Color4d | null) | null = null;
+
+	private static lookupColourName(name: string): Color4d | null {
+		if (Input.colourNameResolver === null)
+			throw new Error("ColourInput.ts has not been loaded (Input.colourNameResolver is not set)");
+		return Input.colourNameResolver(name);
+	}
+
 	static parseColour(simModel: JaamSimModel, kw: KeywordIndex): Color4d {
 
 		Input.assertCountRange(kw, 1, 4);
 
 		// Color names
 		if (kw.numArgs() <= 2) {
-			const colAtt = ColourInput.getColorWithName(kw.getArg(0));
+			const colAtt = Input.lookupColourName(kw.getArg(0));
 			if( colAtt === null )
 				throw new InputErrorException(tr(Input.INP_ERR_BADCOLOUR), kw.getArg(0));
 
@@ -1932,10 +1946,10 @@ export abstract class Input<T> {
 		Input.assertCount(kw, 1);
 
 		// Parse the input as an boolean constant
-		if (kw.getArg(0) === BooleanInput.TRUE)
+		if (kw.getArg(0) === "TRUE"  /* BooleanInput.TRUE */)
 			return new BooleanProvConstant(true);
 
-		if (kw.getArg(0) === BooleanInput.FALSE)
+		if (kw.getArg(0) === "FALSE"  /* BooleanInput.FALSE */)
 			return new BooleanProvConstant(false);
 
 		// Parse the input as an expression

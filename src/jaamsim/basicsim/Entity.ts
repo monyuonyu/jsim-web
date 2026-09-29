@@ -1,3 +1,21 @@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2002-2011 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2016-2026 JaamSim Software Inc.
+ * TypeScript への移植 (C) 2026 shota
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { EntityLabel } from "../Graphics/EntityLabel.ts";
 import { AttributeDefinitionListInput } from "../input/AttributeDefinitionListInput.ts";
 import { AttributeHandle } from "../input/AttributeHandle.ts";
@@ -89,7 +107,7 @@ export class Entity {
 	clonePool: Entity[] | null = null;  // generated clones available for re-use
 	private static readonly MAX_POOL = 100;
 
-	private readonly inpList: Input<unknown>[] = [];
+	private readonly inpList: Input<any>[] = [];
 
 	private userOutputMap: Map<string, ValueHandle> | null = null;
 
@@ -204,13 +222,13 @@ export class Entity {
 	 * 入力に、キーワードの説明と例を持たせる（Java の @Keyword(description, exampleList) の代わり）。
 	 * 説明の文は英語のまま渡す（表示するときに辞書で引く）。
 	 */
-	setKeywordDoc(input: Input<unknown>, description: string, exampleList: string[]): void {
+	setKeywordDoc(input: Input<any>, description: string, exampleList: string[]): void {
 		keywordDocs.set(input, { description, exampleList });
 	}
 
 	/** setKeywordDoc で持たせた説明と例（無ければ null） */
-	static getKeywordDoc(input: Input<unknown>): KeywordDoc | null {
-		const inp = input as unknown as { isSynonym?: () => boolean; input?: Input<unknown> };
+	static getKeywordDoc(input: Input<any>): KeywordDoc | null {
+		const inp = input as unknown as { isSynonym?: () => boolean; input?: Input<any> };
 		let doc = keywordDocs.get(input);
 		if (doc === undefined && inp.isSynonym?.() && inp.input !== undefined)
 			doc = keywordDocs.get(inp.input);
@@ -218,7 +236,7 @@ export class Entity {
 	}
 
 	static readonly nameInputCallback: InputCallback = new (class extends InputCallback {
-		override callback(ent: Entity, inp: Input<unknown>): void {
+		override callback(ent: Entity, inp: Input<any>): void {
 			const newName = inp.getValue() as string;
 			if (newName.length === 0 || newName === ent.entityName)
 				return;
@@ -250,7 +268,7 @@ export class Entity {
 	}
 
 	static readonly parentInputCallback: InputCallback = new (class extends InputCallback {
-		override callback(ent: Entity, inp: Input<unknown>): void {
+		override callback(ent: Entity, inp: Input<any>): void {
 			const newParent = inp.getValue() as Entity | null;
 			if (newParent === ent.parent)
 				return;
@@ -288,7 +306,7 @@ export class Entity {
 			if (InputAgent.isGraphicsInput(inp))  //FIXME resetGraphics clears the Position/Points inputs
 				continue;
 			const in1 = ent.inpList[i];
-			if (!stringListEquals(inp.getValueTokens(), in1.getValueTokens())) {
+			if (!stringListEquals(inp.getValueTokenList(), in1.getValueTokenList())) {
 				console.log(jformat("Inputs do not match: entity=%s, keyword=%s, in0=%s, in1=%s",
 						String(ent), inp.getKeyword(), inp.getValueString(), in1.getValueString()));
 				ret = false;
@@ -371,7 +389,7 @@ export class Entity {
 			const h = vh;
 			try {
 				const res = ExpEvaluator.evaluateExpression(h.getExpression(), this, 0.0);
-				h.setValue(res);
+				h.setValue(res!);
 			}
 			catch (e) {
 				if (!(e instanceof ExpError)) throw e;
@@ -553,24 +571,24 @@ export class Entity {
 		this.inpList.length = 0;
 	}
 
-	protected addInput(inp: Input<unknown>): void {
+	protected addInput(inp: Input<any>): void {
 		this.inpList.push(inp);
 	}
 
-	protected removeInput(inp: Input<unknown>): void {
+	protected removeInput(inp: Input<any>): void {
 		jRemove(this.inpList, inp);
 	}
 
-	protected addSynonym(inp: Input<unknown>, synonym: string): void {
-		this.inpList.push(new SynonymInput(synonym, inp) as unknown as Input<unknown>);
+	protected addSynonym(inp: Input<any>, synonym: string): void {
+		this.inpList.push(new SynonymInput(synonym, inp) as unknown as Input<any>);
 	}
 
-	getInput(key: string): Input<unknown> | null {
+	getInput(key: string): Input<any> | null {
 		for (let i = 0; i < this.inpList.length; i++) {
 			const inp = this.inpList[i];
 			if (key === inp.getKeyword()) {
 				if (inp.isSynonym())
-					return (inp as unknown as SynonymInput).input as Input<unknown>;
+					return (inp as unknown as SynonymInput).input as Input<any>;
 				else
 					return inp;
 			}
@@ -668,7 +686,7 @@ export class Entity {
 		//   'assign' method)
 		// - the input is for the CustomOutputList keyword which had been assigned a stub value
 		if (this.getPrototype() === ent && !targetInput.getIsDef() && !targetInput.isInherited()
-				&& !stringListEquals(targetInput.getValueTokens(), tmp)
+				&& !stringListEquals(targetInput.getValueTokenList(), tmp)
 				&& targetInput.getStubDefinition() == null)
 			return;
 
@@ -690,14 +708,14 @@ export class Entity {
 	 * @param newParent - specified parent entity
 	 * @return input tokens
 	 */
-	getValueTokens(inp: Input<unknown>, newParent: Entity | null): string[] {
+	getValueTokens(inp: Input<any>, newParent: Entity | null): string[] {
 
 		// For a blank input, check the input inherited from its prototype and replace references
 		// to the prototype's parent
 		if (inp.getIsDef() && this.prototype != null && inp.getProtoInput() != null)
 			return this.prototype.getValueTokens(inp.getProtoInput()!, newParent);
 
-		const ret = inp.getValueTokens();
+		const ret = inp.getValueTokenList();
 		if (ret.length === 0 || this.parent == null || newParent == null || this.parent === newParent)
 			return ret;
 
@@ -732,7 +750,7 @@ export class Entity {
 		return ret;
 	}
 
-	getInheritedValueTokens(inp: Input<unknown>): string[] {
+	getInheritedValueTokens(inp: Input<any>): string[] {
 		if (this.prototype == null || inp.getProtoInput() == null)
 			return [];
 		return this.prototype.getValueTokens(inp.getProtoInput()!, this.parent);
@@ -751,7 +769,7 @@ export class Entity {
 				continue;
 			const sourceHandle = sourceVHandle;
 			const targetHandle = targetVHandle;
-			targetHandle.setValue(sourceHandle.copyValue());
+			targetHandle.setValue(sourceHandle.copyValue()!);
 		}
 	}
 
@@ -951,7 +969,7 @@ export class Entity {
 	}
 
 	static readonly traceInputCallback: InputCallback = new (class extends InputCallback {
-		override callback(ent: Entity, inp: Input<unknown>): void {
+		override callback(ent: Entity, inp: Input<any>): void {
 			const trc = inp as unknown as BooleanInput;
 			ent.setTraceFlag((trc.getValue() as boolean) && ent.isEnableTracing());
 		}
@@ -967,7 +985,7 @@ export class Entity {
 	}
 
 	static readonly userOutputCallback: InputCallback = new (class extends InputCallback {
-		override callback(ent: Entity, _inp: Input<unknown>): void {
+		override callback(ent: Entity, _inp: Input<any>): void {
 			ent.updateUserOutputMap();
 		}
 	})();
@@ -996,7 +1014,7 @@ export class Entity {
 	// EDIT TABLE METHODS
 	// ******************************************************************************************************
 
-	getEditableInputs(): Input<unknown>[] {
+	getEditableInputs(): Input<any>[] {
 		return this.inpList;
 	}
 
@@ -1124,7 +1142,7 @@ export class Entity {
 
 		// Collection Attribute
 		if (indices != null) {
-			const attribValue = h.getValue(ExpResult) as ExpResult;
+			const attribValue = h.getValue<ExpResult>("ExpResult");
 			if (attribValue.type !== ExpResType.COLLECTION) {
 				throw new ExpError(null, -1, tr("Trying to set %s attribute: %s with an index, "
 						+ "but it is not a collection"), String(this), name);

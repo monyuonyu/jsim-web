@@ -749,7 +749,7 @@ class UnaryOp extends ExpParser_ExpNode {
 		else
 			return null;
 	}
-	public toString(): string {
+	public override toString(): string {
 		return "UnaryOp: " + this.name;
 	}
 }
@@ -814,7 +814,7 @@ class BinaryOp extends ExpParser_ExpNode {
 		else
 			return null;
 	}
-	public toString(): string {
+	public override toString(): string {
 		return "BinaryOp: " + this.name;
 	}
 }
@@ -932,7 +932,7 @@ class Conditional extends ExpParser_ExpNode {
 
 		w.visit(this);
 	}
-	public toString(): string {
+	public override toString(): string {
 		return "Conditional";
 	}
 }
@@ -986,7 +986,7 @@ class FuncCall extends ExpParser_ExpNode {
 		else
 			return null;
 	}
-	public toString(): string {
+	public override toString(): string {
 		return "Function: " + this.name;
 	}
 }
@@ -1281,9 +1281,7 @@ export class ExpParser {
 		for (const fe of ExpParser.functions) {
 			ret.push(fe.name);
 		}
-		// TODO(移植): Input.uiSortOrder の形（関数か、compare を持つ物か）は まとまり C に合わせる
-		const cmp = Input.uiSortOrder as unknown as ((a: unknown, b: unknown) => number) | { compare(a: unknown, b: unknown): number };
-		ret.sort(typeof cmp === "function" ? cmp : (a, b) => cmp.compare(a, b));
+		ret.sort(Input.uiSortOrder);
 		return ret;
 	}
 

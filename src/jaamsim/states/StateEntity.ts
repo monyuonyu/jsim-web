@@ -209,8 +209,8 @@ export abstract class StateEntity extends DisplayEntity implements StateUser {
 	 */
 	isValidWorkingState(state: string): boolean {
 
-		if (this.workingStateListInput.getValue().length > 0)
-			return this.workingStateListInput.getValue().includes(state);
+		if (this.workingStateListInput.getValue()!.length > 0)
+			return this.workingStateListInput.getValue()!.includes(state);
 
 		return StateEntity.STATE_WORKING === state;
 	}
@@ -509,9 +509,9 @@ export abstract class StateEntity extends DisplayEntity implements StateUser {
 		const ent = this.stateGraphics.getValueFor(this.presentState.getName());
 		if (ent == null) {
 			this.setDisplayModelList(this.displayModelListInput.getValue());
-			this.setSize(this.sizeInput.getValue());
-			this.setOrientation(this.orientationInput.getValue());
-			this.setAlignment(this.alignmentInput.getValue());
+			this.setSize(this.sizeInput.getValue()!);
+			this.setOrientation(this.orientationInput.getValue()!);
+			this.setAlignment(this.alignmentInput.getValue()!);
 			return;
 		}
 

@@ -36,7 +36,7 @@ export interface VisibilityInfo {
 
 const DISPLAY_ENTITY = "com.jaamsim.Graphics.DisplayEntity";
 
-const defRange = new DoubleVector(0, Double.POSITIVE_INFINITY);
+const defRange = DoubleVector.ofValues(0, Double.POSITIVE_INFINITY);
 
 export abstract class DisplayModel extends Entity {
 	static readonly ALWAYS: VisibilityInfo = { views: null, minDist: Double.NEGATIVE_INFINITY, maxDist: Double.POSITIVE_INFINITY };

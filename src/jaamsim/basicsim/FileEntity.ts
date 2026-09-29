@@ -1,3 +1,21 @@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2002-2011 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2020-2021 JaamSim Software Inc.
+ * TypeScript への移植 (C) 2026 shota
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import { jformat } from "../java/lang.ts";
 import { tr } from "../i18n/I18n.ts";
 import { InputErrorException } from "../input/InputErrorException.ts";
@@ -10,7 +28,7 @@ import type { JaamSimModel } from "./JaamSimModel.ts";
 // ブラウザではファイルを直接読み書きできないので、ファイルは「道（パスの文字列）」で表し、
 // 実際の読み書きは差し替えのできる FileSystem.backend に任せる（既定はメモリの中に持つだけ）。
 // Node で動かすときや、ブラウザでダウンロードさせるときは、FileSystem.setBackend で差し替える。
-// TODO(移植): InputAgent（まとまり C）がファイルをどう表すかと合わせる必要がある。
+// InputAgent（まとまり C）も、この JFile・FileSystem と道の文字列を使う。
 
 /** ファイルの読み書きの実体 */
 export interface FileSystemBackend {

@@ -190,14 +190,14 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 					"after the TimeSeries data had been loaded.%n" +
 					"The configuration file must be saved and reloaded before the simulation can be executed."));
 
-		const ticksList = this.value.getValue().ticksList;
+		const ticksList = this.value.getValue()!.ticksList;
 		if (this.getCycleTicks() < ticksList[ticksList.length - 1] - ticksList[0])
 			throw new InputErrorException(tr("CycleTime must be larger than the difference between "
 					+ "the first and last times in the series."));
 	}
 
 	updateInputValue(): void {
-		this.value.setUnitType(this.unitType.getUnitType());
+		this.value.setUnitType(this.unitType.getUnitType()!);
 		this.updateUserOutputMap();
 	}
 
@@ -214,7 +214,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 		this.subject.notifyObservers();
 	}
 
-	getObserverList(): ObserverEntity[] {
+	override getObserverList(): ObserverEntity[] {
 		return this.subject.getObserverList();
 	}
 
@@ -251,7 +251,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 	}
 
 	override getUserUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	/**
@@ -273,9 +273,9 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 		if (pt.index === -1)
 			return Long.MAX_VALUE;
 		if (this.isCycleTimeInfinite())
-			return this.value.getValue().ticksList[pt.index] + this.getOffsetTicks();
+			return this.value.getValue()!.ticksList[pt.index] + this.getOffsetTicks();
 		// TODO(移植): Java は long の掛け算で桁があふれると回り込む（numberOfCycles が Long.MAX_VALUE のときなど）。TS では回り込まない
-		return this.value.getValue().ticksList[pt.index] + this.getOffsetTicks() + pt.numberOfCycles * this.getCycleTicks();
+		return this.value.getValue()!.ticksList[pt.index] + this.getOffsetTicks() + pt.numberOfCycles * this.getCycleTicks();
 	}
 
 	/** Java の private getSimTime(long ticks) */
@@ -322,20 +322,20 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 		if (!this.isCycleTimeInfinite())
 			return this.getCycleTicks();
 
-		const ticksList = this.value.getValue().ticksList;
+		const ticksList = this.value.getValue()!.ticksList;
 		return ticksList[ticksList.length - 1];
 	}
 
 	getUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	getMaxValue(): number {
-		return this.value.getValue().getMaxValue();
+		return this.value.getValue()!.getMaxValue();
 	}
 
 	getMinValue(): number {
-		return this.value.getValue().getMinValue();
+		return this.value.getValue()!.getMinValue();
 	}
 
 	getMeanValue(simTime: number): number {
@@ -343,7 +343,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 	}
 
 	isMonotonic(dir: number): boolean {
-		return this.value.getValue().isMonotonic(dir);
+		return this.value.getValue()!.isMonotonic(dir);
 	}
 
 	/**
@@ -356,7 +356,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 	 * @return position in the TimeSeries.
 	 */
 	private getTSPointForTicks(ticks: number): TSPoint {
-		const ticksList = this.value.getValue().ticksList;
+		const ticksList = this.value.getValue()!.ticksList;
 
 		if (ticks === Long.MAX_VALUE) {
 			if (this.isCycleTimeInfinite())
@@ -407,7 +407,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 	 */
 	private getTSPointForValue(val: number): TSPoint {
 
-		const valueList = this.value.getValue().valueList;
+		const valueList = this.value.getValue()!.valueList;
 		if (val > this.getMaxValue() && this.isCycleTimeInfinite())
 			return new TSPoint(valueList.length - 1, 0);
 
@@ -443,7 +443,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 	 * @return value for the time series.
 	 */
 	private getValue(pt: TSPoint): number {
-		const valueList = this.value.getValue().valueList;
+		const valueList = this.value.getValue()!.valueList;
 		if (pt.index === -1)
 			return valueList[valueList.length - 1];
 		return valueList[pt.index];
@@ -480,7 +480,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 			if (this.isCycleTimeInfinite())
 				return new TSPoint(-1, pt.numberOfCycles);
 
-			return new TSPoint(this.value.getValue().ticksList.length - 1, pt.numberOfCycles - 1);
+			return new TSPoint(this.value.getValue()!.ticksList.length - 1, pt.numberOfCycles - 1);
 		}
 
 		return new TSPoint(pt.index - 1, pt.numberOfCycles);
@@ -499,7 +499,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 		if (pt.index === -1)
 			return new TSPoint(pt.index, pt.numberOfCycles);
 
-		if (pt.index === this.value.getValue().ticksList.length - 1) {
+		if (pt.index === this.value.getValue()!.ticksList.length - 1) {
 			if (this.isCycleTimeInfinite())
 				return new TSPoint(-1, pt.numberOfCycles);
 
@@ -537,7 +537,7 @@ export class TimeSeries extends DisplayEntity implements TimeSeriesProvider, Sub
 		const low = this.getTSPointForTicks(ticks);
 		let high = this.getTSPointAfter(low);
 		if (high.index === -1) {
-			const valueList = this.value.getValue().valueList;
+			const valueList = this.value.getValue()!.valueList;
 			return valueList[valueList.length - 1];
 		}
 

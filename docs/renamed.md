@@ -28,3 +28,19 @@ StringProvider（interface）: x instanceof StringProvider → isStringProvider(
 - `Input.getValue()` と `getValue(Entity, double, Class)` は 1 つの `getValue` で引数の数で見分ける（名前は変えていない）。`reset()`・`reset(Entity)` も `reset(ent?)` の 1 つ（担当: C）
 - `InputAgent.printReport(Entity, FileEntity, double)`・`printReport(JaamSimModel, double, FileEntity)` は名前はそのまま（最初の引数で見分ける）。中の実体は private の `printReportForEntity`・`printReportForModel`（担当: C）
 - `InputAgent.uiEntitySortOrder`・`subModelSortOrder`・`Input.uiSortOrder` は `Array.sort` に渡せる関数（`compare(a, b)` も持つ）（担当: C）
+Entity.getChildren(double)（出力 Children） → getChildrenOutput(simTime)（担当: D）
+Entity.getPrototype(double)（出力 Prototype） → getPrototypeOutput(simTime)（担当: D）
+Entity.getCloneList(double)（出力 CloneList） → getCloneListOutput(simTime)（担当: D）
+Entity.trace（入力のフィールド BooleanInput） → trace_（関数 trace(indent, fmt, ...) とぶつかるため）（担当: D）
+Entity.setTraceFlag() と setTraceFlag(boolean) → 1 つの setTraceFlag(bool?)（引数なしは true）（担当: D）
+EntityIterator.next() → nextEnt()（TS の Iterator の next() とぶつかるため。for-of でも回せる）（担当: D）
+JaamSimModel.getClonesOfIterator(Class, Class iface) → getClonesOfIterator(klass, isFoo)（2 番目は interface の判定の関数）（担当: D）
+JaamSimModel.isConfiguring（AtomicBoolean のフィールド） → isConfiguring_（関数 isConfiguring() は元の名前）（担当: D）
+JaamSimModel の File（configFile・reportDir など） → 道の文字列（FileEntity.ts の JFile・FileSystem を使う）（担当: D）
+Simulation.enableTracing（入力のフィールド） → enableTracingInput（Entity.enableTracing(boolean) とぶつかるため）（担当: D）
+OutputMethod.arguments（入力のフィールド） → arguments_（担当: D）
+EntityProvInput.isValid(T)（private） → isValidEntity（Input.isValid() とぶつかるため）（担当: D）
+SubjectEntity（interface）: x instanceof SubjectEntity → isSubjectEntity(x)（担当: D）
+ObserverEntity（interface）: x instanceof ObserverEntity → isObserverEntity(x)。static の ERR_WATCHLIST・registerWithSubjects・isObserverOf・validate は const ObserverEntity に置いた（担当: D）
+GUIListener: Java に無い「?」付きの関数（invokeErrorDialog・updateUI・shutdown・getEventViewer・pauseRunManager）を足した。GUIFrame の static を呼んでいた所の代わり（担当: D）
+Entity.error(fmt, ...args): 中で tr(fmt) してから jformat する。戻り値の型は never（担当: D）

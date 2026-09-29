@@ -208,8 +208,8 @@ export class SampleInput extends Input<SampleProvider> {
 			sb += jstr(this.value.getNextSample(thisEnt, simTime));
 		}
 		else {
-			const unitString = simModel.getDisplayedUnit(ut);
-			const sifactor = simModel.getDisplayedUnitFactor(ut);
+			const unitString = simModel.getDisplayedUnit(ut!);
+			const sifactor = simModel.getDisplayedUnitFactor(ut!);
 			sb += jstr(this.value.getNextSample(thisEnt, simTime) / sifactor);
 			sb += "[" + unitString + "]";
 		}

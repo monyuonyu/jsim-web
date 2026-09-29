@@ -61,7 +61,7 @@ import type { View } from "./View.ts";
  */
 
 const defPoints: Vec3d[] = [];
-const defRange = new DoubleVector(0.0, Double.POSITIVE_INFINITY);
+const defRange = DoubleVector.ofValues(0.0, Double.POSITIVE_INFINITY);
 defPoints.push(new Vec3d(0.0, 0.0, 0.0));
 defPoints.push(new Vec3d(1.0, 0.0, 0.0));
 

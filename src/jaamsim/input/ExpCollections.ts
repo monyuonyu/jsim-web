@@ -406,8 +406,8 @@ class DoubleVectorCollection implements ExpResult.Collection {
 		let factor = 1.0;
 		let unitStr = Unit.getSIUnit(this.unitType);
 		if (simModel !== null) {
-			factor = simModel.getDisplayedUnitFactor(this.unitType);
-			unitStr = simModel.getDisplayedUnit(this.unitType);
+			factor = simModel.getDisplayedUnitFactor(this.unitType!);
+			unitStr = simModel.getDisplayedUnit(this.unitType!);
 		}
 		if (unitStr !== "") {
 			unitStr = "[" + unitStr + "]";
@@ -471,8 +471,8 @@ class IntegerVectorCollection implements ExpResult.Collection {
 		let factor = 1.0;
 		let unitStr = Unit.getSIUnit(this.unitType);
 		if (simModel !== null) {
-			factor = simModel.getDisplayedUnitFactor(this.unitType);
-			unitStr = simModel.getDisplayedUnit(this.unitType);
+			factor = simModel.getDisplayedUnitFactor(this.unitType!);
+			unitStr = simModel.getDisplayedUnit(this.unitType!);
 		}
 		if (unitStr !== "") {
 			unitStr = "[" + unitStr + "]";

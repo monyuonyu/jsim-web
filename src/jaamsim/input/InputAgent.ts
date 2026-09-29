@@ -48,7 +48,7 @@ import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { Unit } from "../units/Unit.ts";
 import { ExpResType } from "./ExpResType.ts";
 import { ExpResult } from "./ExpResult.ts";
-import { FileInput } from "./FileInput.ts";
+import type { FileInput } from "./FileInput.ts";
 import { Input, javaToString } from "./Input.ts";
 import { InputErrorException } from "./InputErrorException.ts";
 import { KeywordIndex } from "./KeywordIndex.ts";
@@ -1819,9 +1819,10 @@ export class InputAgent {
 		for (const inp of ent.getEditableInputs()) {
 
 			// Is the input a FileInput whose value has been set?
-			if (!(inp instanceof FileInput))
+			// Java: in instanceof FileInput（FileInput は Input を継承するので、循環を避けて持っている関数で見分ける）
+			if (typeof (inp as Partial<FileInput>).getFileNameExtensionFilters !== "function")
 				continue;
-			const fileIn = inp;
+			const fileIn = inp as unknown as FileInput;
 			const uri = fileIn.getValue();
 			if (uri === null)
 				continue;

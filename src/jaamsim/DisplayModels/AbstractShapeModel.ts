@@ -56,7 +56,7 @@ export abstract class AbstractShapeModel extends DisplayModel implements LineEnt
 		this.addSynonym(this.lineColour, "OutlineColour");
 		this.addSynonym(this.lineColour, "OutlineColor");
 
-		this.lineWidth = new SampleInput("LineWidth", Entity.FORMAT, 1);
+		this.lineWidth = SampleInput.ofInt("LineWidth", Entity.FORMAT, 1);
 		this.setKeywordDoc(this.lineWidth, "Width of the outline in pixels.",
 				[ "3" ]);
 		this.lineWidth.setValidRange(0, Double.POSITIVE_INFINITY);
