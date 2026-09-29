@@ -25,24 +25,24 @@
 //   (simTime, fmt, siFactor) (thisEnt, simTime, fmt, siFactor)
 // - Input.getValue() と getValue(Entity, double, Class) は、引数の数で見分ける（Input.ts と同じく thisEnt の有無）。
 
-import { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { Entity } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Input } from "../input/Input.ts";
+import { Input } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Parser } from "../input/Parser.ts";
-import { SampleConstant } from "../Samples/SampleConstant.ts";
-import { isSampleProvider } from "../Samples/SampleProvider.ts";
+import { Parser } from "../internal.ts";
+import { SampleConstant } from "../internal.ts";
+import { isSampleProvider } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { tr } from "../i18n/I18n.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { StringProvConstant } from "./StringProvConstant.ts";
-import { StringProvExpression } from "./StringProvExpression.ts";
-import { StringProvSample } from "./StringProvSample.ts";
+import { StringProvConstant } from "../internal.ts";
+import { StringProvExpression } from "../internal.ts";
+import { StringProvSample } from "../internal.ts";
 import type { StringProvider } from "./StringProvider.ts";
 
 export class StringProvInput extends Input<StringProvider> {

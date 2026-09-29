@@ -18,9 +18,9 @@
  */
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 export class ClassInput extends Input<JClass<Entity>>{

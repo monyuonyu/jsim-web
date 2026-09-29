@@ -16,16 +16,16 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { LateClasses } from "../Graphics/LateClasses.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { Log } from "../basicsim/Log.ts";
-import { ActionListInput } from "../input/ActionListInput.ts";
-import { FileInput } from "../input/FileInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jEqualsIgnoreCase } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DisplayModel } from "./DisplayModel.ts";
+import { LateClasses } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { Log } from "../internal.ts";
+import { ActionListInput } from "../internal.ts";
+import { FileInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jEqualsIgnoreCase } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DisplayModel } from "../internal.ts";
 
 /*
  * 移植の注意:

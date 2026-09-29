@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jformat, type JClass } from "../java/lang.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jformat } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
 import type { Unit } from "../units/Unit.ts";
 
 export class PassThroughData {

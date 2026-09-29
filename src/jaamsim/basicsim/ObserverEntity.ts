@@ -15,9 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { tr } from "../i18n/I18n.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { isSubjectEntity } from "./SubjectEntity.ts";
+import { tr } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { isSubjectEntity } from "../internal.ts";
 import type { SubjectEntity } from "./SubjectEntity.ts";
 
 /**

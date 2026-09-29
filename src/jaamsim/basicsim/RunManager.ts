@@ -15,19 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EventManager } from "../events/EventManager.ts";
+import { EventManager } from "../internal.ts";
 import type { EventTraceListener } from "../events/EventTraceListener.ts";
-import { tr } from "../i18n/I18n.ts";
-import { InputAgent } from "../input/InputAgent.ts";
+import { tr } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
 import type { PrintStream } from "../input/InputAgent.ts";
-import { jformat } from "../java/lang.ts";
-import { ErrorException } from "./ErrorException.ts";
-import { EventRecorder } from "./EventRecorder.ts";
-import { EventTracer } from "./EventTracer.ts";
-import { FileEntity, FileSystem, JFile } from "./FileEntity.ts";
-import { JaamSimModel } from "./JaamSimModel.ts";
-import { Log } from "./Log.ts";
-import { Scenario } from "./Scenario.ts";
+import { jformat } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
+import { EventRecorder } from "../internal.ts";
+import { EventTracer } from "../internal.ts";
+import { FileEntity, FileSystem, JFile } from "../internal.ts";
+import { JaamSimModel } from "../internal.ts";
+import { Log } from "../internal.ts";
+import { Scenario } from "../internal.ts";
 import type { SimRun } from "./SimRun.ts";
 
 /**

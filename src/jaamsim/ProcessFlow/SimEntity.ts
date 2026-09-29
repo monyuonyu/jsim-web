@@ -17,13 +17,13 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { StringListInput } from "../input/StringListInput.ts";
-import { StateEntity } from "../states/StateEntity.ts";
-import { EntityGen } from "./EntityGen.ts";
+import { Entity } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { StringListInput } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
+import { EntityGen } from "../internal.ts";
 
 export class SimEntity extends StateEntity {
 

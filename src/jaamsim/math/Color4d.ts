@@ -16,7 +16,7 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ColourInput } from "../input/ColourInput.ts";
+import { ColourInput } from "../internal.ts";
 
 const hashBuf = new DataView(new ArrayBuffer(8));
 /** Java の Double.valueOf(x).hashCode() */

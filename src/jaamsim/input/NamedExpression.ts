@@ -16,11 +16,11 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { jformat } from "../java/lang.ts";
+import { jformat } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Unit } from "../units/Unit.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
 import type { ExpEvaluator_EntityParseContext } from "./ExpEvaluator.ts";
 import type { ExpParser_Expression } from "./ExpParser.ts";
 

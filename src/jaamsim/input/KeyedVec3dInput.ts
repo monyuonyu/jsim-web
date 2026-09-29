@@ -18,19 +18,19 @@
  * TypeScript への移植 (C) 2026 shota
  */
 // 注（多重定義）: getValue() と getValue(thisEnt, simTime, klass) は、引数の数で見分ける（Input.ts と同じ）。
-import { Double } from "../java/lang.ts";
+import { Double } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { Input, javaToString } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
-import { KeyedVec3dCurve } from "./KeyedVec3dCurve.ts";
-import { KeywordIndex } from "./KeywordIndex.ts";
+import { Input, javaToString } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeyedVec3dCurve } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 
 export class KeyedVec3dInput extends Input<KeyedVec3dCurve> {

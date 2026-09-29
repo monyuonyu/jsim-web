@@ -21,16 +21,16 @@
 // 出力の isIdle(double) などは、引数なしの isIdle() などと同じ中身なので 1 つにした（引数は無視する）。
 // setPresentState() は、StateEntity の setPresentState(String) と 1 つにした（引数が無ければ状態を計算する）。
 
-import { tr } from "../i18n/I18n.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { tr } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Conditional } from "../events/Conditional.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { StateEntity } from "../states/StateEntity.ts";
+import { StateEntity } from "../internal.ts";
 
 export abstract class AbstractStateUserEntity extends StateEntity {
 

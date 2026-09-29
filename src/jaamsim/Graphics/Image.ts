@@ -15,11 +15,11 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { IconModel } from "../DisplayModels/IconModel.ts";
-import { ImageModel } from "../DisplayModels/ImageModel.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { AbstractShape } from "./AbstractShape.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { IconModel } from "../internal.ts";
+import { ImageModel } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { AbstractShape } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 
 /**
  * Displays a two-dimensional picture

@@ -17,10 +17,10 @@
  * limitations under the License.
  */
 
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Threshold } from "./Threshold.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Threshold } from "../internal.ts";
 
 /**
  * SignalThreshold is a type of Threshold that is controlled directly by

@@ -16,8 +16,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
 import type { Conditional } from "../events/Conditional.ts";
 import type { JaamSimModel } from "./JaamSimModel.ts";
 

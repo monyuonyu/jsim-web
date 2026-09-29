@@ -18,15 +18,15 @@
  */
 // 注（多重定義の扱い）:
 // - Java は reset(Entity) だけを上書きしている。reset(ent?) の 1 つにし、ent が無ければ基底の reset() と同じ。
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { EntityLabel } from "../Graphics/EntityLabel.ts";
-import { OverlayEntity } from "../Graphics/OverlayEntity.ts";
-import { Region } from "../Graphics/Region.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { EntityInput } from "./EntityInput.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { DisplayEntity } from "../internal.ts";
+import { EntityLabel } from "../internal.ts";
+import { OverlayEntity } from "../internal.ts";
+import { Region } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 export class ParentEntityInput extends EntityInput<Entity> {

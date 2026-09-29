@@ -15,7 +15,7 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { Editable, implementsFunctions } from "./Editable.ts";
+import { Editable, implementsFunctions } from "../internal.ts";
 
 /*
  * 移植の注意: instanceof EditableText の代わりは EditableText.isInstance(o)（関数の有無で見分ける）。

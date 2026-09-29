@@ -20,18 +20,18 @@
 // 多重定義の updateProgress() と updateProgress(double dt) は、中身の違う final と abstract なので分けた:
 //   final の updateProgress() → updateProgressToNow()（docs/renamed.md）。abstract の updateProgress(dt) は元の名前。
 
-import { Double } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { Double } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { DowntimeEntity } from "../BasicObjects/DowntimeEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { ObserverEntity } from "../basicsim/ObserverEntity.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { ObserverEntity } from "../internal.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { SubjectEntityDelegate } from "../basicsim/SubjectEntityDelegate.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { SubjectEntityDelegate } from "../internal.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { StateUserEntity } from "./StateUserEntity.ts";
+import { StateUserEntity } from "../internal.ts";
 
 export abstract class Device extends StateUserEntity implements ObserverEntity, SubjectEntity {
 

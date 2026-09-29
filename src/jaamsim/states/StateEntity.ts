@@ -27,22 +27,22 @@
 // getTotalTimeInState, getTotalTime, getTotalTimeInCycle）は、各要素の独立の処理か long（整数）の足し算なので、
 // 順番は結果に効かない。getStateRecs は名前で並べ替えている。
 
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { FileEntity } from "../basicsim/FileEntity.ts";
-import { isSubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { StringKeyInput } from "../input/StringKeyInput.ts";
-import { StringListInput } from "../input/StringListInput.ts";
+import { DisplayEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { FileEntity } from "../internal.ts";
+import { isSubjectEntity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { StringKeyInput } from "../internal.ts";
+import { StringListInput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { jCompare } from "../java/lang.ts";
-import { StateRecord } from "./StateRecord.ts";
-import { isStateEntityListener } from "./StateEntityListener.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { jCompare } from "../internal.ts";
+import { StateRecord } from "../internal.ts";
+import { isStateEntityListener } from "../internal.ts";
 import type { StateEntityListener } from "./StateEntityListener.ts";
 import type { StateUser } from "./StateUser.ts";
 

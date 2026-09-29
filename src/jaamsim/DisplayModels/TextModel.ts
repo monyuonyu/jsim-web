@@ -16,25 +16,25 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
 import type { EntityLabel } from "../Graphics/EntityLabel.ts";
-import { LateClasses, jint } from "../Graphics/LateClasses.ts";
+import { LateClasses, jint } from "../internal.ts";
 import type { TextEntity } from "../Graphics/TextEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { StringChoiceInput } from "../input/StringChoiceInput.ts";
-import { StringListInput } from "../input/StringListInput.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, jCompare, jEqualsIgnoreCase } from "../java/lang.ts";
+import { StringChoiceInput } from "../internal.ts";
+import { StringListInput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, jCompare, jEqualsIgnoreCase } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { AbstractShapeModel } from "./AbstractShapeModel.ts";
+import { Vec3d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { AbstractShapeModel } from "../internal.ts";
 
 /*
  * 移植の注意:

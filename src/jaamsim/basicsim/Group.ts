@@ -16,17 +16,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { tr } from "../i18n/I18n.ts";
-import { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { tr } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Entity } from "./Entity.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Entity } from "../internal.ts";
 
 /**
  * Group class - for storing a list of objects

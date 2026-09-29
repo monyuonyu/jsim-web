@@ -21,9 +21,9 @@
 // 多重定義 size()/size(String) などは、引数を省くと null（Java の size() は size(null) を呼ぶので同じ）。
 // getTypes() は Java の Set<String> の代わりに、Java の HashMap と同じ順番の配列を返す。
 
-import { jformat } from "../java/lang.ts";
+import { jformat } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { JIterator, MappedTreeSet } from "./MappedTreeSet.ts";
+import { JIterator, MappedTreeSet } from "../internal.ts";
 
 export class EntStorage_StorageEntry {
 

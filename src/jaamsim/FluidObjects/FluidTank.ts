@@ -21,21 +21,21 @@
 // それぞれ同じ値なので simTime を省ける 1 つの関数にした。
 // updateGraphics は、中身の量の割合と色（状態の値）を決めるだけなので残した。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ColourInput } from "../input/ColourInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { defineOutput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { PressureUnit } from "../units/PressureUnit.ts";
-import { VolumeUnit } from "../units/VolumeUnit.ts";
-import { FluidComponent } from "./FluidComponent.ts";
+import { DistanceUnit } from "../internal.ts";
+import { PressureUnit } from "../internal.ts";
+import { VolumeUnit } from "../internal.ts";
+import { FluidComponent } from "../internal.ts";
 
 /**
  * FluidTank is a storage tank that contains a fluid.

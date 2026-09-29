@@ -15,9 +15,9 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { LateClasses } from "../Graphics/LateClasses.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { ImageModel } from "./ImageModel.ts";
+import { LateClasses } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { ImageModel } from "../internal.ts";
 
 /**
  * Provides a separate class for the ImageModels used for object icons. It allows the ImageModels

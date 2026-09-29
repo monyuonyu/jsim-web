@@ -17,23 +17,23 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, jint } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { PolylineModel } from "../DisplayModels/PolylineModel.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, jint } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { PolylineModel } from "../internal.ts";
 import type { FillEntity } from "../Graphics/FillEntity.ts";
-import { LineEntity } from "../Graphics/LineEntity.ts";
-import { PolylineEntity } from "../Graphics/PolylineEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { LineEntity } from "../internal.ts";
+import { PolylineEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { FluidComponent } from "./FluidComponent.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { FluidComponent } from "../internal.ts";
 
 /**
  * FluidPipe is a pipe through which fluid can flow.

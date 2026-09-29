@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ProcessTarget } from "../events/ProcessTarget.ts";
+import { ProcessTarget } from "../internal.ts";
 import type { JaamSimModel } from "./JaamSimModel.ts";
 
 export class EndModelTarget extends ProcessTarget {

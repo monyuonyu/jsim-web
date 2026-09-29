@@ -17,7 +17,7 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { Entity } from "../basicsim/Entity.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 export class SynonymInput extends Input<unknown> {

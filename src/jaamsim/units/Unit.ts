@@ -16,13 +16,14 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { Entity } from "../basicsim/Entity.ts";
+import { Entity } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ObjectType } from "../basicsim/ObjectType.ts";
-import { Input } from "../input/Input.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, jIsAssignableFrom, NullPointerException, type JClass } from "../java/lang.ts";
-import { SIUnitFactorInput } from "./SIUnitFactorInput.ts";
+import { ObjectType } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, jIsAssignableFrom, NullPointerException } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
+import { SIUnitFactorInput } from "../internal.ts";
 
 /*
  * 入れ子のクラス: UnitSortOrder は static の unitSortOrder（compare を持つ物）だけにした。

@@ -20,21 +20,22 @@
 // setPresentState() は、StateEntity の setPresentState(String) と 1 つにした（引数が無ければ open から状態を決める）。
 // updateGraphics は、色と表示するかどうか（状態）の計算なので残した。
 
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { ObserverEntity } from "../basicsim/ObserverEntity.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { SubjectEntityDelegate } from "../basicsim/SubjectEntityDelegate.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jRemove } from "../java/lang.ts";
+import { SubjectEntityDelegate } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jRemove } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { StateEntity } from "../states/StateEntity.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { isThresholdUser, type ThresholdUser } from "./ThresholdUser.ts";
+import { StateEntity } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { isThresholdUser } from "../internal.ts";
+import { type ThresholdUser } from "./ThresholdUser.ts";
 
 export class Threshold extends StateEntity implements SubjectEntity {
 

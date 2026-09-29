@@ -17,17 +17,17 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { AccelerationUnit } from "../units/AccelerationUnit.ts";
-import { DensityUnit } from "../units/DensityUnit.ts";
-import { ViscosityUnit } from "../units/ViscosityUnit.ts";
+import { AccelerationUnit } from "../internal.ts";
+import { DensityUnit } from "../internal.ts";
+import { ViscosityUnit } from "../internal.ts";
 
 /**
  * Fluid defines the properties of the fluid being used in a hydraulic calculation.

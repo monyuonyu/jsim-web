@@ -17,17 +17,17 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
+import { DisplayEntity } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jIsAssignableFrom, jRemove } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jIsAssignableFrom, jRemove } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
-import { KeywordIndex } from "./KeywordIndex.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 
 export class EntityListInput<T extends Entity> extends ArrayListInput<T> {

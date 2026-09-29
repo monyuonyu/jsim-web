@@ -16,18 +16,18 @@
  * limitations under the License.
  */
 
-import { Double } from "../java/lang.ts";
-import { DowntimeEntity } from "../BasicObjects/DowntimeEntity.ts";
-import { Threshold } from "../Thresholds/Threshold.ts";
+import { Double } from "../internal.ts";
+import { DowntimeEntity } from "../internal.ts";
+import { Threshold } from "../internal.ts";
 import type { ThresholdUser } from "../Thresholds/ThresholdUser.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { EntityListInput } from "../input/EntityListInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { EntityListInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
 import type { DowntimeUser } from "../states/DowntimeUser.ts";
-import { StateEntity } from "../states/StateEntity.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { AbstractStateUserEntity } from "./AbstractStateUserEntity.ts";
+import { StateEntity } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { AbstractStateUserEntity } from "../internal.ts";
 
 export abstract class StateUserEntity extends AbstractStateUserEntity implements ThresholdUser, DowntimeUser {
 

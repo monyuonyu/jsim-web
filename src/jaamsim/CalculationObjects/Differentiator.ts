@@ -18,11 +18,11 @@
  */
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { DoubleCalculation } from "./DoubleCalculation.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
 
 /**
  * The differentiator returns the derivative of the input signal with respect to time.

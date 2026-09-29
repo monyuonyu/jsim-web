@@ -21,14 +21,14 @@
 // - setDefaultValue(Class<? extends Unit>) と、基底の setDefaultValue(ObjectType) は、引数の型で見分ける
 //   （ObjectType なら基底の方。クラスか null なら単位の型の方。Java で null を渡すのは単位の型の方なので）。
 // - reset() の上書きは reset(ent?) の形（Input.ts の注）。
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ObjectType } from "../basicsim/ObjectType.ts";
-import { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { Input } from "./Input.ts";
+import { ObjectType } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 

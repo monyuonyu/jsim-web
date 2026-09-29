@@ -16,9 +16,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { jformat } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ExpError } from "../input/ExpError.ts";
+import { jformat } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ExpError } from "../internal.ts";
 import type { Entity } from "./Entity.ts";
 
 /**

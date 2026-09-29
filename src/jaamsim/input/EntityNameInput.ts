@@ -17,11 +17,11 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Input } from "./Input.ts";
-import { InputAgent } from "./InputAgent.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 export class EntityNameInput extends Input<string> {

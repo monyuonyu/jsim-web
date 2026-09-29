@@ -27,25 +27,25 @@
 
 import type { DowntimeEntity } from "../BasicObjects/DowntimeEntity.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleConstant } from "../Samples/SampleConstant.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { TimeSeries } from "../Samples/TimeSeries.ts";
-import { TimeBasedFrequency } from "../Statistics/TimeBasedFrequency.ts";
-import { TimeBasedStatistics } from "../Statistics/TimeBasedStatistics.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
+import { SampleConstant } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { TimeSeries } from "../internal.ts";
+import { TimeBasedFrequency } from "../internal.ts";
+import { TimeBasedStatistics } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
 import type { Conditional } from "../events/Conditional.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, Long, jRemove, jformat, jstr } from "../java/lang.ts";
-import { AbstractResourceProvider } from "../resourceObjects/AbstractResourceProvider.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { AbstractLinkedResourceUser } from "./AbstractLinkedResourceUser.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, Long, jRemove, jformat, jstr } from "../internal.ts";
+import { AbstractResourceProvider } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { AbstractLinkedResourceUser } from "../internal.ts";
 
 /** Java の (int) x（double → int。0 の方向へ切り捨て、範囲外は端、NaN は 0） */
 function jint(x: number): number {

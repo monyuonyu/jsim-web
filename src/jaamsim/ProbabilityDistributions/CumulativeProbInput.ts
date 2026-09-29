@@ -18,14 +18,14 @@
  */
 
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { Input } from "../input/Input.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
 
 export class CumulativeProbInput extends Input<DoubleVector> {

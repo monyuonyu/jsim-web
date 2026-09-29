@@ -16,13 +16,13 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { Mat4d } from "./Mat4d.ts";
-import { Plane } from "./Plane.ts";
+import { Mat4d } from "../internal.ts";
+import { Plane } from "../internal.ts";
 import type { Quaternion } from "./Quaternion.ts";
 import type { Ray } from "./Ray.ts";
-import { Transform } from "./Transform.ts";
-import { Vec3d } from "./Vec3d.ts";
-import { Vec4d } from "./Vec4d.ts";
+import { Transform } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { Vec4d } from "../internal.ts";
 
 /**
  * Some handy static methods to make life easier else where

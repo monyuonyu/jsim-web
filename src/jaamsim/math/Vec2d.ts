@@ -15,7 +15,7 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { jstr } from "../java/lang.ts";
+import { jstr } from "../internal.ts";
 import type { Mat4d } from "./Mat4d.ts";
 import type { Vec3d } from "./Vec3d.ts";
 

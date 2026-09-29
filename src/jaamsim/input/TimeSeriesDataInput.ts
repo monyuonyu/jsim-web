@@ -17,21 +17,21 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { jstr, Double, Long } from "../java/lang.ts";
+import { jstr, Double, Long } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { TimeSeries } from "../Samples/TimeSeries.ts";
-import { TimeSeriesData } from "../Samples/TimeSeriesData.ts";
+import { TimeSeriesData } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { DoubleVector } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
-import { KeywordIndex } from "./KeywordIndex.ts";
-import { Parser } from "./Parser.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { Parser } from "../internal.ts";
 
 export class TimeSeriesDataInput extends Input<TimeSeriesData> {
 	private unitType: JClass<Unit> | null = null;

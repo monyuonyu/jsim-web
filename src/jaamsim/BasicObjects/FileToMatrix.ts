@@ -18,11 +18,11 @@
 
 // 多重定義の扱い: setValue(ArrayList<ArrayList<Object>>) と、親の setValue(ExpResult) は、配列かどうかで見分ける。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { ExpCollections } from "../input/ExpCollections.ts";
+import { ClassRegistry } from "../internal.ts";
+import { ExpCollections } from "../internal.ts";
 import type { ExpResult } from "../input/ExpResult.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { FileToArray } from "./FileToArray.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { FileToArray } from "../internal.ts";
 
 export class FileToMatrix extends FileToArray {
 

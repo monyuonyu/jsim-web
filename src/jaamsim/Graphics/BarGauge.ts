@@ -15,18 +15,18 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
+import { ColourProvInput } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 
 export class BarGauge extends DisplayEntity {
 

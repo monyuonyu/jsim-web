@@ -23,9 +23,10 @@
 // - Java の static 関数 getUserList(pool) は const の関数
 
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { Entity } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { isResourceUser, type ResourceUser } from "./ResourceUser.ts";
+import { isResourceUser } from "../internal.ts";
+import { type ResourceUser } from "./ResourceUser.ts";
 
 export interface ResourceProvider {
 

@@ -20,21 +20,21 @@
 // 多重定義の扱い: 出力の getNextSample(double simTime) と、SampleProvider の getNextSample(Entity, double) は、
 // 最初の引数が数かどうかで見分ける（1 つの関数）。
 
-import { Double } from "../java/lang.ts";
+import { Double } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ValueListInput } from "../input/ValueListInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { Entity } from "../internal.ts";
+import { DoubleVector } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ValueListInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
 
 /**
  * EntitlementSelector selects an index to return based on the difference

@@ -15,7 +15,7 @@
  * 表に無い名前は ClassRegistry（抽象でないクラスの表）も探す（CompoundEntity など、他の担当のクラス）。
  * 注意: 登録はそのファイルが読み込まれたときに行われるので、全部のクラスをまとめて読み込む所が要る。
  */
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 
 const table = new Map<string, JClass>();

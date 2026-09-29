@@ -23,25 +23,25 @@
 // - setDefaultValue(double) と setDefaultValue(SampleProvider) は、引数の型で見分ける。
 // - Input.getValue() と getValue(Entity, double, Class) は、引数の数で見分ける（Input.ts と同じく thisEnt の有無）。
 
-import { Distribution } from "../ProbabilityDistributions/Distribution.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { Distribution } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Input } from "../input/Input.ts";
+import { Input } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, jformat, jstr } from "../java/lang.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, jformat, jstr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { SampleConstant } from "./SampleConstant.ts";
-import { SampleExpression } from "./SampleExpression.ts";
-import { SampleProvider, isSampleProvider } from "./SampleProvider.ts";
-import { TimeSeries } from "./TimeSeries.ts";
-import { TimeSeriesConstantDouble } from "./TimeSeriesConstantDouble.ts";
+import { SampleConstant } from "../internal.ts";
+import { SampleExpression } from "../internal.ts";
+import { SampleProvider, isSampleProvider } from "../internal.ts";
+import { TimeSeries } from "../internal.ts";
+import { TimeSeriesConstantDouble } from "../internal.ts";
 
 /** Java の (int) x（0 の方向へ切り捨て、範囲外は端に張り付き、NaN は 0、-0 は 0） */
 function toInt(x: number): number {

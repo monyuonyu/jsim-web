@@ -19,11 +19,11 @@
  */
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 export class EntityListListInput<T extends Entity> extends ArrayListInput<T[]> {

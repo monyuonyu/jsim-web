@@ -20,37 +20,38 @@
 // 名前の無い EntityTarget（endActionTarget・doValueTraceTarget）と、入れ子のクラス ValueChangedConditional は、
 // ファイルの中のクラスにした。
 
-import { Double } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
+import { Double } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { StringProvListInput } from "../StringProviders/StringProvListInput.ts";
+import { SampleInput } from "../internal.ts";
+import { StringProvListInput } from "../internal.ts";
 import type { StringProvider } from "../StringProviders/StringProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
 import type { FileEntity } from "../basicsim/FileEntity.ts";
-import { ObserverEntity } from "../basicsim/ObserverEntity.ts";
-import { isSubjectEntity, type SubjectEntity } from "../basicsim/SubjectEntity.ts";
+import { ObserverEntity } from "../internal.ts";
+import { isSubjectEntity } from "../internal.ts";
+import { type SubjectEntity } from "../basicsim/SubjectEntity.ts";
 import type { Conditional } from "../events/Conditional.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { BooleanInput } from "../input/BooleanInput.ts";
-import { EntityListInput } from "../input/EntityListInput.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpressionInput } from "../input/ExpressionInput.ts";
+import { EventManager } from "../internal.ts";
+import { BooleanInput } from "../internal.ts";
+import { EntityListInput } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpressionInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { IntegerListInput } from "../input/IntegerListInput.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeListInput } from "../input/UnitTypeListInput.ts";
-import { StateEntity } from "../states/StateEntity.ts";
+import { IntegerListInput } from "../internal.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeListInput } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
 import type { StateEntityListener } from "../states/StateEntityListener.ts";
 import type { StateRecord } from "../states/StateRecord.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Logger } from "./Logger.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Logger } from "../internal.ts";
 
 /** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
 const SubjectEntityClass = {

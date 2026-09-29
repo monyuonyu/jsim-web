@@ -15,17 +15,17 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { Double } from "../java/lang.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { FillEntity } from "./FillEntity.ts";
-import { LateClasses, jint } from "./LateClasses.ts";
-import { LineEntity } from "./LineEntity.ts";
+import { DisplayEntity } from "../internal.ts";
+import { FillEntity } from "../internal.ts";
+import { LateClasses, jint } from "../internal.ts";
+import { LineEntity } from "../internal.ts";
 
 /**
  * Two dimensional objects that can be filled and/or outlined in specified colours.

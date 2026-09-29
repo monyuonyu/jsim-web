@@ -17,18 +17,19 @@
  * limitations under the License.
  */
 
-import { Double, type JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ValueListInput } from "../input/ValueListInput.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { Double } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ValueListInput } from "../internal.ts";
+import { MRG1999a } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { Distribution } from "./Distribution.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { Distribution } from "../internal.ts";
 
 /**
  * Java の Arrays.binarySearch(double[], double) と同じ結果（同じ値が複数あるときの位置も同じ）。

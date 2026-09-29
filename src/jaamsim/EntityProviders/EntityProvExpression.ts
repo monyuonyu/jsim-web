@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { ExpError } from "../input/ExpError.ts";
-import { ExpEvaluator } from "../input/ExpEvaluator.ts";
+import { ErrorException } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
 import type { ExpEvaluator_EntityParseContext } from "../input/ExpEvaluator.ts";
-import { ExpParser } from "../input/ExpParser.ts";
+import { ExpParser } from "../internal.ts";
 import type { ExpParser_Expression } from "../input/ExpParser.ts";
-import { ExpResType } from "../input/ExpResType.ts";
+import { ExpResType } from "../internal.ts";
 import type { ExpResult } from "../input/ExpResult.ts";
-import { Input } from "../input/Input.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jIsAssignableFrom } from "../java/lang.ts";
+import { Input } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jIsAssignableFrom } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { EntityProvider } from "./EntityProvider.ts";
 import type { EntityListProvider } from "./EntityListProvider.ts";
 

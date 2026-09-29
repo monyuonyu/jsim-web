@@ -17,13 +17,13 @@
  */
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
+import { DisplayEntity } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
 import type { Command } from "./Command.ts";
-import { KeywordCommand } from "./KeywordCommand.ts";
+import { KeywordCommand } from "../internal.ts";
 
 export class CoordinateCommand extends KeywordCommand {
 

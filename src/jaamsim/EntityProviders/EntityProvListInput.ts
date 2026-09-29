@@ -15,23 +15,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
+import { DisplayEntity } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ArrayListInput } from "../input/ArrayListInput.ts";
-import { Input } from "../input/Input.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Parser } from "../input/Parser.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { Parser } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jformat } from "../java/lang.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jformat } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { EntityListProvider } from "./EntityListProvider.ts";
-import { EntityProvConstant } from "./EntityProvConstant.ts";
-import { EntityProvExpression } from "./EntityProvExpression.ts";
+import { EntityProvConstant } from "../internal.ts";
+import { EntityProvExpression } from "../internal.ts";
 
 export class EntityProvListInput<T extends Entity> extends ArrayListInput<EntityListProvider<T>> {
 

@@ -17,13 +17,13 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
 import type { FluidComponent } from "./FluidComponent.ts";
-import { FluidFlowCalculation } from "./FluidFlowCalculation.ts";
+import { FluidFlowCalculation } from "../internal.ts";
 
 /**
  * FluidFlow tracks the flow rate between a source and a destination.

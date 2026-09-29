@@ -20,19 +20,19 @@
 // 多重定義の扱い: 出力の getNextSample(double simTime) と、SampleProvider の getNextSample(Entity, double) は、
 // 最初の引数が数かどうかで見分ける（1 つの関数）。
 
-import { Double } from "../java/lang.ts";
+import { Double } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
 
 export class ExpressionEntity extends DisplayEntity implements SampleProvider {
 

@@ -18,14 +18,14 @@
  */
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { DoubleCalculation } from "./DoubleCalculation.ts";
+import { ClassRegistry } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
 
 /**
  * The Integrator returns the integral of the input values.

@@ -19,12 +19,12 @@
  */
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Integer } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { Integer } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 

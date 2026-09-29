@@ -17,8 +17,8 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { Vec3d } from "../math/Vec3d.ts";
-import { KeyedCurve } from "./KeyedCurve.ts";
+import { Vec3d } from "../internal.ts";
+import { KeyedCurve } from "../internal.ts";
 
 export class KeyedVec3dCurve extends KeyedCurve<Vec3d> {
 

@@ -17,14 +17,14 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { InterfaceEntityInput } from "../input/InterfaceEntityInput.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { AbstractPack } from "./AbstractPack.ts";
-import { EntContainer } from "./EntContainer.ts";
+import { Entity } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { InterfaceEntityInput } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { AbstractPack } from "../internal.ts";
+import { EntContainer } from "../internal.ts";
 
 export class Pack extends AbstractPack {
 

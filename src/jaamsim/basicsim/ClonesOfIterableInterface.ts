@@ -16,10 +16,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { jIsAssignableFrom } from "../java/lang.ts";
+import { jIsAssignableFrom } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import type { Entity } from "./Entity.ts";
-import { EntityIterator } from "./EntityIterator.ts";
+import { EntityIterator } from "../internal.ts";
 import type { JaamSimModel } from "./JaamSimModel.ts";
 
 /**

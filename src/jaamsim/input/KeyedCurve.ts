@@ -19,7 +19,7 @@
  */
 // 注（移植）: 入れ子の private class Key と KeySorter は、ファイルの中だけのクラス・関数にした。
 // getValAtTime(time) と getValAtTime(time, arg) は、arg を省略できる 1 つの関数にした（省略なら 0）。
-import { Double } from "../java/lang.ts";
+import { Double } from "../internal.ts";
 
 class Key<T> {
 	time = 0;

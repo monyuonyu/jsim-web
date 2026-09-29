@@ -16,17 +16,17 @@
  * limitations under the License.
  */
 
-import { LinkedComponent } from "../ProcessFlow/LinkedComponent.ts";
-import { StringProvListInput } from "../StringProviders/StringProvListInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ExpCollections } from "../input/ExpCollections.ts";
+import { LinkedComponent } from "../internal.ts";
+import { StringProvListInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ExpCollections } from "../internal.ts";
 import type { ExpResult } from "../input/ExpResult.ts";
-import { FileInput } from "../input/FileInput.ts";
+import { FileInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { FileToArray } from "./FileToArray.ts";
+import { defineOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { FileToArray } from "../internal.ts";
 
 export abstract class AbstractExternalProgram extends LinkedComponent {
 

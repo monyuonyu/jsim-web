@@ -21,7 +21,7 @@
 // Java で null になっているフィールド（mapVal・listVal・stringVal）は、TS でも null を入れる。
 // 使う側（ExternalProgramServer など）が Java と同じく null の確かめなしに書けるように、型は null を含めていない。
 
-import { JavaHashOrder } from "../ProcessFlow/MappedTreeSet.ts";
+import { JavaHashOrder } from "../internal.ts";
 
 // TODO(移植): 同じ添え字に 9 個以上たまった（木になった）HashMap の順番は JavaHashOrder で再現していない
 export class JSONValue {

@@ -17,12 +17,12 @@
  * TypeScript への移植 (C) 2026 shota
  */
 // 注: Java の Class<T>（interface のことが多い）は JClass<T> | JInterface<T>（Input.ts）で受ける。
-import { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jformat } from "../java/lang.ts";
+import { Entity } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jformat } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { JInterface } from "./Input.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";

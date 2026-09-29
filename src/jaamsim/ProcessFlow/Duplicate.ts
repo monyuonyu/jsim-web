@@ -17,21 +17,21 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { StateEntity } from "../states/StateEntity.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { EntityGen } from "./EntityGen.ts";
-import { Linkable } from "./Linkable.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { ClassRegistry } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleListInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { EntityGen } from "../internal.ts";
+import { Linkable } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
 
 export class Duplicate extends LinkedComponent {
 

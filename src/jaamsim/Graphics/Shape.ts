@@ -15,10 +15,10 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { AbstractShape } from "./AbstractShape.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { ShapeModel } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { AbstractShape } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 
 /**
  * Two dimension geometric objects such a rectangles, circles, etc.

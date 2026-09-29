@@ -15,7 +15,7 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { jstr } from "../java/lang.ts";
+import { jstr } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
 
 export class Tag {

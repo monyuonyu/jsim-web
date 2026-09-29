@@ -25,24 +25,24 @@
 // ExpParser.ts を最初に import すると、ExpParser → ExpCollections → ExpEvaluator の順になり extends で落ちる。
 // 使う側は ExpEvaluator.ts（か Entity.ts）を先に import すること。
 import type { JClass } from "../java/lang.ts";
-import { jIsAssignableFrom } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { AbstractDirectedEntity } from "../Graphics/AbstractDirectedEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { jIsAssignableFrom } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { AbstractDirectedEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { ExpCollections } from "./ExpCollections.ts";
-import { ExpError } from "./ExpError.ts";
-import { ExpParser_EvalContext, ExpParser_ParseContext, ExpParser_UnitData } from "./ExpParser.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { ExpCollections } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpParser_EvalContext, ExpParser_ParseContext, ExpParser_UnitData } from "../internal.ts";
 import type { ExpParser_Assigner, ExpParser_Expression, ExpParser_OutputResolver } from "./ExpParser.ts";
-import { ExpResType } from "./ExpResType.ts";
-import { ExpResult } from "./ExpResult.ts";
-import { ExpValResult } from "./ExpValResult.ts";
-import { Input } from "./Input.ts";
-import { ValueHandle } from "./ValueHandle.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
+import { ExpValResult } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { ValueHandle } from "../internal.ts";
 
 type UnitClass = JClass<Unit>;
 

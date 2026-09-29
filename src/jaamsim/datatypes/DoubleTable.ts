@@ -15,9 +15,9 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { tr } from "../i18n/I18n.ts";
-import { DoubleVector } from "./DoubleVector.ts";
+import { ErrorException } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { DoubleVector } from "../internal.ts";
 
 /**
  * This class implements a 2-dimensional table of doubles with a DoubleVector.

@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { WaveGenerator } from "./WaveGenerator.ts";
+import { ClassRegistry } from "../internal.ts";
+import { WaveGenerator } from "../internal.ts";
 
 /**
  * Java の Math.IEEEremainder(x, p)（fdlibm の e_remainder と同じ手順。商は最も近い整数、同じ近さなら偶数）

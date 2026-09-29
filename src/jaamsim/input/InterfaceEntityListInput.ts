@@ -18,14 +18,14 @@
  * TypeScript への移植 (C) 2026 shota
  */
 // 注: Java の Class<T>（interface のことが多い）は JClass<T> | JInterface<T>（Input.ts）で受ける。
-import { Entity } from "../basicsim/Entity.ts";
+import { Entity } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { jIsAssignableFrom, jRemove } from "../java/lang.ts";
+import { jIsAssignableFrom, jRemove } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { Input } from "./Input.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { JInterface } from "./Input.ts";
-import { interfacePredicate } from "./InterfaceEntityInput.ts";
+import { interfacePredicate } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 

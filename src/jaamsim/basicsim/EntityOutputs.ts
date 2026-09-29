@@ -21,9 +21,9 @@
  * Entity の出力（Java の Entity の @Output）。Entity.ts から分けた:
  * 単位のクラス（TimeUnit など）は Entity を継承するので、Entity.ts の読み込みの時点で TimeUnit を使うと輪になる。
  */
-import { Entity } from "./Entity.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { Entity } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 
 defineOutput(Entity, {
 	name: "Name",

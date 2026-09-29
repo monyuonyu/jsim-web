@@ -21,21 +21,22 @@
 // getCount() と出力の getCount(double) は同じ値なので、getCount(simTime?) の 1 つにした。
 // ProcessTarget のフィールド doUpdate は、関数 doUpdate() とぶつかるので doUpdateTarget にした（private）。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, jint } from "../java/lang.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, jint } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
 import type { ObserverEntity } from "../basicsim/ObserverEntity.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { SubjectEntityDelegate } from "../basicsim/SubjectEntityDelegate.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { SubjectEntityDelegate } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { type Controllable, isControllable } from "./Controllable.ts";
+import { defineOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { isControllable } from "../internal.ts";
+import { type Controllable } from "./Controllable.ts";
 
 /** Java の Double.compare（NaN は最も大きい、-0.0 は 0.0 より小さい） */
 function doubleCompare(d1: number, d2: number): number {

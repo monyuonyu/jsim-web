@@ -20,20 +20,21 @@
 // 多重定義の扱い: setPresentState()（この部品の状態を決める）と、親の setPresentState(String) は、
 // 引数があるかどうかで見分ける（親の AbstractStateUserEntity も同じ作りである前提）。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { AbstractStateUserEntity } from "../ProcessFlow/AbstractStateUserEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ObserverEntity } from "../basicsim/ObserverEntity.ts";
-import { isSubjectEntity, type SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { SubjectEntityDelegate } from "../basicsim/SubjectEntityDelegate.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpressionInput } from "../input/ExpressionInput.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { ClassRegistry } from "../internal.ts";
+import { AbstractStateUserEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ObserverEntity } from "../internal.ts";
+import { isSubjectEntity } from "../internal.ts";
+import { type SubjectEntity } from "../basicsim/SubjectEntity.ts";
+import { SubjectEntityDelegate } from "../internal.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpressionInput } from "../internal.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 
 /** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
 const SubjectEntityClass = {

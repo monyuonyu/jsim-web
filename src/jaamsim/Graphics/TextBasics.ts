@@ -16,28 +16,29 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { TextModel, type TessFontKey } from "../DisplayModels/TextModel.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { StringChoiceInput } from "../input/StringChoiceInput.ts";
-import { StringListInput } from "../input/StringListInput.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { Double } from "../java/lang.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { TextModel } from "../internal.ts";
+import { type TessFontKey } from "../DisplayModels/TextModel.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { StringChoiceInput } from "../internal.ts";
+import { StringListInput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { AbstractShape } from "./AbstractShape.ts";
-import { Editable, KeyEvent } from "./Editable.ts";
-import { EditableText } from "./EditableText.ts";
-import { EditableTextDelegate } from "./EditableTextDelegate.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { TextEntity } from "./TextEntity.ts";
+import { Vec3d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { AbstractShape } from "../internal.ts";
+import { Editable, KeyEvent } from "../internal.ts";
+import { EditableText } from "../internal.ts";
+import { EditableTextDelegate } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { TextEntity } from "../internal.ts";
 
 /*
  * 移植の注意:

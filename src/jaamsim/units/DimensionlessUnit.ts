@@ -15,8 +15,8 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Unit } from "./Unit.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Unit } from "../internal.ts";
 
 export class DimensionlessUnit extends Unit {
 	static {

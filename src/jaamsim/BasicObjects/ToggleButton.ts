@@ -16,25 +16,25 @@
  * limitations under the License.
  */
 
-import { Double, Integer } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { GameEntity } from "../GameObjects/GameEntity.ts";
-import { FillEntity } from "../Graphics/FillEntity.ts";
-import { LineEntity } from "../Graphics/LineEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { Double, Integer } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
+import { GameEntity } from "../internal.ts";
+import { FillEntity } from "../internal.ts";
+import { LineEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { ObserverEntity } from "../basicsim/ObserverEntity.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { SubjectEntityDelegate } from "../basicsim/SubjectEntityDelegate.ts";
-import { ColourInput } from "../input/ColourInput.ts";
+import { SubjectEntityDelegate } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { defineOutput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 
 /** Java の (int) の型変換（0 の方向へ切り捨て、NaN は 0、範囲の外は端に張り付く） */
 function toInt(x: number): number {

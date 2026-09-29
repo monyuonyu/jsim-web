@@ -16,10 +16,10 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { Text } from "./Text.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { Text } from "../internal.ts";
 
 /**
  * BillboardText is a DisplayEntity used to display billboarded text labels

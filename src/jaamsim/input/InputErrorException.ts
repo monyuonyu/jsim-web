@@ -23,8 +23,8 @@
 //   new InputErrorException(format, ...args)                 … String.format と同じ（jformat）
 // 利用者に見せる文なので、書式は呼ぶ側で tr(...) に包んでから渡す（PORTING.md の 10）。
 // double を %s で渡すときは、呼ぶ側で jstr にしておく。
-import { jformat } from "../java/lang.ts";
-import { ExpError } from "./ExpError.ts";
+import { jformat } from "../internal.ts";
+import { ExpError } from "../internal.ts";
 
 /**
  * Custom exception thrown when an error due to bad input is encountered.

@@ -21,22 +21,23 @@
 // 入れ子のクラス ErrorLogger（標準エラーを Log に書くスレッド）は、ファイルの中のクラスにした
 // （行が届くたびに呼ばれる関数を持つ）。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jformat } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jformat } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { JSONConverter } from "../JSON/JSONConverter.ts";
-import { JSONParser } from "../JSON/JSONParser.ts";
-import { JSONValue } from "../JSON/JSONValue.ts";
-import { JSONWriter } from "../JSON/JSONWriter.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { Log } from "../basicsim/Log.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ExpCollections } from "../input/ExpCollections.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { AbstractExternalProgram } from "./AbstractExternalProgram.ts";
-import { getBasicObjectsIO, uriToPath, type ExternalServerProcess } from "./BasicObjectsIO.ts";
+import { JSONConverter } from "../internal.ts";
+import { JSONParser } from "../internal.ts";
+import { JSONValue } from "../internal.ts";
+import { JSONWriter } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { Log } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ExpCollections } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { AbstractExternalProgram } from "../internal.ts";
+import { getBasicObjectsIO, uriToPath } from "../internal.ts";
+import { type ExternalServerProcess } from "./BasicObjectsIO.ts";
 
 export class ExternalProgramServer extends AbstractExternalProgram {
 

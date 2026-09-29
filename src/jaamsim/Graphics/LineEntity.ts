@@ -17,7 +17,7 @@
  */
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { implementsFunctions } from "./Editable.ts";
+import { implementsFunctions } from "../internal.ts";
 
 /*
  * 移植の注意: instanceof LineEntity と getDisplayModel(LineEntity.class) の代わりは、

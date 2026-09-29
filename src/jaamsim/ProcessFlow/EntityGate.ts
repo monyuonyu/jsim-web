@@ -21,15 +21,15 @@
 
 import type { DowntimeEntity } from "../BasicObjects/DowntimeEntity.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { LinkedService } from "./LinkedService.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { LinkedService } from "../internal.ts";
 
 /** Java の (int) x（double → int。0 の方向へ切り捨て、範囲外は端、NaN は 0） */
 function jint(x: number): number {

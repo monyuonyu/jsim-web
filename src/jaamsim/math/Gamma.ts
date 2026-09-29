@@ -16,8 +16,8 @@
  * TypeScript への移植 (C) 2026 shota
  */
 
-import { tr } from "../i18n/I18n.ts";
-import { JMath } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { JMath } from "../internal.ts";
 
 /** Java の RuntimeException の代わり */
 class RuntimeException extends Error {}

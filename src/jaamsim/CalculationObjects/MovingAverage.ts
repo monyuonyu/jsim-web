@@ -17,11 +17,11 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, jint } from "../java/lang.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { DoubleCalculation } from "./DoubleCalculation.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, jint } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
 
 /**
  * The MovingAverage block returns the average of the current input and the N-1 previous inputs.

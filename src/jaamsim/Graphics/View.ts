@@ -16,26 +16,26 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { WindowDefaults } from "../basicsim/WindowDefaults.ts";
-import { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { FileInput } from "../input/FileInput.ts";
-import { IntegerListInput } from "../input/IntegerListInput.ts";
-import { KeyedVec3dInput } from "../input/KeyedVec3dInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { MathUtils } from "../math/MathUtils.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { Vec4d } from "../math/Vec4d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
+import { IntegerVector } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { FileInput } from "../internal.ts";
+import { IntegerListInput } from "../internal.ts";
+import { KeyedVec3dInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { MathUtils } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { Vec4d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
 import type { DisplayEntity } from "./DisplayEntity.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { LateClasses } from "../internal.ts";
 import type { Region } from "./Region.ts";
 
 /*

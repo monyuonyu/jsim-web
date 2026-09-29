@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { WaveGenerator } from "./WaveGenerator.ts";
+import { ClassRegistry } from "../internal.ts";
+import { WaveGenerator } from "../internal.ts";
 
 /**
  * Generates a sine wave.

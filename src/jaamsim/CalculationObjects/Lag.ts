@@ -17,14 +17,14 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { DoubleCalculation } from "./DoubleCalculation.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
 
 /**
  * The Lag block is a standard control system component whose output is equal to integral(input - output) / LagTime.

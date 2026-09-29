@@ -16,17 +16,17 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Quaternion } from "../math/Quaternion.ts";
-import { Transform } from "../math/Transform.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Quaternion } from "../internal.ts";
+import { Transform } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 
 export class Region extends DisplayEntity {
 

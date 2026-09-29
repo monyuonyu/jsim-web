@@ -16,23 +16,23 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { Entity } from "../basicsim/Entity.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { EnumInput } from "../input/EnumInput.ts";
-import { ExpError } from "../input/ExpError.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpResult } from "../input/ExpResult.ts";
-import { ExpressionListInput } from "../input/ExpressionListInput.ts";
+import { Entity } from "../internal.ts";
+import { DoubleVector } from "../internal.ts";
+import { EnumInput } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
+import { ExpressionListInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { AbstractGraph, AbstractGraph_SeriesInfo } from "./AbstractGraph.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { AbstractGraph, AbstractGraph_SeriesInfo } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 
 /*
  * 移植の注意: 入れ子の enum XYGraph.ValidGraphTypes は、このファイルの enum XYGraph_ValidGraphTypes にした

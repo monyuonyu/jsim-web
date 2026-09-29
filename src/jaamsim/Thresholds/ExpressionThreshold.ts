@@ -22,29 +22,30 @@
 // 多重定義 getOpenConditionValue(double)・getOpenConditionValue(double, boolean) は、2 番目の引数の有無で見分ける 1 つの関数にした。
 // Java の ExpressionThreshold.super.isOpen()（名前の無いクラスの中から親の isOpen を呼ぶ所）は superIsOpen() にした。
 
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { ObserverEntity } from "../basicsim/ObserverEntity.ts";
-import { isSubjectEntity, type SubjectEntity } from "../basicsim/SubjectEntity.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { ObserverEntity } from "../internal.ts";
+import { isSubjectEntity } from "../internal.ts";
+import { type SubjectEntity } from "../basicsim/SubjectEntity.ts";
 import type { Conditional } from "../events/Conditional.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpressionInput } from "../input/ExpressionInput.ts";
+import { ColourInput } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpressionInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { RateUnit } from "../units/RateUnit.ts";
-import { Threshold } from "./Threshold.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { RateUnit } from "../internal.ts";
+import { Threshold } from "../internal.ts";
 
 /** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
 const SubjectEntityClass = {

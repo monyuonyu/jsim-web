@@ -17,10 +17,10 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Integer } from "../java/lang.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Integer } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { AbstractUnpack } from "./AbstractUnpack.ts";
+import { AbstractUnpack } from "../internal.ts";
 import type { EntContainer } from "./EntContainer.ts";
 
 export class Unpack extends AbstractUnpack {

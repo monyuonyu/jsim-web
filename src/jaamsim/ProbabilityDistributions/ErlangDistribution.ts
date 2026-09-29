@@ -17,14 +17,15 @@
  * limitations under the License.
  */
 
-import { Double, type JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
+import { Double } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
+import { ClassRegistry } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { MRG1999a } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { Distribution } from "./Distribution.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { Distribution } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

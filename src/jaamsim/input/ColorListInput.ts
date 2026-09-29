@@ -17,14 +17,14 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { jformat } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { jformat } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { ColourInput } from "./ColourInput.ts";
-import { Input } from "./Input.ts";
+import { ArrayListInput } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 export class ColorListInput extends ArrayListInput<Color4d>  {

@@ -20,28 +20,28 @@
 // Java の LinkedHashMap<String, SampleStatistics> は Map（入れた順）にした。出力の LinkedHashMap<String, Double> も Map。
 // Arrays.binarySearch(double[], double) は、このファイルの binarySearch にした（Java と同じ比べ方: -0.0 < 0.0、NaN が最大）。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
+import { BooleanProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { SampleFrequency } from "../Statistics/SampleFrequency.ts";
-import { SampleStatistics } from "../Statistics/SampleStatistics.ts";
-import { TimeBasedStatistics } from "../Statistics/TimeBasedStatistics.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { SampleInput } from "../internal.ts";
+import { SampleListInput } from "../internal.ts";
+import { SampleFrequency } from "../internal.ts";
+import { SampleStatistics } from "../internal.ts";
+import { TimeBasedStatistics } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { StateEntity } from "../states/StateEntity.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端の値） */
 function jint(x: number): number {

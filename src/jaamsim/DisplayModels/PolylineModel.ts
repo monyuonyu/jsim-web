@@ -16,20 +16,20 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { LateClasses } from "../Graphics/LateClasses.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 import type { PolylineEntity } from "../Graphics/PolylineEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { Vec4d } from "../math/Vec4d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { AbstractShapeModel } from "./AbstractShapeModel.ts";
+import { Vec3d } from "../internal.ts";
+import { Vec4d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { AbstractShapeModel } from "../internal.ts";
 
 /*
  * 移植の注意:

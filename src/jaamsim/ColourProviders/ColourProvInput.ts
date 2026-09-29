@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { Input } from "../input/Input.ts";
+import { ErrorException } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Parser } from "../input/Parser.ts";
+import { Parser } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { Color4d } from "../math/Color4d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { Color4d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { ColourProvider } from "./ColourProvider.ts";
-import { ColourProvConstant } from "./ColourProvConstant.ts";
+import { ColourProvConstant } from "../internal.ts";
 
 export class ColourProvInput extends Input<ColourProvider> {
 

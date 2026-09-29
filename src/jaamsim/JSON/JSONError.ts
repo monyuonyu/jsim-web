@@ -19,7 +19,7 @@
 // 2 つのコンストラクタ (source, pos, msg)・(source, pos, fmt, args...) は、後ろの引数の有無で見分ける 1 つのコンストラクタにした。
 // 書式の文は、呼ぶ側で tr() に包んで渡す。
 
-import { jformat } from "../java/lang.ts";
+import { jformat } from "../internal.ts";
 
 export class JSONError extends Error {
 	public readonly source: string | null;

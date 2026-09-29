@@ -16,15 +16,15 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { DisplayModel } from "../DisplayModels/DisplayModel.ts";
-import { EntityProvInput } from "../EntityProviders/EntityProvInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { EntityProvInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { OverlayEntity } from "./OverlayEntity.ts";
-import { TextBasics } from "./TextBasics.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { OverlayEntity } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
 
 /*
  * 移植の注意: 描画の部品（DisplayModelBinding）は移していないので、sourceBindings は

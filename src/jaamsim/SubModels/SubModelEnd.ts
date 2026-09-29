@@ -16,17 +16,17 @@
  * limitations under the License.
  */
 
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { EntityProvInput } from "../EntityProviders/EntityProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { OverlayEntity } from "../Graphics/OverlayEntity.ts";
-import { TextBasics } from "../Graphics/TextBasics.ts";
-import { EntityGen } from "../ProcessFlow/EntityGen.ts";
-import { Linkable } from "../ProcessFlow/Linkable.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { KeywordCommand } from "../internal.ts";
+import { EntityProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { OverlayEntity } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
+import { EntityGen } from "../internal.ts";
+import { Linkable } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { CompoundEntity } from "./CompoundEntity.ts";
 
 export class SubModelEnd extends DisplayEntity implements Linkable {

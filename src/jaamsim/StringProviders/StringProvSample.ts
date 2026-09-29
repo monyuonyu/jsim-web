@@ -21,7 +21,7 @@
 
 import type { Entity } from "../basicsim/Entity.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { jformat, jstr } from "../java/lang.ts";
+import { jformat, jstr } from "../internal.ts";
 import type { StringProvider } from "./StringProvider.ts";
 
 /** Java の (int) x（0 の方向へ切り捨て、範囲外は端に張り付き、NaN は 0、-0 は 0） */

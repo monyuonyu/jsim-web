@@ -19,11 +19,11 @@
  */
 // 入れ子の interface ExpResult.Iterator と ExpResult.Collection は、同じ名前の namespace に置いた。
 import type { JClass } from "../java/lang.ts";
-import { jstr, jIsAssignableFrom } from "../java/lang.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { jstr, jIsAssignableFrom } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Unit } from "../units/Unit.ts";
-import { ExpResType } from "./ExpResType.ts";
+import { Unit } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
 import type { ExpParser_LambdaClosure } from "./ExpParser.ts";
 
 export class ExpResult {

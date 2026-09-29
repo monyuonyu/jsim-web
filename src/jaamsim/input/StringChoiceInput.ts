@@ -21,12 +21,12 @@
 // - getValue() と getValue(thisEnt, simTime, klass) は、引数の数で見分けて 1 つにした（Input.ts と同じ）。
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { jformat } from "../java/lang.ts";
+import { jformat } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
-import { Parser } from "./Parser.ts";
+import { Parser } from "../internal.ts";
 
 
 export class StringChoiceInput extends Input<number> {

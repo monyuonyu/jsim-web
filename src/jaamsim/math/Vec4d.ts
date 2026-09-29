@@ -15,10 +15,10 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { jstr } from "../java/lang.ts";
+import { jstr } from "../internal.ts";
 import type { Mat4d } from "./Mat4d.ts";
-import { isMat4d, Vec2d, vecNear } from "./Vec2d.ts";
-import { Vec3d } from "./Vec3d.ts";
+import { isMat4d, Vec2d, vecNear } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
 
 export class Vec4d extends Vec3d {
 

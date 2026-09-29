@@ -18,17 +18,17 @@
  */
 
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { AbstractResourceProvider } from "../resourceObjects/AbstractResourceProvider.ts";
-import { ResourceProvider } from "../resourceObjects/ResourceProvider.ts";
-import { ResourceUserDelegate } from "../resourceObjects/ResourceUserDelegate.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { SampleListInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { AbstractResourceProvider } from "../internal.ts";
+import { ResourceProvider } from "../internal.ts";
+import { ResourceUserDelegate } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
 
 export class Release extends LinkedComponent {
 

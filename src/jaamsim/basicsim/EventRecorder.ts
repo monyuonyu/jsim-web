@@ -18,11 +18,11 @@
  */
 import type { EventTraceListener } from "../events/EventTraceListener.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { tr } from "../i18n/I18n.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { ErrorException } from "./ErrorException.ts";
-import { EventTraceRecord } from "./EventTraceRecord.ts";
-import { FileSystem } from "./FileEntity.ts";
+import { tr } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
+import { EventTraceRecord } from "../internal.ts";
+import { FileSystem } from "../internal.ts";
 
 /**
  * Java の BufferedWriter の代わりに、FileSystem.backend に書く（FileEntity.ts）。

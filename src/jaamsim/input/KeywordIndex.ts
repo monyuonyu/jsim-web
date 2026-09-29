@@ -23,15 +23,15 @@
 //   new KeywordIndex(kw, s, e)                   … kw の s 番目から e 番目の前まで
 //   new KeywordIndex(word, inp, s, e, ctxt)      … inp の s 番目から e 番目の前まで
 // formatInput の多重定義（2 つと 3 つ）は、引数の数で見分ける。
-import { jstr, IndexOutOfBoundsException } from "../java/lang.ts";
+import { jstr, IndexOutOfBoundsException } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { Input } from "./Input.ts";
+import { DistanceUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { ParseContext } from "./ParseContext.ts";
-import { Parser } from "./Parser.ts";
+import { Parser } from "../internal.ts";
 
 export class KeywordIndex {
 	private readonly input: string[];

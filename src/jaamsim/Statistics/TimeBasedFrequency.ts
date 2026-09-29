@@ -20,8 +20,8 @@
 // Java の配列の範囲外は例外になるので、System.arraycopy と範囲外の添字は checkIndex/arraycopy で例外にした。
 // 多重定義 getBinTimes(t) / getBinTimes(t, val0, val1) などは、引数の数で見分けた（名前は変えていない）。
 
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { IndexOutOfBoundsException, jformat, jstr } from "../java/lang.ts";
+import { ErrorException } from "../internal.ts";
+import { IndexOutOfBoundsException, jformat, jstr } from "../internal.ts";
 
 /** Java の new double[n] など（0 で埋めた配列。負の長さは例外） */
 function newArray(n: number): number[] {

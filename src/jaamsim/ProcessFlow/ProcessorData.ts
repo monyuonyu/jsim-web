@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { Double, jformat } from "../java/lang.ts";
+import { Double, jformat } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
 
 export class ProcessorData {

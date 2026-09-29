@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { StudentsTDistribution } from "../ProbabilityDistributions/StudentsTDistribution.ts";
+import { StudentsTDistribution } from "../internal.ts";
 
 export class SampleStatistics {
 

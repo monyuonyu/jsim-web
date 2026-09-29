@@ -22,14 +22,14 @@
 //   （IntegerVector か null なら基底の版、数なら int... の版）。
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { Integer } from "../java/lang.ts";
+import { IntegerVector } from "../internal.ts";
+import { Integer } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
-import { ListInput } from "./ListInput.ts";
+import { ListInput } from "../internal.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 
 export class IntegerListInput extends ListInput<IntegerVector> {

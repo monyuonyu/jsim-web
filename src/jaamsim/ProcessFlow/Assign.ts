@@ -17,13 +17,13 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { AssignmentListInput } from "../input/AssignmentListInput.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { AssignmentListInput } from "../internal.ts";
 import type { ExpParser_Assignment } from "../input/ExpParser.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { LinkedComponent } from "../internal.ts";
 
 /**
  * Assigns values to Attributes.

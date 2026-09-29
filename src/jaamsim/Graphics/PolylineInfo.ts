@@ -16,13 +16,13 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { Double } from "../java/lang.ts";
+import { ErrorException } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { MathUtils } from "../math/MathUtils.ts";
-import { Plane } from "../math/Plane.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { jint, jListEquals } from "./LateClasses.ts";
+import { MathUtils } from "../internal.ts";
+import { Plane } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { jint, jListEquals } from "../internal.ts";
 
 /*
  * 移植の注意:

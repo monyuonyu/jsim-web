@@ -19,12 +19,12 @@
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
 import type { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { View } from "../Graphics/View.ts";
-import { tr } from "../i18n/I18n.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { jformat } from "../java/lang.ts";
+import { View } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { jformat } from "../internal.ts";
 import type { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
+import { DistanceUnit } from "../internal.ts";
 import type { Command } from "./Command.ts";
 
 export class DefineViewCommand implements Command {

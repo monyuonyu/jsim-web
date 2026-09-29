@@ -15,8 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { JMath } from "../java/lang.ts";
-import { SimDate } from "./SimDate.ts";
+import { JMath } from "../internal.ts";
+import { SimDate } from "../internal.ts";
 
 /** Java の java.util.Calendar の欄の番号（SimCalendar・SimDate・JaamSimModel が使うもの） */
 export const Calendar = {

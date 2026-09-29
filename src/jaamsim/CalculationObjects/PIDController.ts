@@ -21,20 +21,20 @@
 // このクラスの方は pidLastUpdateTime にした（private なので外からは見えない）。
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { RateUnit } from "../units/RateUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { RateUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { DoubleCalculation } from "./DoubleCalculation.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
 
 /**
  * The PIDController simulates a Proportional-Integral-Differential type Controller.

@@ -24,8 +24,8 @@
 // - 値は Integer なので、toString() は整数の形で出す（基底の javaToString は double の形 "65.0" になるため上書きした）。
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Input, javaToString } from "./Input.ts";
+import { tr } from "../internal.ts";
+import { Input, javaToString } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 /** com.jogamp.newt.event.KeyEvent の定数（使っている分だけ。値は Java の short と同じ） */

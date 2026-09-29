@@ -22,15 +22,15 @@
 //   def の型（typeof number）で見分けて 1 つにした。
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Double, jstr } from "../java/lang.ts";
+import { DoubleVector } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { Double, jstr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { Input } from "./Input.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
-import { ListInput } from "./ListInput.ts";
+import { ListInput } from "../internal.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 
 export class ValueListInput extends ListInput<DoubleVector> {

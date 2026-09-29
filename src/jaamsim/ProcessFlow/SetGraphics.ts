@@ -17,19 +17,19 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { EntityProvInput } from "../EntityProviders/EntityProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { OverlayEntity } from "../Graphics/OverlayEntity.ts";
-import { TextBasics } from "../Graphics/TextBasics.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { EntityListInput } from "../input/EntityListInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { EntityProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { OverlayEntity } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { EntityListInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端の値） */
 function jint(x: number): number {

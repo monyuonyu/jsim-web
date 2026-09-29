@@ -20,9 +20,9 @@
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
 import type { BooleanVector } from "../datatypes/BooleanVector.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
-import { ListInput } from "./ListInput.ts";
+import { ListInput } from "../internal.ts";
 
 export class BooleanListInput extends ListInput<BooleanVector> {
 

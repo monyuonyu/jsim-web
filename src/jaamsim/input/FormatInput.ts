@@ -20,11 +20,11 @@
 //     jformat は誤りの書式でも例外を投げないので、java.util.Formatter の調べ方（double の引数 1 つで書く時）を
 //     checkJavaFormat として写した。
 import type { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { tr } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
-import { StringInput } from "./StringInput.ts";
+import { StringInput } from "../internal.ts";
 
 export class FormatInput extends StringInput {
 	constructor(key: string, cat: string, def: string | null) {

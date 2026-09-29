@@ -19,10 +19,10 @@
 // 注: Java の値は java.awt.image.BufferedImage（ImageIO.read で読んだ画像）。画像を使うのは描画だけなので、
 //     ここでは画像を読まず、画像のファイルの URI を持つ物（BufferedImage の代わり）を値にする。
 import type { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Input } from "./Input.ts";
-import { InputAgent } from "./InputAgent.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { tr } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { URI } from "./ParseContext.ts";
 

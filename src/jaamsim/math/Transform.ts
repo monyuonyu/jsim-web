@@ -15,11 +15,11 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { jstr } from "../java/lang.ts";
-import { Mat4d } from "./Mat4d.ts";
-import { MathUtils } from "./MathUtils.ts";
-import { Quaternion } from "./Quaternion.ts";
-import { Vec3d } from "./Vec3d.ts";
+import { jstr } from "../internal.ts";
+import { Mat4d } from "../internal.ts";
+import { MathUtils } from "../internal.ts";
+import { Quaternion } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
 import type { Vec4d } from "./Vec4d.ts";
 
 /**

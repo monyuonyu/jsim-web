@@ -20,12 +20,13 @@
 // static の方を 1 つの static parse(toks | json) にし、インスタンスの parse() はそのまま（TS では static とインスタンスで同じ名前が使える）。
 // Java の ArrayList.get の範囲の外（IndexOutOfBoundsException）は、getTok で同じ例外を投げる。
 
-import { tr } from "../i18n/I18n.ts";
-import { Double, IndexOutOfBoundsException, NumberFormatException } from "../java/lang.ts";
-import { JSONError } from "./JSONError.ts";
-import { JSONTokenizer, type JSONTokenizer_Token } from "./JSONTokenizer.ts";
-import { JSONValue } from "./JSONValue.ts";
-import { JavaHashOrder } from "../ProcessFlow/MappedTreeSet.ts";
+import { tr } from "../internal.ts";
+import { Double, IndexOutOfBoundsException, NumberFormatException } from "../internal.ts";
+import { JSONError } from "../internal.ts";
+import { JSONTokenizer } from "../internal.ts";
+import { type JSONTokenizer_Token } from "./JSONTokenizer.ts";
+import { JSONValue } from "../internal.ts";
+import { JavaHashOrder } from "../internal.ts";
 
 /** Java の ArrayList.get(index)（範囲の外は IndexOutOfBoundsException） */
 function getTok(toks: JSONTokenizer_Token[], index: number): JSONTokenizer_Token {

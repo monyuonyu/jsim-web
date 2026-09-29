@@ -19,12 +19,12 @@
 
 // updateGraphics は、処理中の物の位置（状態）を決めるので残した。
 
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { AbstractCombine } from "./AbstractCombine.ts";
+import { Entity } from "../internal.ts";
+import { AbstractCombine } from "../internal.ts";
 
 export class Combine extends AbstractCombine {
 

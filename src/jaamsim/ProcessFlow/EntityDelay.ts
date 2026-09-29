@@ -23,26 +23,26 @@
 // setPresentState() は StateEntity の setPresentState(String) と 1 つにした（引数が無ければ状態を計算する）。
 // updateGraphics は、線の上を動く物の位置・向きの計算（状態）なので残した。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { PolylineModel } from "../DisplayModels/PolylineModel.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { PolylineModel } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { LineEntity } from "../Graphics/LineEntity.ts";
-import { PolylineInfo } from "../Graphics/PolylineInfo.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { CompoundEntity } from "../SubModels/CompoundEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ColourInput } from "../input/ColourInput.ts";
+import { LineEntity } from "../internal.ts";
+import { PolylineInfo } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { CompoundEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { defineOutput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { TimeUnit } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端の値） */
 function jint(x: number): number {

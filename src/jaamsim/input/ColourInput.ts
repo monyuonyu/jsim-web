@@ -25,12 +25,12 @@
 //   成分を並べた文字列をキーにした Map にした。
 // - Comparator（colourComparator・luminosityComparator）は、Input.uiSortOrder と同じく compare(a, b) を持つ物にした。
 // - static の toString(Color4d) と、インスタンスの toString() は、名前をそのまま残した（static と instance で別の物）。
-import { Double } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { Double } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Color4d } from "../math/Color4d.ts";
-import { Input } from "./Input.ts";
+import { Color4d } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 /** Color4d の equals（r, g, b, a が ==）と同じ意味の、Map のキー */

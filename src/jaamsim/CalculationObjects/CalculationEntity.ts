@@ -19,14 +19,14 @@
 
 // interface Controllable は、ファイルの最後で Controllable.register(CalculationEntity) として印を付けた（子クラスにも効く）。
 
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { Double } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Controllable } from "./Controllable.ts";
-import { Controller } from "./Controller.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Controllable } from "../internal.ts";
+import { Controller } from "../internal.ts";
 
 /**
  * CalculationEntity is the super-class for all Calculation Objects.

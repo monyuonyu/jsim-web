@@ -16,20 +16,20 @@
  * limitations under the License.
  */
 
-import { ExpressionThreshold } from "../Thresholds/ExpressionThreshold.ts";
-import { Queue } from "../ProcessFlow/Queue.ts";
-import { Server } from "../ProcessFlow/Server.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { CompoundEntity } from "./CompoundEntity.ts";
-import { SubModelEnd } from "./SubModelEnd.ts";
-import { SubModelStart } from "./SubModelStart.ts";
+import { ExpressionThreshold } from "../internal.ts";
+import { Queue } from "../internal.ts";
+import { Server } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { CompoundEntity } from "../internal.ts";
+import { SubModelEnd } from "../internal.ts";
+import { SubModelStart } from "../internal.ts";
 
 export class ServerAndQueue extends CompoundEntity {
 

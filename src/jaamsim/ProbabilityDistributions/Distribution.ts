@@ -17,25 +17,26 @@
  * limitations under the License.
  */
 
-import { Double, jstr, type JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
+import { Double, jstr } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { SampleStatistics } from "../Statistics/SampleStatistics.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { SampleStatistics } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
+import { InputAgent } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { InputErrorException } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
 import type { ParseContext } from "../input/ParseContext.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { RandomStreamUser } from "./RandomStreamUser.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { RandomStreamUser } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

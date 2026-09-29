@@ -21,21 +21,21 @@
 // - コンストラクタ TimeSeriesInput(key, cat, TimeSeriesProvider) と (key, cat, double) は、def の型（typeof number）で見分ける。
 // - getValue() と getValue(thisEnt, simTime, klass) は、引数の数で見分ける（Input.ts と同じ）。
 // - Java の TimeSeriesProvider.class（interface）は、JInterface（TimeSeriesProviderInterface）で渡す。
-import { jformat, Double } from "../java/lang.ts";
+import { jformat, Double } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { TimeSeriesConstantDouble } from "../Samples/TimeSeriesConstantDouble.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { TimeSeriesConstantDouble } from "../internal.ts";
 import type { TimeSeriesProvider } from "../Samples/TimeSeriesProvider.ts";
-import { isTimeSeriesProvider } from "../Samples/TimeSeriesProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { isTimeSeriesProvider } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { Input } from "./Input.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { JInterface } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 

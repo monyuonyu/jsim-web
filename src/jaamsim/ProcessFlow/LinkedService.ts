@@ -21,31 +21,32 @@
 // moveToProcessPosition(DisplayEntity) は、物の位置（状態）を決めるので残した。DisplayEntity の
 // moveToProcessPosition(DisplayEntity, Vec3d) と、引数の数で見分ける 1 つの関数にした。
 
-import { tr } from "../i18n/I18n.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { EntityProvInput } from "../EntityProviders/EntityProvInput.ts";
+import { tr } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { EntityProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { StringProvInput } from "../StringProviders/StringProvInput.ts";
-import { CompoundEntity } from "../SubModels/CompoundEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { isSubjectEntity, type SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { AssignmentListInput } from "../input/AssignmentListInput.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpressionInput } from "../input/ExpressionInput.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { LinkedDevice } from "./LinkedDevice.ts";
-import { Queue } from "./Queue.ts";
-import { QueueUser } from "./QueueUser.ts";
+import { SampleListInput } from "../internal.ts";
+import { StringProvInput } from "../internal.ts";
+import { CompoundEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { isSubjectEntity } from "../internal.ts";
+import { type SubjectEntity } from "../basicsim/SubjectEntity.ts";
+import { EventManager } from "../internal.ts";
+import { AssignmentListInput } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpressionInput } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { LinkedDevice } from "../internal.ts";
+import { Queue } from "../internal.ts";
+import { QueueUser } from "../internal.ts";
 
 /**
  * Java の SubjectEntity.class の代わり（SubjectEntity には値が無いので、instanceof で使える物を作った）。

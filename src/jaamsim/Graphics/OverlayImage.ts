@@ -16,14 +16,14 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { IconModel } from "../DisplayModels/IconModel.ts";
-import { ImageModel } from "../DisplayModels/ImageModel.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { IntegerListInput } from "../input/IntegerListInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { OverlayEntity } from "./OverlayEntity.ts";
+import { IconModel } from "../internal.ts";
+import { ImageModel } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { IntegerVector } from "../internal.ts";
+import { IntegerListInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { OverlayEntity } from "../internal.ts";
 
 /**
  * OverlayImage displays a 2D image (JPG, PNG, etc.) as an overlay on a View window.

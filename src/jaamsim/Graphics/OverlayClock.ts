@@ -16,15 +16,15 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { IllegalArgumentException } from "../java/lang.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { OverlayText } from "./OverlayText.ts";
+import { StringInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { IllegalArgumentException } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { OverlayText } from "../internal.ts";
 
 /*
  * 移植の注意:

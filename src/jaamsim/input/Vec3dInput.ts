@@ -17,16 +17,16 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { jformat, jstr, Double } from "../java/lang.ts";
+import { jformat, jstr, Double } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { Input } from "./Input.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 

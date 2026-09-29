@@ -16,15 +16,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { FileInput } from "../input/FileInput.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { ValueInput } from "../input/ValueInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Entity } from "./Entity.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { FileInput } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { ValueInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Entity } from "../internal.ts";
 
 // 入れ子のクラス ScriptEntity.ScriptTarget は、同じファイルの ScriptEntity_ScriptTarget にした
 export class ScriptEntity extends Entity {

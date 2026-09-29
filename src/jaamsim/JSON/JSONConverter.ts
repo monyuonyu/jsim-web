@@ -18,14 +18,14 @@
 
 // Java の HashMap<String, ExpResult> は、Java と同じ順番で回る StringHashMap（input/ExpCollections.ts）にした。
 
-import { tr } from "../i18n/I18n.ts";
-import { ExpCollections, StringHashMap } from "../input/ExpCollections.ts";
-import { ExpError } from "../input/ExpError.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpResult } from "../input/ExpResult.ts";
-import { JavaHashOrder } from "../ProcessFlow/MappedTreeSet.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { JSONValue } from "./JSONValue.ts";
+import { tr } from "../internal.ts";
+import { ExpCollections, StringHashMap } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
+import { JavaHashOrder } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { JSONValue } from "../internal.ts";
 
 export class JSONConverter {
 

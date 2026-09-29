@@ -15,16 +15,16 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { PolylineModel } from "../DisplayModels/PolylineModel.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { AbstractShape } from "./AbstractShape.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { PolylineEntity } from "./PolylineEntity.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { PolylineModel } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { AbstractShape } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { PolylineEntity } from "../internal.ts";
 
 /**
  * A series of nodes that are connected by straight or curved lines. A filled polyline can be used

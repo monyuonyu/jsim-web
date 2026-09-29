@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-import { jformat, jstr } from "../java/lang.ts";
+import { jformat, jstr } from "../internal.ts";
 import type { JavaHashOrder } from "../ProcessFlow/MappedTreeSet.ts";
 import type { JSONValue } from "./JSONValue.ts";
 

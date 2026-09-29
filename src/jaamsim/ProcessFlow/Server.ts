@@ -20,13 +20,13 @@
 // updateGraphics は、処理中の物の位置（状態）を決めるので残した。
 
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { LinkedService } from "./LinkedService.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { LinkedService } from "../internal.ts";
 
 /**
  * Server processes entities one by one from a queue.  When finished with an entity, it passes it to the next

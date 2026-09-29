@@ -19,11 +19,12 @@
 // 2 つのコンストラクタ DefineCommand(sim, cls, name)・(sim, cls, proto, name) は、引数の数で見分ける 1 つのコンストラクタにした。
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { tr } from "../i18n/I18n.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { jformat, type JClass } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { jformat } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
 import type { Command } from "./Command.ts";
 
 export class DefineCommand implements Command {

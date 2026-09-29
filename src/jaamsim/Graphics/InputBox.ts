@@ -16,17 +16,17 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
+import { KeywordCommand } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { KeywordInput } from "../input/KeywordInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { TextBasics } from "./TextBasics.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { KeywordInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
 
 export class InputBox extends TextBasics {
 

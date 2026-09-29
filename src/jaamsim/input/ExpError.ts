@@ -1,5 +1,5 @@
 //HEADER
-import { jformat } from "../java/lang.ts";
+import { jformat } from "../internal.ts";
 
 /**
  * 式の誤り（Java の ExpError。Java では検査例外）。

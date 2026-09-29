@@ -16,27 +16,27 @@
  * limitations under the License.
  */
 
-import { tr } from "../i18n/I18n.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { StringProvInput } from "../StringProviders/StringProvInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { EntityInput } from "../input/EntityInput.ts";
+import { tr } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { StringProvInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { InterfaceEntityInput } from "../input/InterfaceEntityInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { StateEntity } from "../states/StateEntity.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { RateUnit } from "../units/RateUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Device } from "./Device.ts";
-import { EntityGen } from "./EntityGen.ts";
-import { Linkable } from "./Linkable.ts";
-import { ProcessorData } from "./ProcessorData.ts";
+import { InputErrorException } from "../internal.ts";
+import { InterfaceEntityInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { RateUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Device } from "../internal.ts";
+import { EntityGen } from "../internal.ts";
+import { Linkable } from "../internal.ts";
+import { ProcessorData } from "../internal.ts";
 
 export abstract class LinkedDevice extends Device implements Linkable {
 

@@ -15,7 +15,7 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { implementsFunctions } from "./Editable.ts";
+import { implementsFunctions } from "../internal.ts";
 
 /*
  * 移植の注意: instanceof PolylineEntity と getDisplayModel(PolylineEntity.class) の代わりは、

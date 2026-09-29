@@ -19,30 +19,31 @@
 // 名前の無い EntityTarget（doValueTraceTarget）と、入れ子のクラス ValueChangedConditional は、
 // ファイルの中のクラスにした。Java の Arrays.binarySearch(double[], double) は、ファイルの中の関数 binarySearch。
 
-import { Double, Integer } from "../java/lang.ts";
+import { Double, Integer } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { TimeBasedFrequency } from "../Statistics/TimeBasedFrequency.ts";
-import { TimeBasedStatistics } from "../Statistics/TimeBasedStatistics.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { ObserverEntity } from "../basicsim/ObserverEntity.ts";
-import { isSubjectEntity, type SubjectEntity } from "../basicsim/SubjectEntity.ts";
+import { ClassRegistry } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { SampleListInput } from "../internal.ts";
+import { TimeBasedFrequency } from "../internal.ts";
+import { TimeBasedStatistics } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { ObserverEntity } from "../internal.ts";
+import { isSubjectEntity } from "../internal.ts";
+import { type SubjectEntity } from "../basicsim/SubjectEntity.ts";
 import type { Conditional } from "../events/Conditional.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { EventManager } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { MathUtils } from "../math/MathUtils.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { MathUtils } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
 
 /** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
 const SubjectEntityClass = {

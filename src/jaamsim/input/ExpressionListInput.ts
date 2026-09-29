@@ -17,26 +17,26 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { JClass } from "../java/lang.ts";
-import { jformat } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
+import { jformat } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { ErrorException } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { ExpError } from "./ExpError.ts";
-import { ExpEvaluator } from "./ExpEvaluator.ts";
+import { ArrayListInput } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
 import type { ExpEvaluator_EntityParseContext } from "./ExpEvaluator.ts";
-import { ExpParser } from "./ExpParser.ts";
+import { ExpParser } from "../internal.ts";
 import type { ExpParser_Expression } from "./ExpParser.ts";
-import { ExpResType } from "./ExpResType.ts";
+import { ExpResType } from "../internal.ts";
 import type { ExpResult } from "./ExpResult.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
-import { Parser } from "./Parser.ts";
+import { Parser } from "../internal.ts";
 import type { JType } from "./ValueHandle.ts";
 
 export class ExpressionListInput extends ArrayListInput<ExpParser_Expression> {

@@ -20,18 +20,18 @@
 // 引数の無い関数と、同じ値を返す出力の関数（double simTime を受ける方）は、1 つにした:
 // getFlowArea(simTime?)・getVelocity(simTime?)・getInletPressure(simTime?)・getOutletPressure(simTime?)。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { AreaUnit } from "../units/AreaUnit.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { PressureUnit } from "../units/PressureUnit.ts";
-import { SpeedUnit } from "../units/SpeedUnit.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { AreaUnit } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { PressureUnit } from "../internal.ts";
+import { SpeedUnit } from "../internal.ts";
 import type { Fluid } from "./Fluid.ts";
 import type { FluidFlow } from "./FluidFlow.ts";
 

@@ -18,15 +18,15 @@
  */
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { MRG1999a } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { Distribution } from "./Distribution.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { Distribution } from "../internal.ts";
 
 /**
  * Triangular Distribution.

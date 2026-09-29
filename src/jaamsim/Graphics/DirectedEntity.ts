@@ -16,7 +16,7 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { Vec3d } from "../math/Vec3d.ts";
-import { AbstractDirectedEntity } from "./AbstractDirectedEntity.ts";
+import { AbstractDirectedEntity } from "../internal.ts";
 import type { DisplayEntity } from "./DisplayEntity.ts";
 
 export class DirectedEntity extends AbstractDirectedEntity<DisplayEntity> {

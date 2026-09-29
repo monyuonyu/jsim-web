@@ -16,12 +16,12 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { Mat4d } from "./Mat4d.ts";
-import { MathUtils } from "./MathUtils.ts";
-import { Plane } from "./Plane.ts";
+import { MathUtils } from "../internal.ts";
+import { Plane } from "../internal.ts";
 import type { Ray } from "./Ray.ts";
-import { isMat4d } from "./Vec2d.ts";
-import { Vec3d } from "./Vec3d.ts";
-import { Vec4d } from "./Vec4d.ts";
+import { isMat4d } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { Vec4d } from "../internal.ts";
 
 /*
  * 入れ子の enum PlaneTestResult は、このファイルの AABB_PlaneTestResult にし、AABB.PlaneTestResult からも引けるようにした。

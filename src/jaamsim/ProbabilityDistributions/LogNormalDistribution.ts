@@ -17,14 +17,14 @@
  * limitations under the License.
  */
 
-import { Double } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Distribution } from "./Distribution.ts";
-import { NormalDistribution } from "./NormalDistribution.ts";
+import { Double } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { MRG1999a } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Distribution } from "../internal.ts";
+import { NormalDistribution } from "../internal.ts";
 
 /**
  * LogNormal Distribution.

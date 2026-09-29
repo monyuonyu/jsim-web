@@ -19,13 +19,13 @@
 
 // getFlowRate() と出力の getFlowRate(double)（Java では Double を返す）は同じ値なので、getFlowRate(simTime?) の 1 つにした。
 
-import { CalculationEntity } from "../CalculationObjects/CalculationEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { VolumeFlowUnit } from "../units/VolumeFlowUnit.ts";
-import { Fluid } from "./Fluid.ts";
-import { FluidComponent } from "./FluidComponent.ts";
+import { CalculationEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { VolumeFlowUnit } from "../internal.ts";
+import { Fluid } from "../internal.ts";
+import { FluidComponent } from "../internal.ts";
 
 /**
  * FluidFlowCalculation is the super-class for all flows between source and destination tanks.

@@ -17,14 +17,14 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SignalThreshold } from "../Thresholds/SignalThreshold.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { SignalThreshold } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
 
 export class EntitySignal extends LinkedComponent {
 

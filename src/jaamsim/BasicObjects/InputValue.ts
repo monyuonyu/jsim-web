@@ -18,20 +18,20 @@
  */
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { TextBasics } from "../Graphics/TextBasics.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
 
 export class InputValue extends TextBasics implements SampleProvider {
 

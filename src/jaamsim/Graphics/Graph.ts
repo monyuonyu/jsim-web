@@ -16,20 +16,22 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { EventManager, ProcessTarget } from "../events/EventManager.ts";
-import { Input } from "../input/Input.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, type JClass } from "../java/lang.ts";
+import { SampleInput } from "../internal.ts";
+import { SampleListInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { DoubleVector } from "../internal.ts";
+import { EventManager, ProcessTarget } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
 import type { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { AbstractGraph, type AbstractGraph_SeriesInfo } from "./AbstractGraph.ts";
-import { LateClasses, jint } from "./LateClasses.ts";
+import { AbstractGraph } from "../internal.ts";
+import { type AbstractGraph_SeriesInfo } from "./AbstractGraph.ts";
+import { LateClasses, jint } from "../internal.ts";
 
 /*
  * 移植の注意:

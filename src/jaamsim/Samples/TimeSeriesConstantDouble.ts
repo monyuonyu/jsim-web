@@ -22,10 +22,10 @@
 
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Input } from "../input/Input.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { Double, Long, jstr } from "../java/lang.ts";
+import { Input } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { Double, Long, jstr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import type { TimeSeriesProvider } from "./TimeSeriesProvider.ts";
 

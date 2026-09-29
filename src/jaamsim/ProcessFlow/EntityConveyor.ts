@@ -22,30 +22,30 @@
 // Device の final の updateProgress() は updateProgressToNow() という名前（docs/renamed.md）。
 // updateGraphics は、コンベヤの上の物の位置・向きの計算（状態）なので残した。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, Long, jformat, jstr } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { PolylineModel } from "../DisplayModels/PolylineModel.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, Long, jformat, jstr } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { PolylineModel } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { LineEntity } from "../Graphics/LineEntity.ts";
-import { PolylineInfo } from "../Graphics/PolylineInfo.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { CompoundEntity } from "../SubModels/CompoundEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { LineEntity } from "../internal.ts";
+import { PolylineInfo } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { CompoundEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
+import { EventManager } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { defineOutput, hideOutput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { MathUtils } from "../math/MathUtils.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { AbstractStateUserEntity } from "./AbstractStateUserEntity.ts";
-import { LinkedService } from "./LinkedService.ts";
+import { MathUtils } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { AbstractStateUserEntity } from "../internal.ts";
+import { LinkedService } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端の値） */
 function jint(x: number): number {

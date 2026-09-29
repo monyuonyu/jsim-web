@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-import { Double } from "../java/lang.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
+import { Double } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { StringProvInput } from "../StringProviders/StringProvInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { SampleInput } from "../internal.ts";
+import { StringProvInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { EntContainer } from "./EntContainer.ts";
-import { LinkedService } from "./LinkedService.ts";
+import { LinkedService } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

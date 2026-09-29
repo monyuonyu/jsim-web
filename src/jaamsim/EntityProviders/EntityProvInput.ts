@@ -15,20 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
+import { DisplayEntity } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { Input } from "../input/Input.ts";
+import { ErrorException } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Parser } from "../input/Parser.ts";
+import { Parser } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jformat, jIsAssignableFrom } from "../java/lang.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jformat, jIsAssignableFrom } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { EntityProvider } from "./EntityProvider.ts";
-import { EntityProvConstant } from "./EntityProvConstant.ts";
-import { EntityProvExpression } from "./EntityProvExpression.ts";
+import { EntityProvConstant } from "../internal.ts";
+import { EntityProvExpression } from "../internal.ts";
 
 export class EntityProvInput<T extends Entity> extends Input<EntityProvider<T>> {
 

@@ -15,8 +15,8 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { jformat } from "../java/lang.ts";
-import { Editable, KeyEvent } from "./Editable.ts";
+import { jformat } from "../internal.ts";
+import { Editable, KeyEvent } from "../internal.ts";
 import type { EditableText } from "./EditableText.ts";
 
 /*

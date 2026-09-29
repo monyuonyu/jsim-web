@@ -22,17 +22,17 @@
 // - getValueAsDouble(simTime, def) と getValueAsDouble(simTime, def, u) は、引数の数で見分ける。
 // - Java の出力の表は HashMap<String, …>。その順番（getAllOutputHandles の並び）が、同じ sequence の出力の並びに効くので、
 //   Java の HashMap の順番（javaHashMapOrder）をまねて並べる。
-import { jIsAssignableFrom } from "../java/lang.ts";
+import { jIsAssignableFrom } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { getOutputDefs } from "./OutputRegistry.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { getOutputDefs } from "../internal.ts";
 import type { OutputDef, OutputReturnType } from "./OutputRegistry.ts";
-import { ValueHandle } from "./ValueHandle.ts";
+import { ValueHandle } from "../internal.ts";
 import type { JType } from "./ValueHandle.ts";
 
 /** Java の String.hashCode（int） */

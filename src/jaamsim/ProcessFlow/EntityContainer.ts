@@ -20,27 +20,27 @@
 // 多重定義 getCount(String) と出力の getCount(double) は、getCount(m) の 1 つにした（出力は getCount(null) を呼ぶ）。
 // updateGraphics は、中の物の位置・向き・表示の計算（状態）なので残した。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { StringProvInput } from "../StringProviders/StringProvInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { Input } from "../input/Input.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { Quaternion } from "../math/Quaternion.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { StateEntity } from "../states/StateEntity.ts";
+import { SampleInput } from "../internal.ts";
+import { StringProvInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { Quaternion } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
 import type { StateRecord } from "../states/StateRecord.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { EntContainer } from "./EntContainer.ts";
-import { EntContainerDelegate } from "./EntContainerDelegate.ts";
-import { SimEntity } from "./SimEntity.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { EntContainer } from "../internal.ts";
+import { EntContainerDelegate } from "../internal.ts";
+import { SimEntity } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

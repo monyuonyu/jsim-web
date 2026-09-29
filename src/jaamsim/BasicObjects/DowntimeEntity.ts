@@ -22,30 +22,31 @@
 // - setPresentState()（この部品の状態を決める）と、親の setPresentState(String) は、引数があるかどうかで見分ける
 // - getEndTime() と出力の getEndTime(double simTime) は同じ値なので 1 つの関数（simTime は省略できる）
 
-import { Double, Integer, jRemove, jstr } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
+import { Double, Integer, jRemove, jstr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { SampleListInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { AbstractResourceProvider } from "../resourceObjects/AbstractResourceProvider.ts";
-import { ResourceProvider } from "../resourceObjects/ResourceProvider.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { AbstractResourceProvider } from "../internal.ts";
+import { ResourceProvider } from "../internal.ts";
 import type { ResourceUser } from "../resourceObjects/ResourceUser.ts";
-import { ResourceUserDelegate } from "../resourceObjects/ResourceUserDelegate.ts";
-import { isDowntimeUser, type DowntimeUser } from "../states/DowntimeUser.ts";
-import { StateEntity } from "../states/StateEntity.ts";
+import { ResourceUserDelegate } from "../internal.ts";
+import { isDowntimeUser } from "../internal.ts";
+import { type DowntimeUser } from "../states/DowntimeUser.ts";
+import { StateEntity } from "../internal.ts";
 import type { StateEntityListener } from "../states/StateEntityListener.ts";
 import type { StateRecord } from "../states/StateRecord.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 
 /** Java の (int) の型変換（0 の方向へ切り捨て、NaN は 0、範囲の外は端に張り付く） */
 function toInt(x: number): number {

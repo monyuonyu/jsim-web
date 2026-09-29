@@ -21,11 +21,11 @@
 // iterator() が返す Java の Iterator<DisplayEntity> は JIterator<DisplayEntity>（MappedTreeSet.ts）。
 // getEntityTypes() は Java の Set<String> の代わりに string[]（EntStorage.getTypes() と同じく Java の HashMap の順番）。
 
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { EntContainer } from "./EntContainer.ts";
-import { EntStorage, EntStorage_StorageEntry } from "./EntStorage.ts";
-import { JIterator } from "./MappedTreeSet.ts";
+import { EntContainer } from "../internal.ts";
+import { EntStorage, EntStorage_StorageEntry } from "../internal.ts";
+import { JIterator } from "../internal.ts";
 
 export class EntContainerDelegate implements EntContainer {
 

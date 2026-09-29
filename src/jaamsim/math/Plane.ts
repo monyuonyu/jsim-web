@@ -16,11 +16,11 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { Mat4d } from "./Mat4d.ts";
-import { MathUtils } from "./MathUtils.ts";
-import { Ray } from "./Ray.ts";
-import { Transform } from "./Transform.ts";
-import { Vec3d } from "./Vec3d.ts";
-import { Vec4d } from "./Vec4d.ts";
+import { MathUtils } from "../internal.ts";
+import { Ray } from "../internal.ts";
+import { Transform } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { Vec4d } from "../internal.ts";
 
 export class Plane {
 /**

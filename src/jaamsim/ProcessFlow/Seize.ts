@@ -21,15 +21,15 @@
 // 1 つの関数にすると、状態の切り替えのたびに資源の通知が走ってしまうので、resourceStateChanged() にした（docs/renamed.md）。
 
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { AbstractResourceProvider } from "../resourceObjects/AbstractResourceProvider.ts";
-import { AbstractLinkedResourceUser } from "./AbstractLinkedResourceUser.ts";
+import { AbstractResourceProvider } from "../internal.ts";
+import { AbstractLinkedResourceUser } from "../internal.ts";
 
 export class Seize extends AbstractLinkedResourceUser {
 

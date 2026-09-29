@@ -18,12 +18,12 @@
  */
 // 入れ子の enum ExpValResult.State は、同じ名前の namespace で ExpValResult.State として置いた。
 import type { JClass } from "../java/lang.ts";
-import { jformat } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { jformat } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { ExpError } from "./ExpError.ts";
-import { ExpResType } from "./ExpResType.ts";
+import { ExpError } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
 
 export class ExpValResult {
 

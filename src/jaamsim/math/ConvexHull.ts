@@ -15,16 +15,16 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { DataBlock } from "../MeshFiles/DataBlock.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Double } from "../java/lang.ts";
-import { AABB } from "./AABB.ts";
+import { DataBlock } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { AABB } from "../internal.ts";
 import type { Mat4d } from "./Mat4d.ts";
-import { MathUtils } from "./MathUtils.ts";
-import { Plane } from "./Plane.ts";
+import { MathUtils } from "../internal.ts";
+import { Plane } from "../internal.ts";
 import type { Ray } from "./Ray.ts";
-import { Transform } from "./Transform.ts";
-import { Vec3d } from "./Vec3d.ts";
+import { Transform } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
 import type { Vec3dInterner } from "./Vec3dInterner.ts";
 import type { Vec4d } from "./Vec4d.ts";
 

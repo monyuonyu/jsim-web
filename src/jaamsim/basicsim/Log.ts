@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { jformat } from "../java/lang.ts";
+import { jformat } from "../internal.ts";
 import type { LogListener } from "./LogListener.ts";
 
 /**

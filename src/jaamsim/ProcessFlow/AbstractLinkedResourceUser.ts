@@ -21,19 +21,19 @@
 // Java の「出力を消す」上書き（getServiceDuration などを @Output なしで上書きして出力を消す）は、
 // TS の出力の表では消せない。TODO(移植) を参照。
 
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InterfaceEntityListInput } from "../input/InterfaceEntityListInput.ts";
-import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { ResourceProvider } from "../resourceObjects/ResourceProvider.ts";
+import { SampleListInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InterfaceEntityListInput } from "../internal.ts";
+import { defineOutput, hideOutput } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { ResourceProvider } from "../internal.ts";
 import type { ResourceUser } from "../resourceObjects/ResourceUser.ts";
-import { ResourceUserDelegate } from "../resourceObjects/ResourceUserDelegate.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { LinkedService } from "./LinkedService.ts";
+import { ResourceUserDelegate } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { LinkedService } from "../internal.ts";
 
 export abstract class AbstractLinkedResourceUser extends LinkedService implements ResourceUser {
 

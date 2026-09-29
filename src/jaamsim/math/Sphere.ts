@@ -15,8 +15,8 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { Plane } from "./Plane.ts";
-import { Vec3d } from "./Vec3d.ts";
+import { Plane } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
 
 /**
  * A simple geometric representation of a sphere. Internally is just a point and radius

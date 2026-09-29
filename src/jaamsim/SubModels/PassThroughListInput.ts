@@ -17,15 +17,15 @@
  */
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ArrayListInput } from "../input/ArrayListInput.ts";
-import { Input } from "../input/Input.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
+import { tr } from "../internal.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
 import type { JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { PassThroughData } from "./PassThroughData.ts";
+import { PassThroughData } from "../internal.ts";
 
 export class PassThroughListInput extends ArrayListInput<PassThroughData> {
 

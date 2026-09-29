@@ -22,18 +22,18 @@
 // Java の HashMap<String, ExpResult>（地図の式 {"a" = 1} や、その写し）は、回す順番が結果（sum・map・表示の文字列）に効くので、
 // Java の HashMap と同じ順番で回る StringHashMap をこのファイルに作って使う（下のほう）。
 import type { JClass } from "../java/lang.ts";
-import { jformat, jstr, jIsAssignableFrom } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { jformat, jstr, jIsAssignableFrom } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { ExpError } from "./ExpError.ts";
-import { ExpEvaluator } from "./ExpEvaluator.ts";
-import { ExpResType } from "./ExpResType.ts";
-import { ExpResult } from "./ExpResult.ts";
+import { DoubleVector } from "../internal.ts";
+import { IntegerVector } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
 
 type UnitClass = JClass<Unit>;
 type Iterator = ExpResult.Iterator;

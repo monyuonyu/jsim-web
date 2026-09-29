@@ -23,32 +23,32 @@
 // - getUserList() と出力の getUserList(double simTime): 値が違う。simTime を省くと前者、渡すと後者
 // - getUnitsInUse() と getUnitsInUse(double)、getAssignment() と getAssignment(double): 同じ値
 
-import { Double, Integer } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
+import { Double, Integer } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { DowntimeEntity } from "../BasicObjects/DowntimeEntity.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { StateUserEntity } from "../ProcessFlow/StateUserEntity.ts";
-import { TimeBasedFrequency } from "../Statistics/TimeBasedFrequency.ts";
-import { TimeBasedStatistics } from "../Statistics/TimeBasedStatistics.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpressionInput } from "../input/ExpressionInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
+import { StateUserEntity } from "../internal.ts";
+import { TimeBasedFrequency } from "../internal.ts";
+import { TimeBasedStatistics } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpressionInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { AbstractResourceProvider } from "./AbstractResourceProvider.ts";
-import { ResourcePool } from "./ResourcePool.ts";
-import { ResourceProvider } from "./ResourceProvider.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { AbstractResourceProvider } from "../internal.ts";
+import { ResourcePool } from "../internal.ts";
+import { ResourceProvider } from "../internal.ts";
 import type { ResourceUser } from "./ResourceUser.ts";
 import type { Seizable } from "./Seizable.ts";
 

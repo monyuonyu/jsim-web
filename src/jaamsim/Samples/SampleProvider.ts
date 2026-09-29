@@ -22,8 +22,8 @@
 // - Java の static 関数 addQuotesIfNeeded は const SampleProvider.addQuotesIfNeeded
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { Input } from "../input/Input.ts";
-import { Parser } from "../input/Parser.ts";
+import { Input } from "../internal.ts";
+import { Parser } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
 import type { JClass } from "../java/lang.ts";
 

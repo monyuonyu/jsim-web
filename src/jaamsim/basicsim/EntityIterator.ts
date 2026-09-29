@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { UnsupportedOperationException } from "../java/lang.ts";
+import { UnsupportedOperationException } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import type { Entity } from "./Entity.ts";
 import type { EntityListNode } from "./EntityListNode.ts";

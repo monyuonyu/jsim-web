@@ -19,7 +19,7 @@
 
 import type { DoubleVector } from "../datatypes/DoubleVector.ts";
 import type { EventManager } from "../events/EventManager.ts";
-import { Double, jformat, jstr } from "../java/lang.ts";
+import { Double, jformat, jstr } from "../internal.ts";
 
 export class TimeSeriesData {
 	readonly evt: EventManager;

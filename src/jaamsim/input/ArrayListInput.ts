@@ -17,8 +17,8 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { javaToString } from "./Input.ts";
-import { ListInput } from "./ListInput.ts";
+import { javaToString } from "../internal.ts";
+import { ListInput } from "../internal.ts";
 
 export abstract class ArrayListInput<T> extends ListInput<T[]> {
 

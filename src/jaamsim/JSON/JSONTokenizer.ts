@@ -19,9 +19,9 @@
 // 入れ子のクラス Token は、このファイルの JSONTokenizer_Token にした（JSONTokenizer.Token とも書ける）。
 // char は長さ 1 の文字列。文字の大小の比べ（c < ' ' など）は、JS の文字列の比べ（UTF-16 の符号の順）で Java と同じになる。
 
-import { tr } from "../i18n/I18n.ts";
-import { NumberFormatException } from "../java/lang.ts";
-import { JSONError } from "./JSONError.ts";
+import { tr } from "../internal.ts";
+import { NumberFormatException } from "../internal.ts";
+import { JSONError } from "../internal.ts";
 
 export class JSONTokenizer_Token {
 	public type = 0;

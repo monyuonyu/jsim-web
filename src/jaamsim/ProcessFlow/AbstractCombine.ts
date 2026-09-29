@@ -20,21 +20,21 @@
 // 出力の getMatchValue(double) を null にする上書き（Java の「Delete 'MatchValue' output」）は、
 // LinkedService で getMatchValue() と 1 つにしてあるので、引数があるときだけ null を返す。
 
-import { tr } from "../i18n/I18n.ts";
-import { Double, Integer } from "../java/lang.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { EntityProvListInput } from "../EntityProviders/EntityProvListInput.ts";
+import { tr } from "../internal.ts";
+import { Double, Integer } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { EntityProvListInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { LinkedService } from "./LinkedService.ts";
-import { Queue } from "./Queue.ts";
+import { SampleInput } from "../internal.ts";
+import { SampleListInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput, hideOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { LinkedService } from "../internal.ts";
+import { Queue } from "../internal.ts";
 
 export abstract class AbstractCombine extends LinkedService {
 

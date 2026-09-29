@@ -20,14 +20,14 @@
 // getNextSample(double)（出力 Value、final）と getNextSample(Entity, double) は、引数の数で見分ける 1 つの関数にした。
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ValueListInput } from "../input/ValueListInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { Entity } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ValueListInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
 
 /**

@@ -16,36 +16,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { StringProvListInput } from "../StringProviders/StringProvListInput.ts";
-import { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { tr } from "../i18n/I18n.ts";
-import { BooleanInput } from "../input/BooleanInput.ts";
-import { DateInput } from "../input/DateInput.ts";
-import { DirInput } from "../input/DirInput.ts";
-import { EntityListInput } from "../input/EntityListInput.ts";
+import { KeywordCommand } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { StringProvListInput } from "../internal.ts";
+import { IntegerVector } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { BooleanInput } from "../internal.ts";
+import { DateInput } from "../internal.ts";
+import { DirInput } from "../internal.ts";
+import { EntityListInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
-import { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { IntegerInput } from "../input/IntegerInput.ts";
-import { IntegerListInput } from "../input/IntegerListInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { RunNumberInput } from "../input/RunNumberInput.ts";
-import { UnitTypeListInput } from "../input/UnitTypeListInput.ts";
-import { ValueInput } from "../input/ValueInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, Integer, JMath, jstr, Long } from "../java/lang.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { Entity } from "./Entity.ts";
-import { ErrorException } from "./ErrorException.ts";
-import { Calendar, SimCalendar } from "./SimCalendar.ts";
-import { SimDate } from "./SimDate.ts";
+import { InputCallback } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { IntegerInput } from "../internal.ts";
+import { IntegerListInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { RunNumberInput } from "../internal.ts";
+import { UnitTypeListInput } from "../internal.ts";
+import { ValueInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, Integer, JMath, jstr, Long } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
+import { Calendar, SimCalendar } from "../internal.ts";
+import { SimDate } from "../internal.ts";
 import type { WindowDefaults } from "./WindowDefaults.ts";
 
 /** Java の com.jaamsim.ui.AboutBox の定数（画面の部品は移さないので、使う値だけをここに置いた） */

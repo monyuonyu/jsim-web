@@ -25,23 +25,23 @@
 // Java の静的初期化（static { ExpOperators.InitOperatorsAndFuncs(); }）は、循環 import で落ちないように、
 // 演算子・関数の表を初めて引くときに行う（ensureInit）。
 import type { JClass } from "../java/lang.ts";
-import { jformat, Double, IndexOutOfBoundsException } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
+import { jformat, Double, IndexOutOfBoundsException } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
-import { ExpCollections, StringHashMap } from "./ExpCollections.ts";
-import { ExpError } from "./ExpError.ts";
-import { ExpOperators } from "./ExpOperators.ts";
-import { ExpResType } from "./ExpResType.ts";
-import { ExpResult } from "./ExpResult.ts";
-import { ExpTokenizer } from "./ExpTokenizer.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { ExpCollections, StringHashMap } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpOperators } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
+import { ExpTokenizer } from "../internal.ts";
 import type { ExpTokenizer_Token } from "./ExpTokenizer.ts";
-import { ExpValResult } from "./ExpValResult.ts";
+import { ExpValResult } from "../internal.ts";
 
 type UnitClass = JClass<Unit>;
 

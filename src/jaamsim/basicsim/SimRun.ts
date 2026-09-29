@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 import type { EventTraceListener } from "../events/EventTraceListener.ts";
-import { ErrorException } from "./ErrorException.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "./JaamSimModel.ts";
 import type { RunListener } from "./RunListener.ts";
 import type { Scenario } from "./Scenario.ts";

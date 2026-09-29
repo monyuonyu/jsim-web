@@ -19,14 +19,14 @@
  */
 // 注（多重定義の扱い）:
 // - private の isValid(T ent) は、基底の isValid()（入力が有効か）と名前がぶつかるので isValidEntity にした。
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
+import { DisplayEntity } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jformat, jIsAssignableFrom } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jformat, jIsAssignableFrom } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 

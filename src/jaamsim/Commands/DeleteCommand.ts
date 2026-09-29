@@ -17,8 +17,8 @@
  */
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { jformat } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { jformat } from "../internal.ts";
 import type { Command } from "./Command.ts";
 
 export class DeleteCommand implements Command {

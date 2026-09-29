@@ -17,17 +17,17 @@
  * limitations under the License.
  */
 
-import { Double } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { Double } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 
 export class BooleanIndicator extends DisplayEntity {
 

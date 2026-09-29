@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Distribution } from "./Distribution.ts";
+import { ClassRegistry } from "../internal.ts";
+import { MRG1999a } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Distribution } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

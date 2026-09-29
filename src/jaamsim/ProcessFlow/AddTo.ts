@@ -17,16 +17,16 @@
  * limitations under the License.
  */
 
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { AbstractPack } from "./AbstractPack.ts";
-import { EntContainer } from "./EntContainer.ts";
-import { Queue } from "./Queue.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { AbstractPack } from "../internal.ts";
+import { EntContainer } from "../internal.ts";
+import { Queue } from "../internal.ts";
 
 export class AddTo extends AbstractPack {
 

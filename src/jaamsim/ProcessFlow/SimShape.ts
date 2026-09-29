@@ -19,18 +19,18 @@
 // Java の implements LineEntity・FillEntity は、関数の有無で判定される（Graphics/LineEntity.ts・FillEntity.ts）ので印は要らない。
 // getDisplayModel(FillEntity.class) は getDisplayModel(FillEntity)（isInstance を持つ値）にした。
 
-import { Double } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { ShapeModel } from "../DisplayModels/ShapeModel.ts";
-import { FillEntity } from "../Graphics/FillEntity.ts";
-import { LineEntity } from "../Graphics/LineEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
+import { Double } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { ColourProvInput } from "../internal.ts";
+import { ShapeModel } from "../internal.ts";
+import { FillEntity } from "../internal.ts";
+import { LineEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { SimEntity } from "./SimEntity.ts";
+import { SimEntity } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

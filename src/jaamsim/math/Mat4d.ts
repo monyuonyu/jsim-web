@@ -15,9 +15,9 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { tr } from "../i18n/I18n.ts";
-import { IllegalArgumentException } from "../java/lang.ts";
-import { MathUtils } from "./MathUtils.ts";
+import { tr } from "../internal.ts";
+import { IllegalArgumentException } from "../internal.ts";
+import { MathUtils } from "../internal.ts";
 import type { Quaternion } from "./Quaternion.ts";
 import type { Vec2d } from "./Vec2d.ts";
 import type { Vec3d } from "./Vec3d.ts";

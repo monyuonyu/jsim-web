@@ -16,8 +16,8 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { tr } from "../i18n/I18n.ts";
-import { IndexOutOfBoundsException, jformat } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { IndexOutOfBoundsException, jformat } from "../internal.ts";
 
 /*
  * 移植の注意:

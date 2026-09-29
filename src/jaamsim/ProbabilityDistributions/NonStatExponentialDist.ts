@@ -17,20 +17,20 @@
  * limitations under the License.
  */
 
-import { Double, Long } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { TimeSeries } from "../Samples/TimeSeries.ts";
+import { Double, Long } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { TimeSeries } from "../internal.ts";
 import type { TimeSeriesProvider } from "../Samples/TimeSeriesProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { TimeSeriesInput } from "../input/TimeSeriesInput.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Distribution } from "./Distribution.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { TimeSeriesInput } from "../internal.ts";
+import { MRG1999a } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Distribution } from "../internal.ts";
 
 /**
  * Non-Stationary Exponential Distribution.

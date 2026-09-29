@@ -17,8 +17,8 @@
  */
 import type { EventTraceListener } from "../events/EventTraceListener.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { jformat } from "../java/lang.ts";
-import { ErrorException } from "./ErrorException.ts";
+import { jformat } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 
 /**
  * Java は ArrayList<String> を継承している。TS では配列を中に持ち、使う関数（add, get, size, clear, 繰り返し）を持たせた。

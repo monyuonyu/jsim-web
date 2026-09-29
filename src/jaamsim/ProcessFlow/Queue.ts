@@ -25,35 +25,35 @@
 // getPosition(DisplayEntity) は DisplayEntity.getPosition()（位置の Vec3d）とぶつかるので getPositionOf にした（docs/renamed.md）。
 // updateGraphics は、並んだ物の位置・向き・表示の計算（状態）なので残した。
 
-import { Double } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { TimeBasedFrequency } from "../Statistics/TimeBasedFrequency.ts";
-import { TimeBasedStatistics } from "../Statistics/TimeBasedStatistics.ts";
-import { StringProvInput } from "../StringProviders/StringProvInput.ts";
-import { CompoundEntity } from "../SubModels/CompoundEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { Input } from "../input/Input.ts";
+import { Double } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { TimeBasedFrequency } from "../internal.ts";
+import { TimeBasedStatistics } from "../internal.ts";
+import { StringProvInput } from "../internal.ts";
+import { CompoundEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InterfaceEntityInput } from "../input/InterfaceEntityInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { Quaternion } from "../math/Quaternion.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { EntStorage, EntStorage_StorageEntry } from "./EntStorage.ts";
-import { Linkable } from "./Linkable.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
-import { LinkedService } from "./LinkedService.ts";
-import { QueueUser } from "./QueueUser.ts";
+import { InterfaceEntityInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { Quaternion } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { EntStorage, EntStorage_StorageEntry } from "../internal.ts";
+import { Linkable } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
+import { LinkedService } from "../internal.ts";
+import { QueueUser } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

@@ -19,21 +19,21 @@
 // 抽象クラスなので ClassRegistry には入れない。DisplayEntity が名前で引く（LateClasses.isInstance）ので、
 // ファイルの最後で LateClasses.bind する。
 
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
+import { BooleanProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { LateClasses } from "../Graphics/LateClasses.ts";
-import { Region } from "../Graphics/Region.ts";
-import { LinkedComponent } from "../ProcessFlow/LinkedComponent.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { LateClasses } from "../internal.ts";
+import { Region } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
+import { InputAgent } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { SubModelEnd } from "./SubModelEnd.ts";
-import { SubModelStart } from "./SubModelStart.ts";
+import { Vec3dInput } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { SubModelEnd } from "../internal.ts";
+import { SubModelStart } from "../internal.ts";
 
 export abstract class CompoundEntity extends LinkedComponent {
 

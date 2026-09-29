@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { BooleanInput } from "../input/BooleanInput.ts";
-import { Input } from "../input/Input.ts";
+import { ErrorException } from "../internal.ts";
+import { BooleanInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Parser } from "../input/Parser.ts";
+import { Parser } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { BooleanProvider } from "./BooleanProvider.ts";
-import { BooleanProvConstant } from "./BooleanProvConstant.ts";
-import { BooleanProvExpression } from "./BooleanProvExpression.ts";
+import { BooleanProvConstant } from "../internal.ts";
+import { BooleanProvExpression } from "../internal.ts";
 
 export class BooleanProvInput extends Input<BooleanProvider> {
 

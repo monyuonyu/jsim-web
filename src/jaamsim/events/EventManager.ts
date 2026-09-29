@@ -198,6 +198,21 @@ class EventTree {
 
 export class ProcessError extends Error {}
 
+/** 事象の記録を受け取る相手（Java 版 EventTraceListener。事象の記録・照合に使う） */
+export interface EventTraceListener {
+	traceEvent(tick: number, priority: number, t: ProcessTarget): void;
+	traceWait(tick: number, priority: number, t: ProcessTarget): void;
+	traceSchedProcess(tick: number, priority: number, t: ProcessTarget): void;
+	traceProcessStart(t: ProcessTarget): void;
+	traceProcessEnd(): void;
+	traceInterrupt(tick: number, priority: number, t: ProcessTarget): void;
+	traceKill(tick: number, priority: number, t: ProcessTarget): void;
+	traceWaitUntil(): void;
+	traceSchedUntil(t: ProcessTarget): void;
+	traceConditionalEval(t: ProcessTarget): void;
+	traceConditionalEvalEnded(wakeup: boolean, t: ProcessTarget): void;
+}
+
 /** 時刻の進み・誤りを受け取る相手（Java 版 EventTimeListener） */
 export interface EventTimeListener {
 	tickUpdate(tick: number): void;
@@ -233,6 +248,7 @@ export class EventManager {
 	private secsPerTick = 0;
 
 	private timelistener: EventTimeListener = noopListener;
+	private trcListener: EventTraceListener | null = null;
 
 	constructor(readonly name: string) {
 		this.setTickLength(1e-6);
@@ -242,12 +258,31 @@ export class EventManager {
 		this.timelistener = l ?? noopListener;
 	}
 
+	setTraceListener(l: EventTraceListener | null): void {
+		this.trcListener = l;
+	}
+
+	/** 記録の呼び出しの間は、予約を禁じる（Java 版の disableSchedule / enableSchedule） */
+	private trace(fn: (l: EventTraceListener) => void): void {
+		const l = this.trcListener;
+		if (l === null)
+			return;
+		scheduleDisabled = true;
+		try {
+			fn(l);
+		}
+		finally {
+			scheduleDisabled = false;
+		}
+	}
+
 	clear(): void {
 		this.currentTick = 0;
 		this.nextTick = 0;
 		this.oneEvent = false;
 		this.oneSimTime = false;
 		this.targetTick = MAX_TICK;
+		this.trcListener = null;
 		for (const node of this.eventTree.nodes()) {
 			for (let e = node.head; e !== null; e = e.next) {
 				if (e.handle !== null) {
@@ -313,6 +348,8 @@ export class EventManager {
 				if (nextNode!.schedTick === this.currentTick) {
 					const nextEvent = nextNode!.head!;
 					const nextTarget = nextEvent.target!;
+					const node = nextNode!;
+					this.trace(l => l.traceEvent(node.schedTick, node.priority, nextTarget));
 					this.removeEvent(nextEvent);
 					if (this.oneEvent) {
 						this.oneEvent = false;
@@ -359,6 +396,7 @@ export class EventManager {
 	private executeTarget(t: ProcessTarget): boolean {
 		try {
 			t.process();
+			this.trace(l => l.traceProcessEnd());
 			return true;
 		}
 		catch (e) {
@@ -373,7 +411,10 @@ export class EventManager {
 		try {
 			for (let i = 0; i < this.condEvents.length;) {
 				const c = this.condEvents[i];
-				if (c.cond.evaluate()) {
+				this.trcListener?.traceConditionalEval(c.target!);
+				const bool = c.cond.evaluate();
+				this.trcListener?.traceConditionalEvalEnded(bool, c.target!);
+				if (bool) {
 					this.condEvents.splice(i, 1);
 					const node = this.eventTree.createOrFindNode(this.currentTick, 0);
 					const evt = new Event();
@@ -453,8 +494,11 @@ export class EventManager {
 
 	/** 処理をその場で実行する（Java 版は別のスレッドで始め、終わるまで待つ） */
 	static startProcess(t: ProcessTarget): void {
-		EventManager.current().assertCanSchedule();
+		const em = EventManager.current();
+		em.assertCanSchedule();
+		em.trace(l => l.traceProcessStart(t));
 		t.process();
+		em.trace(l => l.traceProcessEnd());
 	}
 
 	/** 予約した事象を、実行せずに取り消す */
@@ -463,6 +507,7 @@ export class EventManager {
 		em.assertCanSchedule();
 		if (handle === null || handle.event === null)
 			return;
+		em.traceHandle(handle, (l, tick, prio, t) => l.traceKill(tick, prio, t));
 		em.getTargetFromHandle(handle);
 	}
 
@@ -472,7 +517,19 @@ export class EventManager {
 		em.assertCanSchedule();
 		if (handle === null || handle.event === null)
 			return;
+		em.traceHandle(handle, (l, tick, prio, t) => l.traceInterrupt(tick, prio, t));
 		em.getTargetFromHandle(handle).process();
+		em.trace(l => l.traceProcessEnd());
+	}
+
+	/** 札の事象の時刻と優先度を記録に渡す（条件つきの事象は -1, -1。Java 版 trcKill・trcInterrupt） */
+	private traceHandle(handle: EventHandle,
+	                    fn: (l: EventTraceListener, tick: number, prio: number, t: ProcessTarget) => void): void {
+		const ev = handle.event!;
+		if (ev instanceof Event)
+			this.trace(l => fn(l, ev.node!.schedTick, ev.node!.priority, ev.target!));
+		else
+			this.trace(l => fn(l, -1, -1, ev.target!));
 	}
 
 	/** 実行中でないときに外から予約する（Java 版 scheduleProcessExternal） */
@@ -488,7 +545,12 @@ export class EventManager {
 	private _scheduleTicks(waitLength: number, eventPriority: number, fifo: boolean,
 	                       t: ProcessTarget, handle: EventHandle | null): void {
 		this.assertCanSchedule();
-		this.addEvent(this.calculateEventTime(waitLength), eventPriority, fifo, t, handle);
+		const schedTick = this.calculateEventTime(waitLength);
+		// Java 版は、札の検査の後・事象を束に入れる前に記録する
+		if (handle !== null && handle.isScheduled())
+			throw new ProcessError("Tried to schedule using an EventHandle already in use");
+		this.trace(l => l.traceSchedProcess(schedTick, eventPriority, t));
+		this.addEvent(schedTick, eventPriority, fifo, t, handle);
 	}
 
 	private addEvent(schedTick: number, eventPriority: number, fifo: boolean,
@@ -515,6 +577,7 @@ export class EventManager {
 			handle.event = evt;
 		}
 		this.condEvents.push(evt);
+		this.trace(l => l.traceSchedUntil(t));
 	}
 
 	private getTargetFromHandle(handle: EventHandle): ProcessTarget {

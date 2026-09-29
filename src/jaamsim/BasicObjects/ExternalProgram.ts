@@ -18,18 +18,18 @@
 
 // 外部プログラムの起動は BasicObjectsIO.runProgram に任せる（差し替えられる）。
 
-import { Double } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { Double } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ExpCollections } from "../input/ExpCollections.ts";
-import { Parser } from "../input/Parser.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { AbstractExternalProgram } from "./AbstractExternalProgram.ts";
-import { getBasicObjectsIO, splitLines, uriToPath } from "./BasicObjectsIO.ts";
-import { FileToArray } from "./FileToArray.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ExpCollections } from "../internal.ts";
+import { Parser } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { AbstractExternalProgram } from "../internal.ts";
+import { getBasicObjectsIO, splitLines, uriToPath } from "../internal.ts";
+import { FileToArray } from "../internal.ts";
 
 export class ExternalProgram extends AbstractExternalProgram {
 

@@ -20,21 +20,21 @@
 // 入れ子のクラス CapacityChangeConditional・UpdateForCapacityChangeTarget は、ファイルの中のクラスにした
 // （Java の Resource.this は、コンストラクタで受け取る）。
 
-import { Double, Integer } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
+import { Double, Integer } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { Distribution } from "../ProbabilityDistributions/Distribution.ts";
-import { SampleConstant } from "../Samples/SampleConstant.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { TimeSeries } from "../Samples/TimeSeries.ts";
+import { Entity } from "../internal.ts";
+import { Distribution } from "../internal.ts";
+import { SampleConstant } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { TimeSeries } from "../internal.ts";
 import type { Conditional } from "../events/Conditional.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { AbstractResourceProvider } from "./AbstractResourceProvider.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { AbstractResourceProvider } from "../internal.ts";
 import type { ResourceProvider } from "./ResourceProvider.ts";
 
 /** Java の (int) の型変換（0 の方向へ切り捨て、NaN は 0、範囲の外は端に張り付く） */

@@ -15,8 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { jformat } from "../java/lang.ts";
-import { Calendar } from "./SimCalendar.ts";
+import { jformat } from "../internal.ts";
+import { Calendar } from "../internal.ts";
 
 /** Java の Calendar のうち、SimDate が使う所（SimCalendar が持つ） */
 export interface CalendarLike {

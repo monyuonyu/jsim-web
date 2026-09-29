@@ -22,7 +22,7 @@
 // - Java の Class<T>（enum）は JEnumClass<T>（Input.ts）。
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JClass } from "../java/lang.ts";
-import { enumConstants, enumName, Input } from "./Input.ts";
+import { enumConstants, enumName, Input } from "../internal.ts";
 import type { JEnumClass } from "./Input.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";

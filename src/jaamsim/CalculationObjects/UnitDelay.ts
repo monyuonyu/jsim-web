@@ -17,12 +17,12 @@
  */
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { ClassRegistry } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { DoubleCalculation } from "./DoubleCalculation.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
 
 export class UnitDelay extends DoubleCalculation {
 

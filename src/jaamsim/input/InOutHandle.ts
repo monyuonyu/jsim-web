@@ -17,14 +17,14 @@
  * TypeScript への移植 (C) 2026 shota
  */
 // 注: 戻り値の型（Java の Class<?>）は、OutputReturnType の文字列（ValueHandle.ts の注を参照）。
-import { Integer, jformat } from "../java/lang.ts";
+import { Integer, jformat } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { Unit } from "../units/Unit.ts";
 import type { Input } from "./Input.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
-import { ValueHandle } from "./ValueHandle.ts";
+import { ValueHandle } from "../internal.ts";
 import type { JType } from "./ValueHandle.ts";
 
 export class InOutHandle extends ValueHandle {

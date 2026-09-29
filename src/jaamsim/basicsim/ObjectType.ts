@@ -16,20 +16,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DisplayModel } from "../DisplayModels/DisplayModel.ts";
-import { BooleanInput } from "../input/BooleanInput.ts";
-import { ClassInput } from "../input/ClassInput.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { ImageInput } from "../input/ImageInput.ts";
+import { DisplayModel } from "../internal.ts";
+import { BooleanInput } from "../internal.ts";
+import { ClassInput } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { ImageInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
-import { InputCallback } from "../input/InputCallback.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { InputCallback } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { Entity } from "./Entity.ts";
+import { Vec3d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { Entity } from "../internal.ts";
 
 /**
  * Java は com.jaamsim.ui.DragAndDropable を実装している（画面の部品なので interface は移さず、関数だけを残した）。

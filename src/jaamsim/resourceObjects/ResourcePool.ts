@@ -18,16 +18,17 @@
 
 // 入れ子のクラス SeizableUnit は、ファイルの中のクラスにした（Comparable の compareTo はそのまま）。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { StateUserEntity } from "../ProcessFlow/StateUserEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { AbstractResourceProvider } from "./AbstractResourceProvider.ts";
-import { isSeizable, type Seizable } from "./Seizable.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { StateUserEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { AbstractResourceProvider } from "../internal.ts";
+import { isSeizable } from "../internal.ts";
+import { type Seizable } from "./Seizable.ts";
 
 export class ResourcePool extends AbstractResourceProvider {
 

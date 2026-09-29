@@ -20,24 +20,24 @@
 // 古いログのファイルを消す所は BasicObjectsIO に任せる（差し替えられる）。
 // FileEntity は、Java の java.io.File の代わりにファイルの道筋（文字列）を受け取る前提。
 
-import { Double, jstr } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { StringProvListInput } from "../StringProviders/StringProvListInput.ts";
+import { Double, jstr } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { StringProvListInput } from "../internal.ts";
 import type { StringProvider } from "../StringProviders/StringProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { FileEntity } from "../basicsim/FileEntity.ts";
-import { EventHandle } from "../events/EventHandle.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeListInput } from "../input/UnitTypeListInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { getBasicObjectsIO } from "./BasicObjectsIO.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { FileEntity } from "../internal.ts";
+import { EventHandle } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeListInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { getBasicObjectsIO } from "../internal.ts";
 
 export abstract class Logger extends DisplayEntity {
 

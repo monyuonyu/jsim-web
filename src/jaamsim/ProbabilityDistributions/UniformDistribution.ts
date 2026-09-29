@@ -17,9 +17,9 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
-import { Distribution } from "./Distribution.ts";
+import { ClassRegistry } from "../internal.ts";
+import { MRG1999a } from "../internal.ts";
+import { Distribution } from "../internal.ts";
 
 /**
  * Uniform Distribution.

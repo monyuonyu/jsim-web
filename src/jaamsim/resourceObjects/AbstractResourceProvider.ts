@@ -22,17 +22,17 @@
 // - notifyResourceUsers(ResourceProvider) と notifyResourceUsers(ArrayList<ResourceProvider>) は、配列かどうかで見分ける
 // - 入れ子のクラス UserCompare は、ファイルの中の関数 userCompare にした
 
-import { Integer, Double } from "../java/lang.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { TimeBasedFrequency } from "../Statistics/TimeBasedFrequency.ts";
-import { TimeBasedStatistics } from "../Statistics/TimeBasedStatistics.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { ResourceProvider } from "./ResourceProvider.ts";
+import { Integer, Double } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { TimeBasedFrequency } from "../internal.ts";
+import { TimeBasedStatistics } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { ResourceProvider } from "../internal.ts";
 import type { ResourceUser } from "./ResourceUser.ts";
 
 /** Java の (int) の型変換（0 の方向へ切り捨て、NaN は 0、範囲の外は端に張り付く） */

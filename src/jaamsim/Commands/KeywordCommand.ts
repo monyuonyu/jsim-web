@@ -20,8 +20,8 @@
 // (Entity, int, KeywordIndex[], KeywordIndex[]) は、1 つのコンストラクタで引数の形から見分ける（名前は変えていない）。
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
+import { InputAgent } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
 import type { Command } from "./Command.ts";
 
 export class KeywordCommand implements Command {

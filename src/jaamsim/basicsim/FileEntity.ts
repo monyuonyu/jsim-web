@@ -16,11 +16,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { jformat } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { URI } from "../input/ParseContext.ts";
-import { ErrorException } from "./ErrorException.ts";
+import { jformat } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { URI } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "./JaamSimModel.ts";
 
 // ---- Java の java.io.File の代わり（basicsim の中で使う所だけ） ----

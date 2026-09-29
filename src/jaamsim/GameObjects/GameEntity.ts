@@ -19,12 +19,12 @@
 // 入れ子のクラス DoActionTarget は、このファイルの GameEntity_DoActionTarget にした。
 // handleKeyPressed・handleKeyReleased・handleMouseClicked は画面の操作を受ける所だが、状態（予約）を変えるので残した。
 
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { EventHandle } from "../events/EventHandle.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { EventHandle } from "../internal.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { KeyEventInput } from "../input/KeyEventInput.ts";
+import { DisplayEntity } from "../internal.ts";
+import { KeyEventInput } from "../internal.ts";
 import type { Vec3d } from "../math/Vec3d.ts";
 
 export abstract class GameEntity extends DisplayEntity {

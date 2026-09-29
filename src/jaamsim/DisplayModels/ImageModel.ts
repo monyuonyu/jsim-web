@@ -16,15 +16,15 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { LateClasses } from "../Graphics/LateClasses.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { FileInput } from "../input/FileInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { jEqualsIgnoreCase } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { AbstractShapeModel } from "./AbstractShapeModel.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { FileInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { jEqualsIgnoreCase } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { AbstractShapeModel } from "../internal.ts";
 
 /*
  * 移植の注意:

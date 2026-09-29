@@ -18,19 +18,19 @@
  * TypeScript への移植 (C) 2026 shota
  */
 // 注: getValue(simTime, klass) と getValue(klass) は、最初の引数が数かどうかで見分ける。
-import { Integer, jformat } from "../java/lang.ts";
+import { Integer, jformat } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { ErrorException } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { ExpError } from "./ExpError.ts";
-import { ExpEvaluator } from "./ExpEvaluator.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
 import type { ExpParser_Expression } from "./ExpParser.ts";
-import { ExpResType } from "./ExpResType.ts";
+import { ExpResType } from "../internal.ts";
 import type { ExpResult } from "./ExpResult.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
-import { ValueHandle } from "./ValueHandle.ts";
+import { ValueHandle } from "../internal.ts";
 import type { JType } from "./ValueHandle.ts";
 
 export class AttributeHandle extends ValueHandle {

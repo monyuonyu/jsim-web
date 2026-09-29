@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { ExpError } from "../input/ExpError.ts";
-import { ExpEvaluator } from "../input/ExpEvaluator.ts";
+import { ErrorException } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
 import type { ExpEvaluator_EntityParseContext } from "../input/ExpEvaluator.ts";
-import { ExpParser } from "../input/ExpParser.ts";
+import { ExpParser } from "../internal.ts";
 import type { ExpParser_Expression } from "../input/ExpParser.ts";
-import { ExpResType } from "../input/ExpResType.ts";
-import { ExpResult } from "../input/ExpResult.ts";
-import { Input } from "../input/Input.ts";
-import { Color4d } from "../math/Color4d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { tr } from "../i18n/I18n.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { Color4d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { ColourProvider } from "./ColourProvider.ts";
 
 // TODO(移植): 入れ子のクラス ExpParser.Expression は ExpParser_Expression、ExpEvaluator.EntityParseContext は

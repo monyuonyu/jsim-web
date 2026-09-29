@@ -16,27 +16,28 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { GraphModel } from "../DisplayModels/GraphModel.ts";
+import { GraphModel } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { ColorListInput } from "../input/ColorListInput.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { FormatInput } from "../input/FormatInput.ts";
+import { Entity } from "../internal.ts";
+import { DoubleVector } from "../internal.ts";
+import { ColorListInput } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { FormatInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { ValueInput } from "../input/ValueInput.ts";
-import { ValueListInput } from "../input/ValueListInput.ts";
-import { Double, Integer, type JClass } from "../java/lang.ts";
+import { StringInput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { ValueInput } from "../internal.ts";
+import { ValueListInput } from "../internal.ts";
+import { Double, Integer } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { LateClasses, jint } from "./LateClasses.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { LateClasses, jint } from "../internal.ts";
 
 /*
  * 移植の注意:

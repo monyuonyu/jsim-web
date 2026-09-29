@@ -19,22 +19,22 @@
 
 // Java の StateEntityListener（interface）は、isStateEntityListener(x) で見分ける（関数 isWatching と updateForStateChange を持つ）。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Logger } from "../BasicObjects/Logger.ts";
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Logger } from "../internal.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
 import type { FileEntity } from "../basicsim/FileEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InterfaceEntityInput } from "../input/InterfaceEntityInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { StateEntity } from "../states/StateEntity.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InterfaceEntityInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
 import type { StateEntityListener } from "../states/StateEntityListener.ts";
 import type { StateRecord } from "../states/StateRecord.ts";
-import { EntityGen } from "./EntityGen.ts";
-import { Linkable } from "./Linkable.ts";
+import { EntityGen } from "../internal.ts";
+import { Linkable } from "../internal.ts";
 
 export class EntityLogger extends Logger implements Linkable, StateEntityListener {
 

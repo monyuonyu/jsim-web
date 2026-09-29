@@ -24,23 +24,23 @@
 // - getNextIntegers(Entity, double) と getNextIntegers(Entity, double, int) は、3 つ目の引数の有無で見分ける。
 // - Input.getValue() と getValue(Entity, double, Class) は、引数の数で見分ける（Input.ts と同じく thisEnt の有無）。
 
-import { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { Entity } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ArrayListInput } from "../input/ArrayListInput.ts";
-import { Input } from "../input/Input.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Parser } from "../input/Parser.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { Parser } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { tr } from "../i18n/I18n.ts";
-import { Double, IndexOutOfBoundsException, jformat, jstr } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { Double, IndexOutOfBoundsException, jformat, jstr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { SampleConstant } from "./SampleConstant.ts";
-import { SampleExpression } from "./SampleExpression.ts";
-import { SampleProvider, isSampleProvider } from "./SampleProvider.ts";
+import { SampleConstant } from "../internal.ts";
+import { SampleExpression } from "../internal.ts";
+import { SampleProvider, isSampleProvider } from "../internal.ts";
 
 /** Java の (int) x（0 の方向へ切り捨て、範囲外は端に張り付き、NaN は 0、-0 は 0） */
 function toInt(x: number): number {

@@ -16,17 +16,17 @@
  * limitations under the License.
  */
 
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { ExpressionInput } from "../input/ExpressionInput.ts";
+import { Entity } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { ExpressionInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
+import { InputAgent } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { ClassRegistry } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { CompoundEntity } from "./CompoundEntity.ts";
+import { CompoundEntity } from "../internal.ts";
 import type { PassThroughData } from "./PassThroughData.ts";
-import { PassThroughListInput } from "./PassThroughListInput.ts";
+import { PassThroughListInput } from "../internal.ts";
 
 /** Java の ArrayList.indexOf（要素を equals で比べる） */
 function indexOfData(list: PassThroughData[], data: PassThroughData): number {

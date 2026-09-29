@@ -18,8 +18,8 @@
  */
 // 注: Java の Class<T>（enum）は JEnumClass<T>（Input.ts）。
 import type { Entity } from "../basicsim/Entity.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { enumConstants, enumName, Input } from "./Input.ts";
+import { ArrayListInput } from "../internal.ts";
+import { enumConstants, enumName, Input } from "../internal.ts";
 import type { JEnumClass } from "./Input.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 

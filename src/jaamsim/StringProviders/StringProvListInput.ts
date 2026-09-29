@@ -21,23 +21,23 @@
 // - getNextString(int i, double simTime) と getNextString(int i, Entity thisEnt, double simTime) は、引数の数で見分ける。
 // - Input.getValue() と getValue(Entity, double, Class) は、引数の数で見分ける（Input.ts と同じく thisEnt の有無）。
 
-import { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { Entity } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ArrayListInput } from "../input/ArrayListInput.ts";
-import { Input } from "../input/Input.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
-import { Parser } from "../input/Parser.ts";
-import { isSampleProvider } from "../Samples/SampleProvider.ts";
+import { Parser } from "../internal.ts";
+import { isSampleProvider } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { tr } from "../i18n/I18n.ts";
-import { jformat } from "../java/lang.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { jformat } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { StringProvExpression } from "./StringProvExpression.ts";
-import { StringProvSample } from "./StringProvSample.ts";
+import { StringProvExpression } from "../internal.ts";
+import { StringProvSample } from "../internal.ts";
 import type { StringProvider } from "./StringProvider.ts";
 
 export class StringProvListInput extends ArrayListInput<StringProvider> {

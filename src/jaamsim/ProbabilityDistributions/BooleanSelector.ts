@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-import { Double } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
+import { Double } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
 import type { ParseContext } from "../input/ParseContext.ts";
-import { MRG1999a } from "../rng/MRG1999a.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { RandomStreamUser } from "./RandomStreamUser.ts";
+import { MRG1999a } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { RandomStreamUser } from "../internal.ts";
 
 /** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
 function jint(x: number): number {

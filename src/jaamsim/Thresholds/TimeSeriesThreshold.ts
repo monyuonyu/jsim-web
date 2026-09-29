@@ -21,25 +21,26 @@
 // フィールドの doOpenClose（ProcessTarget）は、関数の doOpenClose() と名前がぶつかるので doOpenCloseTarget にした（docs/renamed.md）。
 // Java の long の足し算で Long.MAX_VALUE（「変わらない・開かない」の印）が桁あふれする所は、longAdd で Java と同じ値にした。
 
-import { TimeSeries } from "../Samples/TimeSeries.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { TimeSeries } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { TimeSeriesInput } from "../input/TimeSeriesInput.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, Long, jstr, type JClass } from "../java/lang.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { InputErrorException } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { TimeSeriesInput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, Long, jstr } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { Threshold } from "./Threshold.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { Threshold } from "../internal.ts";
 
 const TWO_63 = 2n ** 63n;
 const TWO_64 = 2n ** 64n;

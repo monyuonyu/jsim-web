@@ -17,8 +17,8 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { Integer } from "../java/lang.ts";
-import { Input } from "./Input.ts";
+import { Integer } from "../internal.ts";
+import { Input } from "../internal.ts";
 
 export abstract class ListInput<T> extends Input<T> {
 	protected minCount = 0;

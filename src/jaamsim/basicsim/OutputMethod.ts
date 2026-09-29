@@ -16,13 +16,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EntityInput } from "../input/EntityInput.ts";
-import { Input } from "../input/Input.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { StringListInput } from "../input/StringListInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, Integer, jstr } from "../java/lang.ts";
-import { Entity } from "./Entity.ts";
+import { EntityInput } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { StringListInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, Integer, jstr } from "../internal.ts";
+import { Entity } from "../internal.ts";
 
 /**
  * Java はリフレクション（getMethod・invoke）で、名前で関数を呼ぶ。

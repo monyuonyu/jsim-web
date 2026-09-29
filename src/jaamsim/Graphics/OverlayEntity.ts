@@ -16,17 +16,17 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { IntegerListInput } from "../input/IntegerListInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { IntegerVector } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { IntegerListInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
 import type { Vec3d } from "../math/Vec3d.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { KeyEvent } from "./Editable.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { DisplayEntity } from "../internal.ts";
+import { KeyEvent } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 
 /*
  * 移植の注意: 画面の座標（画素）で受ける handleMouseClicked(short, int, int, int, int, boolean, boolean, boolean) と

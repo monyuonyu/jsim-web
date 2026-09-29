@@ -19,15 +19,15 @@
 // 注（多重定義の扱い）:
 // - getValue() と getValue(thisEnt, simTime, klass) は、引数の数で見分けて 1 つにした（Input.ts と同じ）。
 import type { Entity } from "../basicsim/Entity.ts";
-import { SimDate } from "../basicsim/SimDate.ts";
-import { tr } from "../i18n/I18n.ts";
+import { SimDate } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
-import { Parser } from "./Parser.ts";
+import { Parser } from "../internal.ts";
 
 export class DateInput extends Input<SimDate> {
 

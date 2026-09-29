@@ -20,25 +20,25 @@
 // getNextSample(double)（出力 Value、final）と getNextSample(Entity, double) は、引数の数で見分ける 1 つの関数にした。
 
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleConstant } from "../Samples/SampleConstant.ts";
-import { SampleListInput } from "../Samples/SampleListInput.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { SampleConstant } from "../internal.ts";
+import { SampleListInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { ValueListInput } from "../input/ValueListInput.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { ValueListInput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { DoubleCalculation } from "./DoubleCalculation.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
 
 /**
  * The WeightedSum object returns a weighted sum of its input values.

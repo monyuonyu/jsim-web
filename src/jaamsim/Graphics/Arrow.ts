@@ -16,20 +16,20 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { ColourProvInput } from "../ColourProviders/ColourProvInput.ts";
-import { PolylineModel } from "../DisplayModels/PolylineModel.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
+import { ColourProvInput } from "../internal.ts";
+import { PolylineModel } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
 import type { Color4d } from "../math/Color4d.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { LateClasses, jint } from "./LateClasses.ts";
-import { LineEntity } from "./LineEntity.ts";
+import { Vec3d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { LateClasses, jint } from "../internal.ts";
+import { LineEntity } from "../internal.ts";
 
 export class Arrow extends DisplayEntity implements LineEntity {
 

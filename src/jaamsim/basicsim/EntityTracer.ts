@@ -16,14 +16,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ProcessTarget } from "../events/ProcessTarget.ts";
-import { EntityListInput } from "../input/EntityListInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { Entity } from "./Entity.ts";
+import { SampleInput } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ProcessTarget } from "../internal.ts";
+import { EntityListInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { Entity } from "../internal.ts";
 
 export class EntityTracer extends Entity {
 

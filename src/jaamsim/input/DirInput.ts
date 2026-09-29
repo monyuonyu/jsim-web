@@ -21,14 +21,14 @@
 // - Java は reset() を上書きしている。reset(ent?) の 1 つにし、ent があれば基底へ任せる（基底の reset(ent) は reset() を呼ぶ）。
 // - Java の File は道（パス）の文字列にした（basicsim/FileEntity.ts の JFile と同じ）。getDir() は道の文字列を返す。
 import type { Entity } from "../basicsim/Entity.ts";
-import { FileSystem, JFile } from "../basicsim/FileEntity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { IllegalArgumentException } from "../java/lang.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { FileSystem, JFile } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { IllegalArgumentException } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
-import { URI } from "./ParseContext.ts";
-import { StringInput } from "./StringInput.ts";
+import { URI } from "../internal.ts";
+import { StringInput } from "../internal.ts";
 
 export class DirInput extends StringInput {
 	private dir: URI | null = null;

@@ -19,20 +19,20 @@
 
 // updateGraphics は、組み立てた物の位置（状態）を決めるので残した。
 
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { OverlayEntity } from "../Graphics/OverlayEntity.ts";
-import { TextBasics } from "../Graphics/TextBasics.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { StateEntity } from "../states/StateEntity.ts";
-import { AbstractCombine } from "./AbstractCombine.ts";
-import { EntityGen } from "./EntityGen.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { OverlayEntity } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { StateEntity } from "../internal.ts";
+import { AbstractCombine } from "../internal.ts";
+import { EntityGen } from "../internal.ts";
 
 export class Assemble extends AbstractCombine implements EntityGen {
 

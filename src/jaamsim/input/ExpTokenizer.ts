@@ -17,9 +17,9 @@
  * TypeScript への移植 (C) 2026 shota
  */
 // 入れ子のクラス ExpTokenizer.Token は、同じファイルの ExpTokenizer_Token にした（ExpTokenizer.Token でも使える）。
-import { Double, JChar, NumberFormatException } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ExpError } from "./ExpError.ts";
+import { Double, JChar, NumberFormatException } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ExpError } from "../internal.ts";
 
 export class ExpTokenizer_Token {
 	public type = 0;

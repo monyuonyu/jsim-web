@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ProcessTarget } from "../events/ProcessTarget.ts";
+import { ProcessTarget } from "../internal.ts";
 import type { Entity } from "./Entity.ts";
 
 export abstract class EntityTarget<T extends Entity> extends ProcessTarget {

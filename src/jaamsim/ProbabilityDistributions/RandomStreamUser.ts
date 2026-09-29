@@ -22,8 +22,8 @@
 // - Java の static 関数 setUniqueRandomSeed は const の関数
 
 import type { JClass } from "../java/lang.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { InputAgent } from "../input/InputAgent.ts";
+import { Entity } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
 
 const MARK = Symbol("RandomStreamUser");
 

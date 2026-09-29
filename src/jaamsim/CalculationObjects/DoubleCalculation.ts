@@ -21,20 +21,20 @@
 // （子で上書きするときも、両方の形を受ける）。
 
 import type { JClass } from "../java/lang.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
+import { KeywordCommand } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
+import { SampleInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Entity } from "../basicsim/Entity.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Entity } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { CalculationEntity } from "./CalculationEntity.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { CalculationEntity } from "../internal.ts";
 
 /**
  * DoubleCalculation is the super-class for all calculations that return a double.

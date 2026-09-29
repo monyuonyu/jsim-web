@@ -45,6 +45,11 @@ function hasExport(node: ts.Node): boolean {
 function collectIdents(node: ts.Node, out: Set<string>): void {
 	if (ts.isFunctionLike(node) && !ts.isClassStaticBlockDeclaration(node))
 		return;
+	// class X extends Y の Y（中身の class 式でも）: 型として扱われるが、読み込みの時点で要る
+	if (ts.isExpressionWithTypeArguments(node)) {
+		collectIdents(node.expression, out);
+		return;
+	}
 	if (ts.isTypeNode(node))
 		return;
 	if (ts.isIdentifier(node))
@@ -155,6 +160,11 @@ function importedFrom(i: Info, name: string): Info | null {
 		if (nb && ts.isNamedImports(nb))
 			for (const e of nb.elements) names.push(e.name.text);
 		if (names.includes(name)) {
+			// internal.ts から import している（書き換えた後）なら、その名前を書き出しているファイルを探す
+			if (target === INTERNAL) {
+				const l = owner.get(name);
+				return l ? l[l.length - 1] : null;  // 再輸出と元がある時は、元（EventManager.ts など）が後ろ
+			}
 			const t = infos.find(x => x.file === target);
 			if (!t) return null;
 			// 再輸出（events/ProcessTarget.ts など）は、元のファイルまでたどる
@@ -180,7 +190,15 @@ function visit(i: Info, stack: Info[]): void {
 	state.set(i, 2);
 	order.push(i);
 }
-for (const i of infos) visit(i, []);
+// 土台（Java の標準の代わり・乱数・事象・多言語・数学・データ型）は、ほかの物が関数の中から使うので先に置く
+// （関数を通した依存は、ソースを読むだけでは分からないため）
+const FIRST = ["java/", "rng/", "events/", "i18n/", "math/", "datatypes/"];
+const rank = (i: Info) => {
+	const r = relative(ROOT, i.file);
+	const k = FIRST.findIndex(p => r.startsWith(p));
+	return k < 0 ? FIRST.length : k;
+};
+for (const i of [...infos].sort((a, b) => rank(a) - rank(b))) visit(i, []);
 
 if (cycles.length > 0) {
 	console.log(`読み込みの時点で輪になっている所: ${cycles.length} 件（手で直す）`);

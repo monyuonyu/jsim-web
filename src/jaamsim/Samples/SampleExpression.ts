@@ -21,19 +21,19 @@
 // ExpEvaluator.EntityParseContext は ExpEvaluator_EntityParseContext と仮定した（別の担当が決める）。
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { ExpError } from "../input/ExpError.ts";
-import { ExpEvaluator } from "../input/ExpEvaluator.ts";
+import { ErrorException } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
 import type { ExpEvaluator_EntityParseContext } from "../input/ExpEvaluator.ts";
-import { ExpParser } from "../input/ExpParser.ts";
+import { ExpParser } from "../internal.ts";
 import type { ExpParser_Expression } from "../input/ExpParser.ts";
-import { ExpResType } from "../input/ExpResType.ts";
+import { ExpResType } from "../internal.ts";
 import type { ExpResult } from "../input/ExpResult.ts";
-import { Input } from "../input/Input.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { tr } from "../i18n/I18n.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { tr } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import type { SampleProvider } from "./SampleProvider.ts";
 

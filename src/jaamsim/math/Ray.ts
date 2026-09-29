@@ -16,9 +16,9 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { Mat4d } from "./Mat4d.ts";
-import { Transform } from "./Transform.ts";
-import { Vec3d } from "./Vec3d.ts";
-import { Vec4d } from "./Vec4d.ts";
+import { Transform } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { Vec4d } from "../internal.ts";
 
 /**
  * A simple representation of a Ray in 3 space. Like all rays, it's a position and direction.

@@ -26,34 +26,34 @@
 //   printReport(simModel, simTime, file) は最初の引数が Entity かどうかで見分ける。
 // - 入れ子の SubModelComparator・EntityComparator は、関数（compare も持つ）の subModelSortOrder・uiEntitySortOrder にした。
 // - 利用者に見せる文: simModel.logError・logInpError は中で tr するので、英語のまま渡す。InputErrorException は tr で包む。
-import { jformat, jstr, jCompare, jEqualsIgnoreCase, jIsAssignableFrom, NullPointerException } from "../java/lang.ts";
+import { jformat, jstr, jCompare, jEqualsIgnoreCase, jIsAssignableFrom, NullPointerException } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { AbstractDirectedEntity } from "../Graphics/AbstractDirectedEntity.ts";
-import { EntityLabel } from "../Graphics/EntityLabel.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { AbstractDirectedEntity } from "../internal.ts";
+import { EntityLabel } from "../internal.ts";
 import type { SampleStatistics } from "../Statistics/SampleStatistics.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { FileEntity, JFile } from "../basicsim/FileEntity.ts";
-import { Group } from "../basicsim/Group.ts";
+import { Entity } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
+import { FileEntity, JFile } from "../internal.ts";
+import { Group } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ObjectType } from "../basicsim/ObjectType.ts";
+import { ObjectType } from "../internal.ts";
 import type { Scenario } from "../basicsim/Scenario.ts";
 import type { SimRun } from "../basicsim/SimRun.ts";
-import { Simulation } from "../basicsim/Simulation.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { ExpResType } from "./ExpResType.ts";
-import { ExpResult } from "./ExpResult.ts";
+import { Simulation } from "../internal.ts";
+import { DoubleVector } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
 import type { FileInput } from "./FileInput.ts";
-import { Input, javaToString } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
-import { KeywordIndex } from "./KeywordIndex.ts";
-import { ParseContext, URI, URISyntaxException } from "./ParseContext.ts";
-import { Parser, jsplit, jtrim } from "./Parser.ts";
+import { Input, javaToString } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { ParseContext, URI, URISyntaxException } from "../internal.ts";
+import { Parser, jsplit, jtrim } from "../internal.ts";
 import type { ValueHandle } from "./ValueHandle.ts";
 
 /** Java の PrintStream の代わり（使う所だけ） */

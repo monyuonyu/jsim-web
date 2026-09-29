@@ -22,20 +22,20 @@
 // ファイルの読み込みは FileInput.getTokensFromURI（input の担当）が行う。
 
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { LinkedComponent } from "../ProcessFlow/LinkedComponent.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { ExpCollections } from "../input/ExpCollections.ts";
-import { ExpError } from "../input/ExpError.ts";
-import { ExpEvaluator } from "../input/ExpEvaluator.ts";
-import { ExpParser } from "../input/ExpParser.ts";
-import { ExpResult } from "../input/ExpResult.ts";
-import { FileInput } from "../input/FileInput.ts";
-import { Input } from "../input/Input.ts";
+import { LinkedComponent } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { ExpCollections } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
+import { ExpParser } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
+import { FileInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { defineOutput } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 
 export abstract class FileToArray extends LinkedComponent {
 

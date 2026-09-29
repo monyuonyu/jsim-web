@@ -16,11 +16,11 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { tr } from "../i18n/I18n.ts";
-import { IllegalArgumentException, jstr } from "../java/lang.ts";
-import { MathUtils } from "./MathUtils.ts";
-import { Vec3d } from "./Vec3d.ts";
-import { Vec4d } from "./Vec4d.ts";
+import { tr } from "../internal.ts";
+import { IllegalArgumentException, jstr } from "../internal.ts";
+import { MathUtils } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { Vec4d } from "../internal.ts";
 
 /**
  * Quaternion class, stored as an array of 4 doubles

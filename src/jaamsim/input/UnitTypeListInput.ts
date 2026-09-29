@@ -21,15 +21,15 @@
 // - setDefaultValue(ArrayList<Class<? extends Unit>>) と、基底の setDefaultValue(ArrayList<ObjectType>) は、
 //   配列の最初の要素が ObjectType かどうかで見分ける（ObjectType なら基底の方。空の配列と null は単位の型の方）。
 // - reset() の上書きは reset(ent?) の形（Input.ts の注）。
-import { jIsAssignableFrom } from "../java/lang.ts";
+import { jIsAssignableFrom } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ObjectType } from "../basicsim/ObjectType.ts";
-import { Unit } from "../units/Unit.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { Input } from "./Input.ts";
+import { ObjectType } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { ArrayListInput } from "../internal.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 

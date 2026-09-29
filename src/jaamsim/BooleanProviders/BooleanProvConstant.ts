@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 import type { Entity } from "../basicsim/Entity.ts";
-import { BooleanInput } from "../input/BooleanInput.ts";
+import { BooleanInput } from "../internal.ts";
 import type { BooleanProvider } from "./BooleanProvider.ts";
 
 export class BooleanProvConstant implements BooleanProvider {

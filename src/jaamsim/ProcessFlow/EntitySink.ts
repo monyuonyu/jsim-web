@@ -20,11 +20,11 @@
 // updateGraphics は、最後に受け取った物の位置（状態）を決めるので残した。
 
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { LinkedComponent } from "./LinkedComponent.ts";
+import { EventManager } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { LinkedComponent } from "../internal.ts";
 
 /**
  * EntitySink kills the DisplayEntities sent to it.

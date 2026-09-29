@@ -16,24 +16,24 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { StringProvInput } from "../StringProviders/StringProvInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { EntityInput } from "../input/EntityInput.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { StringProvInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
+import { InputAgent } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { Unit } from "../units/Unit.ts";
-import { LateClasses } from "./LateClasses.ts";
-import { TextBasics } from "./TextBasics.ts";
+import { KeywordIndex } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { Unit } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
 
 /*
  * 移植の注意:

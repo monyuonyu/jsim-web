@@ -19,7 +19,7 @@
 // getNextString の多重定義は、引数の数と 3 つ目の引数の型で見分ける（StringProvider.ts を参照）。
 
 import type { Entity } from "../basicsim/Entity.ts";
-import { Double, jformat } from "../java/lang.ts";
+import { Double, jformat } from "../internal.ts";
 import type { StringProvider } from "./StringProvider.ts";
 
 export class StringProvConstant implements StringProvider {

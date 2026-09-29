@@ -17,20 +17,20 @@
  *
  * TypeScript への移植 (C) 2026 shota
  */
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { ErrorException } from "../basicsim/ErrorException.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { ArrayListInput } from "./ArrayListInput.ts";
-import { ExpError } from "./ExpError.ts";
-import { ExpEvaluator } from "./ExpEvaluator.ts";
+import { ArrayListInput } from "../internal.ts";
+import { ExpError } from "../internal.ts";
+import { ExpEvaluator } from "../internal.ts";
 import type { ExpEvaluator_EntityParseContext } from "./ExpEvaluator.ts";
-import { ExpParser } from "./ExpParser.ts";
+import { ExpParser } from "../internal.ts";
 import type { ExpParser_Assignment } from "./ExpParser.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
-import { Parser } from "./Parser.ts";
+import { Parser } from "../internal.ts";
 
 
 export class AssignmentListInput extends ArrayListInput<ExpParser_Assignment> {

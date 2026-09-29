@@ -18,7 +18,7 @@
  */
 import type { JClass } from "../java/lang.ts";
 import type { Entity } from "./Entity.ts";
-import { EntityIterator } from "./EntityIterator.ts";
+import { EntityIterator } from "../internal.ts";
 import type { JaamSimModel } from "./JaamSimModel.ts";
 
 export class InstanceIterable<T extends Entity> extends EntityIterator<T> {

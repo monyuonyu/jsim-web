@@ -19,8 +19,8 @@
 // long[]・int[]・double[] は number[]（0 で埋める）。
 // Java の配列の範囲外は例外になるので、System.arraycopy と範囲外の読み出しは checkIndex/arraycopy で例外にした。
 
-import { ErrorException } from "../basicsim/ErrorException.ts";
-import { IndexOutOfBoundsException } from "../java/lang.ts";
+import { ErrorException } from "../internal.ts";
+import { IndexOutOfBoundsException } from "../internal.ts";
 
 /** Java の new long[n] など（0 で埋めた配列。負の長さは例外） */
 function newArray(n: number): number[] {

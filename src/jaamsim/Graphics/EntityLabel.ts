@@ -17,19 +17,19 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { VisibilityInfo } from "../DisplayModels/DisplayModel.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { EntityInput } from "../input/EntityInput.ts";
+import { Entity } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
+import { InputAgent } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
-import { DisplayEntity } from "./DisplayEntity.ts";
-import { LateClasses } from "./LateClasses.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { LateClasses } from "../internal.ts";
 import type { Region } from "./Region.ts";
-import { TextBasics } from "./TextBasics.ts";
+import { TextBasics } from "../internal.ts";
 
 /*
  * 移植の注意:

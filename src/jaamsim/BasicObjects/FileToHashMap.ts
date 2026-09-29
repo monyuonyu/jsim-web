@@ -18,13 +18,13 @@
 
 // 多重定義の扱い: setValue(Map<String, ArrayList<Object>>) と、親の setValue(ExpResult) は、Map かどうかで見分ける。
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ExpCollections } from "../input/ExpCollections.ts";
-import { ExpResType } from "../input/ExpResType.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ExpCollections } from "../internal.ts";
+import { ExpResType } from "../internal.ts";
 import type { ExpResult } from "../input/ExpResult.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { FileToArray } from "./FileToArray.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { FileToArray } from "../internal.ts";
 
 /** Java の ArrayList<String>.toString()（"[a, b]"） */
 function listToString(list: string[]): string {

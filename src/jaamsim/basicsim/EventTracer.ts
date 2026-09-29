@@ -16,14 +16,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EventManager } from "../events/EventManager.ts";
+import { EventManager } from "../internal.ts";
 import type { EventTraceListener } from "../events/EventTraceListener.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
-import { tr } from "../i18n/I18n.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { EventTraceRecord } from "./EventTraceRecord.ts";
-import { FileSystem } from "./FileEntity.ts";
-import { Log } from "./Log.ts";
+import { tr } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
+import { EventTraceRecord } from "../internal.ts";
+import { FileSystem } from "../internal.ts";
+import { Log } from "../internal.ts";
 
 /**
  * Java の BufferedReader の代わりに、FileSystem.backend から全部を読み、行に分けて 1 行ずつ返す。

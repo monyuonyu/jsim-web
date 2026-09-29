@@ -18,7 +18,7 @@
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
 import type { Color4d } from "../math/Color4d.ts";
 import type { Vec3d } from "../math/Vec3d.ts";
-import { implementsFunctions } from "./Editable.ts";
+import { implementsFunctions } from "../internal.ts";
 
 /*
  * 移植の注意: instanceof TextEntity の代わりは TextEntity.isInstance(o)（関数の有無で見分ける）。

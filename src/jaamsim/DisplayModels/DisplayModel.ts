@@ -17,20 +17,20 @@
  * TypeScript への移植 (C) 2026 shota
  */
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { LateClasses } from "../Graphics/LateClasses.ts";
+import { LateClasses } from "../internal.ts";
 import type { View } from "../Graphics/View.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { DoubleVector } from "../datatypes/DoubleVector.ts";
-import { EntityListInput } from "../input/EntityListInput.ts";
+import { Entity } from "../internal.ts";
+import { DoubleVector } from "../internal.ts";
+import { EntityListInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { ValueListInput } from "../input/ValueListInput.ts";
-import { Vec3dInput } from "../input/Vec3dInput.ts";
-import { Double } from "../java/lang.ts";
-import { Vec3d } from "../math/Vec3d.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { DistanceUnit } from "../units/DistanceUnit.ts";
+import { defineOutput } from "../internal.ts";
+import { ValueListInput } from "../internal.ts";
+import { Vec3dInput } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { Vec3d } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { DistanceUnit } from "../internal.ts";
 
 /*
  * 移植の注意:

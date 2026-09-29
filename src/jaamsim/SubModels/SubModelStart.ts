@@ -16,14 +16,14 @@
  * limitations under the License.
  */
 
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { EntityGen } from "../ProcessFlow/EntityGen.ts";
-import { Linkable } from "../ProcessFlow/Linkable.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { InterfaceEntityInput } from "../input/InterfaceEntityInput.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
+import { KeywordCommand } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { EntityGen } from "../internal.ts";
+import { Linkable } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { InterfaceEntityInput } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
 
 export class SubModelStart extends DisplayEntity implements Linkable {
 

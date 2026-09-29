@@ -16,16 +16,16 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { LateClasses } from "../Graphics/LateClasses.ts";
-import { Tag } from "../Graphics/Tag.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { ColourInput } from "../input/ColourInput.ts";
-import { EnumInput } from "../input/EnumInput.ts";
+import { LateClasses } from "../internal.ts";
+import { Tag } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { ColourInput } from "../internal.ts";
+import { EnumInput } from "../internal.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { AbstractShapeModel } from "./AbstractShapeModel.ts";
+import { StringInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { AbstractShapeModel } from "../internal.ts";
 
 /*
  * 移植の注意:

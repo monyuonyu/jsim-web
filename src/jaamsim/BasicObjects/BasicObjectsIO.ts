@@ -14,7 +14,7 @@
  * - ExternalProgramServer: 外部プログラムを立ち上げたままにして、1 行ずつやり取りする（startServerProcess）
  */
 
-import { tr } from "../i18n/I18n.ts";
+import { tr } from "../internal.ts";
 
 /** 立ち上げたままの外部プログラム（ExternalProgramServer が使う） */
 export interface ExternalServerProcess {

@@ -19,7 +19,7 @@
  */
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JClass } from "../java/lang.ts";
-import { Input } from "./Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 
 // TODO(順番): Java は HashMap。Map は入れた順に回るので、値を順に回す所（toString など）は Java と順番が違う

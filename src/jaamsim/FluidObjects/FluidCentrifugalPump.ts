@@ -16,16 +16,16 @@
  * limitations under the License.
  */
 
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { DoubleCalculation } from "../CalculationObjects/DoubleCalculation.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { EntityInput } from "../input/EntityInput.ts";
-import { PressureUnit } from "../units/PressureUnit.ts";
-import { VolumeFlowUnit } from "../units/VolumeFlowUnit.ts";
-import { FluidComponent } from "./FluidComponent.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { DoubleCalculation } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { EntityInput } from "../internal.ts";
+import { PressureUnit } from "../internal.ts";
+import { VolumeFlowUnit } from "../internal.ts";
+import { FluidComponent } from "../internal.ts";
 
 /**
  * FluidCentrifugalPump models the performance of a centrifugal pump.

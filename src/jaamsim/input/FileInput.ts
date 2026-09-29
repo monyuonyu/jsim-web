@@ -25,17 +25,17 @@
 //   同じ名前の小さなクラスをこのファイルに置いた（画面を作るときに使う）。
 // - Java の File は道（パス）の文字列（DirInput.ts の fileFromURI）。
 import type { Entity } from "../basicsim/Entity.ts";
-import { tr } from "../i18n/I18n.ts";
-import { IllegalArgumentException, jEqualsIgnoreCase } from "../java/lang.ts";
+import { tr } from "../internal.ts";
+import { IllegalArgumentException, jEqualsIgnoreCase } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { fileFromURI } from "./DirInput.ts";
-import { Input } from "./Input.ts";
-import { InputAgent } from "./InputAgent.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { fileFromURI } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
 import type { OutputReturnType } from "./OutputRegistry.ts";
 import type { URI } from "./ParseContext.ts";
-import { Parser, jtrim } from "./Parser.ts";
+import { Parser, jtrim } from "../internal.ts";
 
 
 export class FileInput extends Input<URI> {

@@ -26,7 +26,7 @@
 //   values()/values(K) は、引数の有無で見分ける 1 つの関数にした（引数に null を渡すのは「キーが null」の意味。
 //   引数を省いたときだけ、全体が対象になる）。
 
-import { TreeSet } from "../java/collections.ts";
+import { TreeSet } from "../internal.ts";
 
 /** Java の Iterator の代わり（hasNext・next）。for-of でも回せる */
 export class JIterator<T> implements Iterable<T> {

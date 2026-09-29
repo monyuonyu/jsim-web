@@ -18,11 +18,12 @@
  */
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { Input } from "../input/Input.ts";
+import { Input } from "../internal.ts";
 import type { KeywordIndex } from "../input/KeywordIndex.ts";
 import type { OutputReturnType } from "../input/OutputRegistry.ts";
-import { Double, type JClass } from "../java/lang.ts";
-import { DimensionlessUnit } from "./DimensionlessUnit.ts";
+import { Double } from "../internal.ts";
+import { type JClass } from "../java/lang.ts";
+import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "./Unit.ts";
 
 const defFactors: number[] = [1.0];

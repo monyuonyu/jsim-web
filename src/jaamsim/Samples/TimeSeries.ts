@@ -24,30 +24,30 @@
 // - private の getSimTime(long) は、Entity の出力 getSimTime(double) とぶつかるので getSimTimeForTicks にした（docs/renamed.md）。
 // Java の Arrays.binarySearch(long[]) と Arrays.binarySearch(double[]) は、同じ手順の binarySearchLong・binarySearchDouble で写した。
 
-import { BooleanProvInput } from "../BooleanProviders/BooleanProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EntityTarget } from "../basicsim/EntityTarget.ts";
+import { BooleanProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EntityTarget } from "../internal.ts";
 import type { ObserverEntity } from "../basicsim/ObserverEntity.ts";
 import type { SubjectEntity } from "../basicsim/SubjectEntity.ts";
-import { SubjectEntityDelegate } from "../basicsim/SubjectEntityDelegate.ts";
-import { EventManager } from "../events/EventManager.ts";
+import { SubjectEntityDelegate } from "../internal.ts";
+import { EventManager } from "../internal.ts";
 import type { ProcessTarget } from "../events/ProcessTarget.ts";
 import type { Input } from "../input/Input.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
-import { InputErrorException } from "../input/InputErrorException.ts";
-import { TimeSeriesDataInput } from "../input/TimeSeriesDataInput.ts";
-import { UnitTypeInput } from "../input/UnitTypeInput.ts";
-import { defineOutput } from "../input/OutputRegistry.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { InputErrorException } from "../internal.ts";
+import { TimeSeriesDataInput } from "../internal.ts";
+import { UnitTypeInput } from "../internal.ts";
+import { defineOutput } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
-import { tr } from "../i18n/I18n.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double, JMath, Long } from "../java/lang.ts";
+import { UserSpecifiedUnit } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double, JMath, Long } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
-import { SampleInput } from "./SampleInput.ts";
-import { TSPoint } from "./TSPoint.ts";
+import { SampleInput } from "../internal.ts";
+import { TSPoint } from "../internal.ts";
 import type { TimeSeriesProvider } from "./TimeSeriesProvider.ts";
 
 /** Java の Arrays.binarySearch(long[] a, long key)（同じ手順。同じ値が並ぶときも同じ位置を返す） */

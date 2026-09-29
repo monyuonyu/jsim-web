@@ -22,46 +22,46 @@
 // そのため Java の TimSort をこのファイルの中に写した（javaListSort）。
 // Java の String.format（format 関数）・String.split（split 関数）・String.trim（trim 関数）も、Java と同じ結果になるように書いた。
 import type { JClass } from "../java/lang.ts";
-import { jformat, jstr, JMath, Double, IllegalArgumentException, IndexOutOfBoundsException } from "../java/lang.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { tr } from "../i18n/I18n.ts";
-import { BetaDistribution } from "../ProbabilityDistributions/BetaDistribution.ts";
-import { BinomialDistribution } from "../ProbabilityDistributions/BinomialDistribution.ts";
-import { ContinuousDistribution } from "../ProbabilityDistributions/ContinuousDistribution.ts";
-import { DiscreteDistribution } from "../ProbabilityDistributions/DiscreteDistribution.ts";
-import { DiscreteUniformDistribution } from "../ProbabilityDistributions/DiscreteUniformDistribution.ts";
-import { ErlangDistribution } from "../ProbabilityDistributions/ErlangDistribution.ts";
-import { ExponentialDistribution } from "../ProbabilityDistributions/ExponentialDistribution.ts";
-import { GammaDistribution } from "../ProbabilityDistributions/GammaDistribution.ts";
-import { GeometricDistribution } from "../ProbabilityDistributions/GeometricDistribution.ts";
-import { LogLogisticDistribution } from "../ProbabilityDistributions/LogLogisticDistribution.ts";
-import { LogNormalDistribution } from "../ProbabilityDistributions/LogNormalDistribution.ts";
-import { NegativeBinomialDistribution } from "../ProbabilityDistributions/NegativeBinomialDistribution.ts";
-import { NormalDistribution } from "../ProbabilityDistributions/NormalDistribution.ts";
-import { PoissonDistribution } from "../ProbabilityDistributions/PoissonDistribution.ts";
-import { TriangularDistribution } from "../ProbabilityDistributions/TriangularDistribution.ts";
-import { UniformDistribution } from "../ProbabilityDistributions/UniformDistribution.ts";
-import { WeibullDistribution } from "../ProbabilityDistributions/WeibullDistribution.ts";
+import { jformat, jstr, JMath, Double, IllegalArgumentException, IndexOutOfBoundsException } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { BetaDistribution } from "../internal.ts";
+import { BinomialDistribution } from "../internal.ts";
+import { ContinuousDistribution } from "../internal.ts";
+import { DiscreteDistribution } from "../internal.ts";
+import { DiscreteUniformDistribution } from "../internal.ts";
+import { ErlangDistribution } from "../internal.ts";
+import { ExponentialDistribution } from "../internal.ts";
+import { GammaDistribution } from "../internal.ts";
+import { GeometricDistribution } from "../internal.ts";
+import { LogLogisticDistribution } from "../internal.ts";
+import { LogNormalDistribution } from "../internal.ts";
+import { NegativeBinomialDistribution } from "../internal.ts";
+import { NormalDistribution } from "../internal.ts";
+import { PoissonDistribution } from "../internal.ts";
+import { TriangularDistribution } from "../internal.ts";
+import { UniformDistribution } from "../internal.ts";
+import { WeibullDistribution } from "../internal.ts";
 import type { Entity } from "../basicsim/Entity.ts";
 import type { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { MathUtils } from "../math/MathUtils.ts";
+import { EventManager } from "../internal.ts";
+import { MathUtils } from "../internal.ts";
 import type { MRG1999a } from "../rng/MRG1999a.ts";
-import { AngleUnit } from "../units/AngleUnit.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
+import { AngleUnit } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
-import { ExpCollections } from "./ExpCollections.ts";
-import { ExpError } from "./ExpError.ts";
+import { ExpCollections } from "../internal.ts";
+import { ExpError } from "../internal.ts";
 import type { ExpEvaluator_EntityEvalContext } from "./ExpEvaluator.ts";
-import { ExpParser } from "./ExpParser.ts";
+import { ExpParser } from "../internal.ts";
 import type {
 	ExpParser_BinOpFunc, ExpParser_CallableFunc, ExpParser_EvalContext, ExpParser_ExpNode,
 	ExpParser_LambdaClosure, ExpParser_LazyBinOpFunc, ExpParser_ParseContext, ExpParser_UnOpFunc,
 } from "./ExpParser.ts";
-import { ExpResType } from "./ExpResType.ts";
-import { ExpResult } from "./ExpResult.ts";
-import { ExpValResult } from "./ExpValResult.ts";
+import { ExpResType } from "../internal.ts";
+import { ExpResult } from "../internal.ts";
+import { ExpValResult } from "../internal.ts";
 
 type UnitClass = JClass<Unit>;
 type ParseContext = ExpParser_ParseContext;

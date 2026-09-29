@@ -19,18 +19,18 @@
  */
 // 注（多重定義）: コンストラクタ RunNumberInput(key, cat, SampleProvider) と (key, cat, int) は、
 // def の型（typeof number）で見分ける（int の方は SampleConstant.ofInt）。
-import { Integer } from "../java/lang.ts";
-import { tr } from "../i18n/I18n.ts";
-import { SampleConstant } from "../Samples/SampleConstant.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
+import { Integer } from "../internal.ts";
+import { tr } from "../internal.ts";
+import { SampleConstant } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
 import type { SampleProvider } from "../Samples/SampleProvider.ts";
 import type { Entity } from "../basicsim/Entity.ts";
-import { JaamSimModel } from "../basicsim/JaamSimModel.ts";
-import { IntegerVector } from "../datatypes/IntegerVector.ts";
-import { Input } from "./Input.ts";
-import { InputErrorException } from "./InputErrorException.ts";
+import { JaamSimModel } from "../internal.ts";
+import { IntegerVector } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputErrorException } from "../internal.ts";
 import type { KeywordIndex } from "./KeywordIndex.ts";
-import { jsplit } from "./Parser.ts";
+import { jsplit } from "../internal.ts";
 
 export class RunNumberInput extends SampleInput {
 

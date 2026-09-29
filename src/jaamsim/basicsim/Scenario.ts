@@ -15,13 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SampleStatistics } from "../Statistics/SampleStatistics.ts";
+import { SampleStatistics } from "../internal.ts";
 import type { EventTraceListener } from "../events/EventTraceListener.ts";
-import { jRemove } from "../java/lang.ts";
-import { ErrorException } from "./ErrorException.ts";
+import { jRemove } from "../internal.ts";
+import { ErrorException } from "../internal.ts";
 import type { JaamSimModel } from "./JaamSimModel.ts";
 import type { RunManager } from "./RunManager.ts";
-import { SimRun } from "./SimRun.ts";
+import { SimRun } from "../internal.ts";
 
 /**
  * A set of simulation runs that are replications of a given model.

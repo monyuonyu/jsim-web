@@ -20,26 +20,26 @@
 // 出力の getMatchValue(double) の上書きは、LinkedService で getMatchValue() と 1 つにした関数を上書きする
 // （EntityGenerator は setMatchValue を呼ばないので、getMatchValue() も Java と同じく null のまま）。
 
-import { tr } from "../i18n/I18n.ts";
-import { KeywordCommand } from "../Commands/KeywordCommand.ts";
-import { EntityProvInput } from "../EntityProviders/EntityProvInput.ts";
-import { DisplayEntity } from "../Graphics/DisplayEntity.ts";
-import { OverlayEntity } from "../Graphics/OverlayEntity.ts";
-import { TextBasics } from "../Graphics/TextBasics.ts";
-import { SampleInput } from "../Samples/SampleInput.ts";
-import { Entity } from "../basicsim/Entity.ts";
-import { EventManager } from "../events/EventManager.ts";
-import { Input } from "../input/Input.ts";
-import { InputAgent } from "../input/InputAgent.ts";
-import { KeywordIndex } from "../input/KeywordIndex.ts";
-import { defineOutput, hideOutput } from "../input/OutputRegistry.ts";
-import { StringInput } from "../input/StringInput.ts";
-import { ClassRegistry } from "../java/ClassRegistry.ts";
-import { Double } from "../java/lang.ts";
-import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
-import { TimeUnit } from "../units/TimeUnit.ts";
-import { EntityGen } from "./EntityGen.ts";
-import { LinkedService } from "./LinkedService.ts";
+import { tr } from "../internal.ts";
+import { KeywordCommand } from "../internal.ts";
+import { EntityProvInput } from "../internal.ts";
+import { DisplayEntity } from "../internal.ts";
+import { OverlayEntity } from "../internal.ts";
+import { TextBasics } from "../internal.ts";
+import { SampleInput } from "../internal.ts";
+import { Entity } from "../internal.ts";
+import { EventManager } from "../internal.ts";
+import { Input } from "../internal.ts";
+import { InputAgent } from "../internal.ts";
+import { KeywordIndex } from "../internal.ts";
+import { defineOutput, hideOutput } from "../internal.ts";
+import { StringInput } from "../internal.ts";
+import { ClassRegistry } from "../internal.ts";
+import { Double } from "../internal.ts";
+import { DimensionlessUnit } from "../internal.ts";
+import { TimeUnit } from "../internal.ts";
+import { EntityGen } from "../internal.ts";
+import { LinkedService } from "../internal.ts";
 
 /** Java の (int) x（double → int。0 の方向へ切り捨て、範囲外は端、NaN は 0） */
 function jint(x: number): number {

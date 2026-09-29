@@ -16,9 +16,9 @@
  * limitations under the License.
  * TypeScript への移植 (C) 2026 shota
  */
-import { jstr } from "../java/lang.ts";
+import { jstr } from "../internal.ts";
 import type { Mat4d } from "./Mat4d.ts";
-import { isMat4d, Vec2d, vecNear } from "./Vec2d.ts";
+import { isMat4d, Vec2d, vecNear } from "../internal.ts";
 
 /*
  * 移植の注意: Java は Input.SEPARATOR を使うが、Input を import すると読み込みの輪

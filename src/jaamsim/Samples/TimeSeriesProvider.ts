@@ -21,7 +21,7 @@
 // `x instanceof TimeSeriesProvider` は isTimeSeriesProvider(x)
 // （SampleProvider の関数に加えて getMaxTicksValue・getInterpolatedTicksForValue があるか）。
 
-import { isSampleProvider } from "./SampleProvider.ts";
+import { isSampleProvider } from "../internal.ts";
 import type { SampleProvider } from "./SampleProvider.ts";
 
 export interface TimeSeriesProvider extends SampleProvider {
