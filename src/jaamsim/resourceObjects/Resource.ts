@@ -61,7 +61,7 @@ export class Resource extends AbstractResourceProvider {
 		// Java の初期化ブロック
 		this.attributeDefinitionList.setHidden(false);
 
-		this.capacity = new SampleInput("Capacity", Entity.KEY_INPUTS, 1);
+		this.capacity = SampleInput.ofInt("Capacity", Entity.KEY_INPUTS, 1);
 		this.setKeywordDoc(this.capacity, "The number of equivalent resource units that are available. "
 		                     + "Only an integer number of resource units can be specified. "
 		                     + "A decimal value will be truncated to an integer.\n"

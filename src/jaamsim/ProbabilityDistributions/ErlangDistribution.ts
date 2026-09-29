@@ -61,7 +61,7 @@ export class ErlangDistribution extends Distribution {
 		this.meanInput.setValidRange(0.0, Double.POSITIVE_INFINITY);
 		this.addInput(this.meanInput);
 
-		this.shapeInput = new SampleInput("Shape", Entity.KEY_INPUTS, 1);
+		this.shapeInput = SampleInput.ofInt("Shape", Entity.KEY_INPUTS, 1);
 		this.setKeywordDoc(this.shapeInput, "The shape parameter for the Erlang distribution.  An integer value >= 1.  " +
 				"Shape = 1 gives the Exponential distribution.  " +
 				"For Shape > 10 it is better to use the Gamma distribution.",

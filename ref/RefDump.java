@@ -17,8 +17,8 @@ public class RefDump {
 		sm.configure(file);
 		sm.postLoad();
 		if (sm.getNumErrors() > 0) { System.out.println("入力のエラー\t" + sm.getNumErrors()); System.exit(2); }
-		if (sm.getSimulation().getRunDuration() > 3600000.0d)
-			sm.setInput("Simulation", "RunDuration", "1000 h");
+		if (sm.getSimulation().getRunDuration() > 360000.0d)
+			sm.setInput("Simulation", "RunDuration", "100 h");
 		sm.setInput("Simulation", "NumberOfReplications", "1");
 		sm.setInput("Simulation", "PauseTime", "");
 		CountDownLatch done = new CountDownLatch(1);

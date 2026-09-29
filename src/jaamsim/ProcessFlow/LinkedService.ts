@@ -21,7 +21,7 @@
 // moveToProcessPosition(DisplayEntity) は、物の位置（状態）を決めるので残した。DisplayEntity の
 // moveToProcessPosition(DisplayEntity, Vec3d) と、引数の数で見分ける 1 つの関数にした。
 
-import { tr } from "../internal.ts";
+import { tr, SubjectEntityClass } from "../internal.ts";
 import { KeywordCommand } from "../internal.ts";
 import { EntityProvInput } from "../internal.ts";
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
@@ -48,18 +48,7 @@ import { LinkedDevice } from "../internal.ts";
 import { Queue } from "../internal.ts";
 import { QueueUser } from "../internal.ts";
 
-/**
- * Java の SubjectEntity.class の代わり（SubjectEntity には値が無いので、instanceof で使える物を作った）。
- */
-const SubjectEntityClass = {
-	javaName: "com.jaamsim.basicsim.SubjectEntity",
-	isInstance(o: unknown): o is SubjectEntity {
-		return isSubjectEntity(o);
-	},
-	[Symbol.hasInstance](o: unknown): o is SubjectEntity {
-		return isSubjectEntity(o);
-	},
-};
+// SubjectEntityClass は basicsim/SubjectEntity.ts の共通の物を使う
 
 /** Java の Arrays.binarySearch(long[], long) */
 function binarySearch(a: number[], key: number): number {

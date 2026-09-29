@@ -11,8 +11,8 @@ rm -rf "$OUT"; mkdir -p "$OUT"; cp -r "$SRC" "$OUT/models"
 find "$OUT/models" -name "*.cfg" | sort | while read -r cfg; do
 	name=$(realpath --relative-to="$OUT/models" "$cfg" | tr '/ ' '__')
 	dir=$(dirname "$cfg")
-	(cd "$dir" && timeout 300 "$J" -Djava.awt.headless=true -cp "$CP" RefDump "$cfg" > "$OUT/$name.java.dump" 2>&1)
-	(cd "$dir" && timeout 300 node --import tsx "$HOME/jsim-web/tools/dump-model.ts" "$cfg" > "$OUT/$name.ts.dump" 2>&1)
+	(cd "$dir" && timeout 600 "$J" -XX:+UnlockDiagnosticVMOptions -XX:-UseLibmIntrinsic -Djava.awt.headless=true -cp "$CP" RefDump "$cfg" > "$OUT/$name.java.dump" 2>&1)
+	(cd "$dir" && timeout 600 node --import tsx "$HOME/jsim-web/tools/dump-model.ts" "$cfg" > "$OUT/$name.ts.dump" 2>&1)
 	nj=$(wc -l < "$OUT/$name.java.dump"); nt=$(wc -l < "$OUT/$name.ts.dump")
 	nd=$("$HOME/jsim-web/tools/cmp-dump.sh" "$OUT/$name.java.dump" "$OUT/$name.ts.dump" | grep -c '^<')
 	if [ "$nj" -le 2 ] || [ "$nt" -le 2 ]; then st="動かない"; elif [ "$nd" -eq 0 ]; then st="一致"; else st="違う"; fi

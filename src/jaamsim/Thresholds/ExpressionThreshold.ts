@@ -22,7 +22,7 @@
 // 多重定義 getOpenConditionValue(double)・getOpenConditionValue(double, boolean) は、2 番目の引数の有無で見分ける 1 つの関数にした。
 // Java の ExpressionThreshold.super.isOpen()（名前の無いクラスの中から親の isOpen を呼ぶ所）は superIsOpen() にした。
 
-import { BooleanProvInput } from "../internal.ts";
+import { BooleanProvInput, SubjectEntityClass } from "../internal.ts";
 import { ColourProvInput } from "../internal.ts";
 import { ShapeModel } from "../internal.ts";
 import { Entity } from "../internal.ts";
@@ -47,16 +47,7 @@ import { DimensionlessUnit } from "../internal.ts";
 import { RateUnit } from "../internal.ts";
 import { Threshold } from "../internal.ts";
 
-/** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
-const SubjectEntityClass = {
-	javaName: "com.jaamsim.basicsim.SubjectEntity",
-	isInstance(o: unknown): o is SubjectEntity {
-		return isSubjectEntity(o);
-	},
-	[Symbol.hasInstance](o: unknown): o is SubjectEntity {
-		return isSubjectEntity(o);
-	},
-};
+// SubjectEntityClass は basicsim/SubjectEntity.ts の共通の物を使う
 
 export class ExpressionThreshold extends Threshold implements ObserverEntity {
 

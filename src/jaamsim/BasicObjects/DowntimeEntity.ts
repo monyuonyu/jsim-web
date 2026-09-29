@@ -193,7 +193,7 @@ export class DowntimeEntity extends StateEntity implements StateEntityListener, 
 		         ["Resource1 Resource2"]);
 		this.addInput(this.resourceList);
 
-		this.numberOfUnitsList = new SampleListInput("NumberOfUnits", Entity.KEY_INPUTS, 1);
+		this.numberOfUnitsList = SampleListInput.ofInt("NumberOfUnits", Entity.KEY_INPUTS, 1);
 		this.setKeywordDoc(this.numberOfUnitsList, "The number of units to seize from the Resources specified by the "
 		                     + "'ResourceList' keyword. "
 		                     + "The last value in the list is used if the number of resources is "

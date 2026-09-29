@@ -84,7 +84,7 @@ implements SampleProvider, RandomStreamUser {
 		this.unitType.setCallback(Distribution.inputCallback);
 		this.addInput(this.unitType);
 
-		this.randomSeedInput = new SampleInput("RandomSeed", Entity.KEY_INPUTS, -1);
+		this.randomSeedInput = SampleInput.ofInt("RandomSeed", Entity.KEY_INPUTS, -1);
 		this.setKeywordDoc(this.randomSeedInput, "Random stream number for the random number generator used by this "
 		                     + "probability distribution. "
 		                     + "Accepts an integer value >= 0.\n\n"

@@ -101,7 +101,7 @@ export class Queue extends LinkedComponent {
 		this.defaultEntity.setHidden(true);
 		this.nextComponent.setHidden(true);
 
-		this.priority = new SampleInput("Priority", Entity.KEY_INPUTS, 0);
+		this.priority = SampleInput.ofInt("Priority", Entity.KEY_INPUTS, 0);
 		this.setKeywordDoc(this.priority, "The priority for positioning the received entity in the queue. "
 		                     + "Priority is integer valued and a lower numerical value indicates a "
 		                     + "higher priority. "
@@ -141,7 +141,7 @@ export class Queue extends LinkedComponent {
 		this.renegeTime.setCallback(Queue.inputCallback);
 		this.addInput(this.renegeTime);
 
-		this.renegeCondition = new SampleInput("RenegeCondition", Entity.KEY_INPUTS, 1);
+		this.renegeCondition = SampleInput.ofInt("RenegeCondition", Entity.KEY_INPUTS, 1);
 		this.setKeywordDoc(this.renegeCondition, "A logical condition that determines whether an entity will renege "
 		                     + "after waiting for its RenegeTime value. Note that TRUE and FALSE are "
 		                     + "entered as 1 and 0, respectively.",
@@ -156,7 +156,7 @@ export class Queue extends LinkedComponent {
 		         ["Branch1"]);
 		this.addInput(this.renegeDestination);
 
-		this.maxValidLength = new SampleInput("MaxValidLength", Entity.KEY_INPUTS, 10000);
+		this.maxValidLength = SampleInput.ofInt("MaxValidLength", Entity.KEY_INPUTS, 10000);
 		this.setKeywordDoc(this.maxValidLength, "Maximum number of objects that can be placed in the queue. "
 		                     + "An error message is generated if this limit is exceeded.\n\n"
 		                     + "This input is intended to trap a model error that causes the queue "

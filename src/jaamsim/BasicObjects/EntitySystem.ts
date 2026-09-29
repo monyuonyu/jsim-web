@@ -20,7 +20,7 @@
 // 多重定義の扱い: setPresentState()（この部品の状態を決める）と、親の setPresentState(String) は、
 // 引数があるかどうかで見分ける（親の AbstractStateUserEntity も同じ作りである前提）。
 
-import { ClassRegistry } from "../internal.ts";
+import { ClassRegistry, SubjectEntityClass } from "../internal.ts";
 import { AbstractStateUserEntity } from "../internal.ts";
 import { Entity } from "../internal.ts";
 import { ObserverEntity } from "../internal.ts";
@@ -36,12 +36,7 @@ import { InterfaceEntityListInput } from "../internal.ts";
 import { defineOutput } from "../internal.ts";
 import { DimensionlessUnit } from "../internal.ts";
 
-/** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
-const SubjectEntityClass = {
-	[Symbol.hasInstance](o: unknown): o is SubjectEntity {
-		return isSubjectEntity(o);
-	},
-};
+// SubjectEntityClass は basicsim/SubjectEntity.ts の共通の物を使う
 
 export class EntitySystem extends AbstractStateUserEntity implements ObserverEntity, SubjectEntity {
 

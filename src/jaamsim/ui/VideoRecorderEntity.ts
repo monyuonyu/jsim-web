@@ -108,7 +108,7 @@ export class VideoRecorderEntity extends DisplayEntity {
 		this.captureInterval.setValidRange(0.1, Double.POSITIVE_INFINITY);
 		this.addInput(this.captureInterval);
 
-		this.captureFrames = new SampleInput("CaptureFrames", Entity.KEY_INPUTS, 0);
+		this.captureFrames = SampleInput.ofInt("CaptureFrames", Entity.KEY_INPUTS, 0);
 		this.setKeywordDoc(this.captureFrames, "Total number of frames to capture for the video.\n"
 		                     + "The recorded video assumes 30 frames per second. Therefore, if a "
 		                     + "2 minute video is required, the number of frames should be set to "

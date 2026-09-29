@@ -39,7 +39,7 @@ export class ExternalProgram extends AbstractExternalProgram {
 		super();
 
 		// Java の初期化ブロック
-		this.timeOut = new SampleInput("TimeOut", Entity.KEY_INPUTS, 1000);
+		this.timeOut = SampleInput.ofInt("TimeOut", Entity.KEY_INPUTS, 1000);
 		this.setKeywordDoc(this.timeOut, "Maximum time in milliseconds for the external program to finish "
 		                     + "executing.",
 		         ["2000"]);

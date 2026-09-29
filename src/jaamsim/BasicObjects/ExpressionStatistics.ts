@@ -19,7 +19,7 @@
 // 名前の無い EntityTarget（doValueTraceTarget）と、入れ子のクラス ValueChangedConditional は、
 // ファイルの中のクラスにした。Java の Arrays.binarySearch(double[], double) は、ファイルの中の関数 binarySearch。
 
-import { Double, Integer } from "../internal.ts";
+import { Double, Integer, SubjectEntityClass } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import { ClassRegistry } from "../internal.ts";
 import { BooleanProvInput } from "../internal.ts";
@@ -45,12 +45,7 @@ import { DimensionlessUnit } from "../internal.ts";
 import type { Unit } from "../units/Unit.ts";
 import { UserSpecifiedUnit } from "../internal.ts";
 
-/** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
-const SubjectEntityClass = {
-	[Symbol.hasInstance](o: unknown): o is SubjectEntity {
-		return isSubjectEntity(o);
-	},
-};
+// SubjectEntityClass は basicsim/SubjectEntity.ts の共通の物を使う
 
 /** Java の (int) の型変換（0 の方向へ切り捨て、NaN は 0、範囲の外は端に張り付く） */
 function toInt(x: number): number {

@@ -47,3 +47,17 @@ export function isSubjectEntity(o: unknown): o is SubjectEntity {
 	return typeof s.registerObserver === "function" && typeof s.notifyObservers === "function"
 			&& typeof s.getObserverList === "function";
 }
+
+/**
+ * Java の SubjectEntity.class の代わり（InterfaceEntityInput などに渡す。JInterface の形）。
+ * instanceof SubjectEntityClass とも書ける。
+ */
+export const SubjectEntityClass = {
+	javaName: "com.jaamsim.basicsim.SubjectEntity",
+	isInstance(o: unknown): o is SubjectEntity {
+		return isSubjectEntity(o);
+	},
+	[Symbol.hasInstance](o: unknown): o is SubjectEntity {
+		return isSubjectEntity(o);
+	},
+};

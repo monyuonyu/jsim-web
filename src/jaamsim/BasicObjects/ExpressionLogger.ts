@@ -20,7 +20,7 @@
 // 名前の無い EntityTarget（endActionTarget・doValueTraceTarget）と、入れ子のクラス ValueChangedConditional は、
 // ファイルの中のクラスにした。
 
-import { Double } from "../internal.ts";
+import { Double, SubjectEntityClass } from "../internal.ts";
 import { ClassRegistry } from "../internal.ts";
 import { tr } from "../internal.ts";
 import { BooleanProvInput } from "../internal.ts";
@@ -53,12 +53,7 @@ import { DimensionlessUnit } from "../internal.ts";
 import { TimeUnit } from "../internal.ts";
 import { Logger } from "../internal.ts";
 
-/** InterfaceEntityListInput に渡す、interface SubjectEntity の Class の代わり（ProcessFlow/LinkedService.ts と同じ作り） */
-const SubjectEntityClass = {
-	[Symbol.hasInstance](o: unknown): o is SubjectEntity {
-		return isSubjectEntity(o);
-	},
-};
+// SubjectEntityClass は basicsim/SubjectEntity.ts の共通の物を使う
 
 export class ExpressionLogger extends Logger implements StateEntityListener, ObserverEntity {
 

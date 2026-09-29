@@ -105,7 +105,7 @@ export class ToggleButton extends GameEntity implements SubjectEntity, LineEntit
 		this.lineColour.setDefaultText("ShapeModel value");
 		this.addInput(this.lineColour);
 
-		this.lineWidth = new SampleInput("LineWidth", Entity.FORMAT, 1);
+		this.lineWidth = SampleInput.ofInt("LineWidth", Entity.FORMAT, 1);
 		this.setKeywordDoc(this.lineWidth, "Width of the outline in pixels.",
 		         [ "3" ]);
 		this.lineWidth.setValidRange(0, Double.POSITIVE_INFINITY);
