@@ -462,7 +462,13 @@ export abstract class Input<T> {
 	private _isOutput = false;  // indicates whether this input is available as an output
 	private _isReportable = false;  // indicated whether this input is a reportable output
 
-	static readonly uiSortOrder = new NaturalOrderComparator();
+	/** Array.sort に渡せる関数（Java の Comparator のように compare も持つ） */
+	static readonly uiSortOrder: ((a: unknown, b: unknown) => number) & { compare(a: unknown, b: unknown): number } = (() => {
+		const cmp = new NaturalOrderComparator();
+		const f = ((a: unknown, b: unknown) => cmp.compare(a, b)) as ((a: unknown, b: unknown) => number) & { compare(a: unknown, b: unknown): number };
+		f.compare = (a: unknown, b: unknown) => cmp.compare(a, b);
+		return f;
+	})();
 
 	constructor(key: string, cat: string, def: T | null) {
 		this.keyword = key;

@@ -1,5 +1,4 @@
-import type { DisplayModel } from "../DisplayModels/DisplayModel.ts";
-import { DisplayModel as DisplayModelClass } from "../DisplayModels/DisplayModel.ts";
+import { DisplayModel } from "../DisplayModels/DisplayModel.ts";
 import { BooleanInput } from "../input/BooleanInput.ts";
 import { ClassInput } from "../input/ClassInput.ts";
 import { EntityInput } from "../input/EntityInput.ts";
@@ -52,7 +51,7 @@ export class ObjectType extends Entity {
 				["This is placeholder example text"]);
 		this.addInput( this.palette );
 
-		this.defaultDisplayModel = new EntityInput<DisplayModel>(DisplayModelClass, "DefaultDisplayModel", Entity.KEY_INPUTS, null);
+		this.defaultDisplayModel = new EntityInput<DisplayModel>(DisplayModel, "DefaultDisplayModel", Entity.KEY_INPUTS, null);
 		this.setKeywordDoc(this.defaultDisplayModel, "Only for DisplayEntity", []);
 		this.defaultDisplayModel.setCallback(ObjectType.displaymodelCallback);
 		this.addInput(this.defaultDisplayModel);
