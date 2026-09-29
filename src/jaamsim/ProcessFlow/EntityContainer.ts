@@ -294,7 +294,7 @@ export class EntityContainer extends SimEntity implements EntContainer {
 			const itemSize = ent.getGlobalSize();
 			distanceX += 0.5*itemSize.x;
 			tmp.set3(distanceX, distanceY, distanceZ);
-			tmp.add3(this.positionOffset.getValue());
+			tmp.add3(this.positionOffset.getValue()!);
 			const pos = this.getGlobalPositionForPosition(tmp);
 			ent.setGlobalPositionForAlignment(pos, new Vec3d());
 

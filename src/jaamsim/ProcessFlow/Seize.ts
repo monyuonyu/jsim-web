@@ -17,6 +17,9 @@
  * limitations under the License.
  */
 
+// Java の stateChanged()（引数なし）は、StateEntity.stateChanged(StateRecord, StateRecord)（状態が変わったときに呼ばれる）と
+// 1 つの関数にすると、状態の切り替えのたびに資源の通知が走ってしまうので、resourceStateChanged() にした（docs/renamed.md）。
+
 import type { DisplayEntity } from "../Graphics/DisplayEntity.ts";
 import { ClassRegistry } from "../java/ClassRegistry.ts";
 import { Entity } from "../basicsim/Entity.ts";
@@ -47,18 +50,18 @@ export class Seize extends AbstractLinkedResourceUser {
 		this.resourceList.setRequired(true);
 	}
 
-	stateChanged(): void {
+	resourceStateChanged(): void {
 		if (!this.isReadyToStart())
 			return;
 		AbstractResourceProvider.notifyResourceUsers(this.getResourceList());
 	}
 
 	override queueChanged(): void {
-		this.stateChanged();
+		this.resourceStateChanged();
 	}
 
 	override thresholdChanged(): void {
-		this.stateChanged();
+		this.resourceStateChanged();
 		super.thresholdChanged();
 	}
 
@@ -71,7 +74,7 @@ export class Seize extends AbstractLinkedResourceUser {
 	private readonly stateChangedHandle = new EventHandle();
 	private readonly stateChangedTarget: ProcessTarget = new (class extends EntityTarget<Seize> {
 		override process(): void {
-			this.ent.stateChanged();
+			this.ent.resourceStateChanged();
 		}
 	})(this, "stateChanged");
 

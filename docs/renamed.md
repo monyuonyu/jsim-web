@@ -44,3 +44,5 @@ SubjectEntity（interface）: x instanceof SubjectEntity → isSubjectEntity(x)�
 ObserverEntity（interface）: x instanceof ObserverEntity → isObserverEntity(x)。static の ERR_WATCHLIST・registerWithSubjects・isObserverOf・validate は const ObserverEntity に置いた（担当: D）
 GUIListener: Java に無い「?」付きの関数（invokeErrorDialog・updateUI・shutdown・getEventViewer・pauseRunManager）を足した。GUIFrame の static を呼んでいた所の代わり（担当: D）
 Entity.error(fmt, ...args): 中で tr(fmt) してから jformat する。戻り値の型は never（担当: D）
+- `Seize.stateChanged()`・`EntityProcessor.stateChanged()`（引数なし） → `resourceStateChanged`（StateEntity.stateChanged(StateRecord, StateRecord) とぶつかり、1 つにすると状態の切り替えのたびに呼ばれてしまうため。事象の説明は元の "stateChanged" のまま）（担当: E）
+- `EntityProcessor.getUnitsInUse()` と出力の `getUnitsInUse(double)` → `getUnitsInUse(simTime?)`（同じ中身なので 1 つにした）（担当: E）
