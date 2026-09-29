@@ -82,7 +82,7 @@ export abstract class AbstractLinkedResourceUser extends LinkedService implement
 
 	override earlyInit(): void {
 		super.earlyInit();
-		this.resUserDelegate = new ResourceUserDelegate(this.resourceList.getValue());
+		this.resUserDelegate = new ResourceUserDelegate(this.resourceList.getValue()!);
 		this.seizedUnits = new Array<number>(this.resUserDelegate.getListSize()).fill(0);
 	}
 

@@ -64,7 +64,7 @@ export class Release extends LinkedComponent {
 
 	override earlyInit(): void {
 		super.earlyInit();
-		this.resUserDelegate = new ResourceUserDelegate(this.resourceList.getValue());
+		this.resUserDelegate = new ResourceUserDelegate(this.resourceList.getValue()!);
 	}
 
 	override addEntity( ent: DisplayEntity ): void {
@@ -78,7 +78,7 @@ export class Release extends LinkedComponent {
 	 */
 	releaseResources(ent: DisplayEntity): void {
 		const simTime = EventManager.simSeconds();
-		const resList = this.resourceList.getValue();
+		const resList = this.resourceList.getValue()!;
 
 		// Release the Resources
 		const nums = this.numberOfUnitsList.getNextIntegers(this, simTime, resList.length);
