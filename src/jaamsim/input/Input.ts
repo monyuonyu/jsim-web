@@ -1893,7 +1893,6 @@ export abstract class Input<T> {
 				a /= 255.0;
 			}
 
-			// TODO(移植): Java は double の 4 つの形のコンストラクタ（255 で割らない）。Color4d が整数の値で見分けないことを前提にしている
 			return new Color4d(r, g, b, a);
 		}
 	}

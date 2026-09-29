@@ -50,7 +50,7 @@ export class FileToHashMap extends FileToArray {
 				this.error(tr("Key is not a string in record: %s"), listToString(strRecord));
 
 			// Add the entry to the hashmap
-			const key = record[0].stringVal;
+			const key = record[0].stringVal!;
 			const list = record.slice(1, record.length);
 			const colList = ExpCollections.wrapCollection(list, DimensionlessUnit);
 			ret.set(key, colList);
@@ -72,6 +72,7 @@ export class FileToHashMap extends FileToArray {
 			return;
 		}
 
+		// TODO(順番): Java で HashMap を渡したときは HashMap の順番になる（TS では渡した Map の順番）
 		const temp = new Map<string, ExpResult>();
 		for (const [key, value] of map) {
 			const resRow = FileToArray.getExpResultList(value);

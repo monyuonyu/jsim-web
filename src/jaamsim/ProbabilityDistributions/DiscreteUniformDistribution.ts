@@ -21,6 +21,17 @@ import { MRG1999a } from "../rng/MRG1999a.ts";
 import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { Distribution } from "./Distribution.ts";
 
+/** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
+function jint(x: number): number {
+	if (Number.isNaN(x))
+		return 0;
+	if (x >= 2147483647)
+		return 2147483647;
+	if (x <= -2147483648)
+		return -2147483648;
+	return Math.trunc(x);
+}
+
 /**
  * Discrete Uniform Distribution.
  * Adapted from A.M. Law, "Simulation Modelling and Analysis, 5th Edition", page 469.
@@ -45,36 +56,36 @@ export class DiscreteUniformDistribution extends Distribution {
 	}
 
 	protected override getSample(simTime: number): number {
-		const i = Math.trunc(this.getMinValueInput(simTime));
-		const j = Math.trunc(this.getMaxValueInput(simTime));
+		const i = jint(this.getMinValueInput(simTime));
+		const j = jint(this.getMaxValueInput(simTime));
 		return DiscreteUniformDistribution.getSample(i, j, this.rng);
 	}
 
 	protected override getMean(simTime: number): number {
-		const i = Math.trunc(this.getMinValueInput(simTime));
-		const j = Math.trunc(this.getMaxValueInput(simTime));
+		const i = jint(this.getMinValueInput(simTime));
+		const j = jint(this.getMaxValueInput(simTime));
 		return DiscreteUniformDistribution.getMean(i, j);
 	}
 
 	protected override getStandardDev(simTime: number): number {
-		const i = Math.trunc(this.getMinValueInput(simTime));
-		const j = Math.trunc(this.getMaxValueInput(simTime));
+		const i = jint(this.getMinValueInput(simTime));
+		const j = jint(this.getMaxValueInput(simTime));
 		return DiscreteUniformDistribution.getStandardDev(i, j);
 	}
 
 	protected override getMin(simTime: number): number {
-		const i = Math.trunc(this.getMinValueInput(simTime));
+		const i = jint(this.getMinValueInput(simTime));
 		return i;
 	}
 
 	protected override getMax(simTime: number): number {
-		const j = Math.trunc(this.getMaxValueInput(simTime));
+		const j = jint(this.getMaxValueInput(simTime));
 		return j;
 	}
 
 	/** i は Java の int、j は double。Java では int を返す */
 	static getSample(i: number, j: number, rng: MRG1999a): number {
-		return Math.trunc(i + rng.nextUniform() * (j - i + 1));
+		return jint(i + rng.nextUniform() * (j - i + 1));
 	}
 
 	/** i は Java の int、j は double */

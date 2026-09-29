@@ -235,7 +235,7 @@ export class Entity {
 	})();
 
 	setNameInput(localName: string): void {
-		if (this.nameInput.isDef()) {
+		if (this.nameInput.getIsDef()) {
 			this.nameInput.setInitialValue(localName);
 			this.setLocalName(localName);
 			this.nameInput.setLocked(this.isGenerated());
@@ -262,7 +262,7 @@ export class Entity {
 	})();
 
 	setParentInput(newParent: Entity | null): void {
-		if (this.parentInput.isDef()) {
+		if (this.parentInput.getIsDef()) {
 			this.parentInput.setInitialValue(newParent);
 			this.parent = newParent;
 			this.parentInput.setLocked(this.isGenerated());
@@ -351,7 +351,7 @@ export class Entity {
 			}
 		}
 
-		if (!this.isActive() && this.active.getHidden() && !this.active.isDef())
+		if (!this.isActive() && this.active.getHidden() && !this.active.getIsDef())
 			throw new ErrorException(
 					"Setting the Active keyword to FALSE has no effect on this object");
 	}
@@ -618,7 +618,7 @@ export class Entity {
 		if (seq === 0) {
 			for (const inp of ent.getEditableInputs()) {
 				const stub = inp.getStubDefinition();
-				if (stub == null || inp.isDef())
+				if (stub == null || inp.getIsDef())
 					continue;
 				const kw = KeywordIndex.formatInput(inp.getKeyword(), stub);
 				InputAgent.apply(this, kw);
@@ -667,7 +667,7 @@ export class Entity {
 		// - the new input value from the prototype is equal to the present value (handled in the
 		//   'assign' method)
 		// - the input is for the CustomOutputList keyword which had been assigned a stub value
-		if (this.getPrototype() === ent && !targetInput.isDef() && !targetInput.isInherited()
+		if (this.getPrototype() === ent && !targetInput.getIsDef() && !targetInput.isInherited()
 				&& !stringListEquals(targetInput.getValueTokens(), tmp)
 				&& targetInput.getStubDefinition() == null)
 			return;
@@ -694,7 +694,7 @@ export class Entity {
 
 		// For a blank input, check the input inherited from its prototype and replace references
 		// to the prototype's parent
-		if (inp.isDef() && this.prototype != null && inp.getProtoInput() != null)
+		if (inp.getIsDef() && this.prototype != null && inp.getProtoInput() != null)
 			return this.prototype.getValueTokens(inp.getProtoInput()!, newParent);
 
 		const ret = inp.getValueTokens();
@@ -1207,7 +1207,7 @@ export class Entity {
 			inp.setProtoInput(this.prototype!.inpList[i]);
 
 			// If the inherited value is used, then perform its callback
-			if (!inp.isDef() || inp.isDefault())
+			if (!inp.getIsDef() || inp.isDefault())
 				continue;
 			inp.doCallback(this);
 		}
@@ -1292,7 +1292,7 @@ export class Entity {
 		// Reset any inputs that were changed
 		if (ret.isEdited()) {
 			for (const inp of ret.inpList) {
-				if (inp.isDef())
+				if (inp.getIsDef())
 					continue;
 				inp.reset();
 				inp.doCallback(ret);

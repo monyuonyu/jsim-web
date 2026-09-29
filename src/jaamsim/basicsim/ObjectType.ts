@@ -1,0 +1,144 @@
+import type { DisplayModel } from "../DisplayModels/DisplayModel.ts";
+import { DisplayModel as DisplayModelClass } from "../DisplayModels/DisplayModel.ts";
+import { BooleanInput } from "../input/BooleanInput.ts";
+import { ClassInput } from "../input/ClassInput.ts";
+import { EntityInput } from "../input/EntityInput.ts";
+import { ImageInput } from "../input/ImageInput.ts";
+import type { Input } from "../input/Input.ts";
+import { InputCallback } from "../input/InputCallback.ts";
+import { StringInput } from "../input/StringInput.ts";
+import { Vec3dInput } from "../input/Vec3dInput.ts";
+import { ClassRegistry } from "../java/ClassRegistry.ts";
+import type { JClass } from "../java/lang.ts";
+import { Vec3d } from "../math/Vec3d.ts";
+import { DistanceUnit } from "../units/DistanceUnit.ts";
+import { Entity } from "./Entity.ts";
+
+/**
+ * Java は com.jaamsim.ui.DragAndDropable を実装している（画面の部品なので interface は移さず、関数だけを残した）。
+ */
+export class ObjectType extends Entity {
+
+	private readonly javaClass: ClassInput;
+
+	private readonly palette: StringInput;
+
+	private readonly defaultDisplayModel: EntityInput<DisplayModel>;
+
+	private readonly dragAndDrop: BooleanInput;
+
+	private readonly iconFile: ImageInput;
+
+	private readonly defaultSize: Vec3dInput;
+
+	private readonly defaultAlignment: Vec3dInput;
+
+	private readonly displayEntityDefault: DisplayModel[] = [];
+
+	constructor() {
+		super();
+
+		// ---- Java の初期化ブロック ----
+		this.active.setDefaultValue(false);
+
+		this.javaClass = new ClassInput( "JavaClass", Entity.KEY_INPUTS, null );
+		this.setKeywordDoc(this.javaClass, "The java class of the object type",
+				["This is placeholder example text"]);
+		this.javaClass.setCallback(ObjectType.javaclassCallback);
+		this.addInput( this.javaClass );
+
+		this.palette = new StringInput("Palette", Entity.KEY_INPUTS, null);
+		this.setKeywordDoc(this.palette, "The package to which the object type belongs",
+				["This is placeholder example text"]);
+		this.addInput( this.palette );
+
+		this.defaultDisplayModel = new EntityInput<DisplayModel>(DisplayModelClass, "DefaultDisplayModel", Entity.KEY_INPUTS, null);
+		this.setKeywordDoc(this.defaultDisplayModel, "Only for DisplayEntity", []);
+		this.defaultDisplayModel.setCallback(ObjectType.displaymodelCallback);
+		this.addInput(this.defaultDisplayModel);
+
+		this.dragAndDrop = new BooleanInput("DragAndDrop", Entity.KEY_INPUTS, true);
+		this.setKeywordDoc(this.dragAndDrop, "This is placeholder description text", []);
+		this.addInput(this.dragAndDrop);
+
+		this.iconFile = new ImageInput("IconFile", Entity.KEY_INPUTS, null);
+		this.setKeywordDoc(this.iconFile, "The (optional) image to be used in the Model Builder as the icon for "
+				+ "this object type.  The normal image size is 24x24 pixels.",
+				["This is placeholder example text"]);
+		this.addInput(this.iconFile);
+
+		this.defaultSize = new Vec3dInput("DefaultSize", Entity.KEY_INPUTS, new Vec3d(1.0, 1.0, 1.0));
+		this.setKeywordDoc(this.defaultSize, "The default size for the instances of this class.",
+				["1.0 1.0 1.0 m"]);
+		this.defaultSize.setUnitType(DistanceUnit);
+		this.addInput(this.defaultSize);
+
+		this.defaultAlignment = new Vec3dInput("DefaultAlignment", Entity.KEY_INPUTS, new Vec3d(0.0, 0.0, 0.0));
+		this.setKeywordDoc(this.defaultAlignment, "The default alignment for the instances of this class.",
+				["0.0 0.0 -0.5"]);
+		this.addInput(this.defaultAlignment);
+	}
+
+	static readonly javaclassCallback: InputCallback = new (class extends InputCallback {
+		override callback(ent: Entity, _inp: Input<unknown>): void {
+			(ent as ObjectType).updatejavaclassCallback();
+		}
+	})();
+
+	updatejavaclassCallback(): void {
+		this.getJaamSimModel().addObjectType(this);
+	}
+
+	static readonly displaymodelCallback: InputCallback = new (class extends InputCallback {
+		override callback(ent: Entity, _inp: Input<unknown>): void {
+			(ent as ObjectType).updatedisplaymodelCallback();
+		}
+	})();
+
+	updatedisplaymodelCallback(): void {
+		this.displayEntityDefault.length = 0;
+		if (this.defaultDisplayModel.getValue() != null)
+			this.displayEntityDefault.push(this.defaultDisplayModel.getValue() as DisplayModel);
+	}
+
+	override kill(): void {
+		super.kill();
+		this.getJaamSimModel().removeObjectType(this);
+	}
+
+	getJavaClass(): JClass<Entity> | null {
+		return this.javaClass.getValue() as JClass<Entity> | null;
+	}
+
+	getLibraryName(): string {
+		const s = this.palette.getValue() as string | null;
+		if (s != null)
+			return s;
+
+		return "Default";
+	}
+
+	getDefaultDisplayModel(): DisplayModel[] {
+		return this.displayEntityDefault;
+	}
+
+	isDragAndDrop(): boolean {
+		return this.dragAndDrop.getValue() as boolean;
+	}
+
+	/** Java は BufferedImage を返す。描画: 省略（ImageInput の値をそのまま返す） */
+	getIconImage(): unknown {
+		return this.iconFile.getValue();
+	}
+
+	getDefaultSize(): Vec3d {
+		return this.defaultSize.getValue() as Vec3d;
+	}
+
+	getDefaultAlignment(): Vec3d {
+		return this.defaultAlignment.getValue() as Vec3d;
+	}
+
+}
+
+ClassRegistry.register("com.jaamsim.basicsim.ObjectType", ObjectType);

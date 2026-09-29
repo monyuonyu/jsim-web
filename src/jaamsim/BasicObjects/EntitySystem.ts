@@ -105,7 +105,7 @@ export class EntitySystem extends AbstractStateUserEntity implements ObserverEnt
 		this.subject.notifyObservers();
 	}
 
-	getObserverList(): ObserverEntity[] {
+	override getObserverList(): ObserverEntity[] {
 		return this.subject.getObserverList();
 	}
 

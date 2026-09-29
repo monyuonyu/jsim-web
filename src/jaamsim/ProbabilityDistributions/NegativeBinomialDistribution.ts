@@ -25,6 +25,17 @@ import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { Distribution } from "./Distribution.ts";
 import { GeometricDistribution } from "./GeometricDistribution.ts";
 
+/** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
+function jint(x: number): number {
+	if (Number.isNaN(x))
+		return 0;
+	if (x >= 2147483647)
+		return 2147483647;
+	if (x <= -2147483648)
+		return -2147483648;
+	return Math.trunc(x);
+}
+
 /**
  * Negative Binomial Distribution.
  * Adapted from A.M. Law, "Simulation Modelling and Analysis, 5th Edition", page 469.
@@ -66,19 +77,19 @@ export class NegativeBinomialDistribution extends Distribution {
 	}
 
 	protected override getSample(simTime: number): number {
-		const s = Math.trunc(this.successfulTrials.getNextSample(this, simTime));
+		const s = jint(this.successfulTrials.getNextSample(this, simTime));
 		const p = this.probability.getNextSample(this, simTime);
 		return NegativeBinomialDistribution.getSample(s, p, this.rng);
 	}
 
 	protected override getMean(simTime: number): number {
-		const s = Math.trunc(this.successfulTrials.getNextSample(this, simTime));
+		const s = jint(this.successfulTrials.getNextSample(this, simTime));
 		const p = this.probability.getNextSample(this, simTime);
 		return NegativeBinomialDistribution.getMean(s, p);
 	}
 
 	protected override getStandardDev(simTime: number): number {
-		const s = Math.trunc(this.successfulTrials.getNextSample(this, simTime));
+		const s = jint(this.successfulTrials.getNextSample(this, simTime));
 		const p = this.probability.getNextSample(this, simTime);
 		return NegativeBinomialDistribution.getStandardDev(s, p);
 	}

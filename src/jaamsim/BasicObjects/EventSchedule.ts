@@ -73,7 +73,7 @@ export class EventSchedule extends DisplayEntity implements SampleProvider {
 
 	override validate(): void {
 		super.validate();
-		const list = this.timeList.getValue();
+		const list = this.timeList.getValue()!;
 		if (list.get(list.size()-1) > this.cycleTime.getNextSample(this, 0.0))
 			throw new InputErrorException(tr("The input for CycleTime must be greater than or equal "
 					+ "to the last entry for TimeList."));

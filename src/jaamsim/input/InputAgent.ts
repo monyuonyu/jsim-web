@@ -1,3 +1,22 @@
+/*
+ * JaamSim Discrete Event Simulation
+ * Copyright (C) 2009-2011 Ausenco Engineering Canada Inc.
+ * Copyright (C) 2018-2026 JaamSim Software Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * TypeScript への移植 (C) 2026 shota
+ */
 // 注（移植の方針）:
 // - ファイルの読み込みは差し替えられる（setFileReader）。既定は Node.js の fs（ブラウザでは setFileReader で渡す）。
 //   読み込みの関数は URI を受けて、中身の文字列を返す（読めなければ例外を投げる）。
@@ -394,7 +413,7 @@ export class InputAgent {
 
 		// Loop over all the new Entity names
 		for (let i = 3; i < record.length - 1; i++) {
-			InputAgent.defineEntity(simModel, klass, proto, record[i], simModel.isRecordEdits());
+			InputAgent.defineEntity(simModel, klass!, proto, record[i], simModel.isRecordEdits());
 		}
 	}
 

@@ -275,7 +275,7 @@ export class ExpressionLogger extends Logger implements StateEntityListener, Obs
 	protected override printColumnTitles(file: FileEntity): void {
 
 		// Traced entities
-		for (const ent of this.stateTraceList.getValue()) {
+		for (const ent of this.stateTraceList.getValue()!) {
 			file.format("\t[%s].State", ent.getName());
 		}
 
@@ -313,7 +313,7 @@ export class ExpressionLogger extends Logger implements StateEntityListener, Obs
 	protected override recordEntry(file: FileEntity, simTime: number, dEnt: DisplayEntity | null): void {
 
 		// Write the state values
-		for (const ent of this.stateTraceList.getValue()) {
+		for (const ent of this.stateTraceList.getValue()!) {
 			file.format("\t%s", ent.getPresentState(simTime));
 		}
 
@@ -333,7 +333,7 @@ export class ExpressionLogger extends Logger implements StateEntityListener, Obs
 	}
 
 	isWatching(ent: StateEntity): boolean {
-		return this.stateTraceList.getValue().includes(ent);
+		return this.stateTraceList.getValue()!.includes(ent);
 	}
 
 	updateForStateChange(ent: StateEntity, prev: StateRecord, next: StateRecord): void {

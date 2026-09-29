@@ -89,7 +89,7 @@ export class ValueSequence extends DisplayEntity implements SampleProvider {
 	}
 
 	getMeanValue(simTime: number): number {
-		return this.valueList.getValue().sum()/this.valueList.getListSize();
+		return this.valueList.getValue()!.sum()/this.valueList.getListSize();
 	}
 
 	getIndexOfSample(simTime: number): number {
@@ -115,7 +115,7 @@ export class ValueSequence extends DisplayEntity implements SampleProvider {
 		if (this.index < 0 || this.index >= this.valueList.getListSize())
 			return Double.NaN;
 
-		return this.valueList.getValue().get(this.index);
+		return this.valueList.getValue()!.get(this.index);
 	}
 
 }

@@ -73,7 +73,7 @@ export class EntitlementSelector extends DisplayEntity implements SampleProvider
 		super.validate();
 
 		// The entries in the ProportionList must sum to 1.0
-		if (Math.abs(this.proportionList.getValue().sum() - 1.0) > 1.0e-10) {
+		if (Math.abs(this.proportionList.getValue()!.sum() - 1.0) > 1.0e-10) {
 			throw new InputErrorException(tr("The entries in the ProportionList must sum to 1.0"));
 		}
 	}
@@ -83,8 +83,8 @@ export class EntitlementSelector extends DisplayEntity implements SampleProvider
 
 		this.lastSample = -1;
 		this.totalCount = 0;
-		this.sampleCount = new Array<number>(this.proportionList.getValue().size()).fill(0);
-		this.sampleDifference = new Array<number>(this.proportionList.getValue().size()).fill(0);
+		this.sampleCount = new Array<number>(this.proportionList.getValue()!.size()).fill(0);
+		this.sampleDifference = new Array<number>(this.proportionList.getValue()!.size()).fill(0);
 	}
 
 	/**
@@ -102,7 +102,7 @@ export class EntitlementSelector extends DisplayEntity implements SampleProvider
 		}
 
 		// Make the next selection
-		const probList = this.proportionList.getValue();
+		const probList = this.proportionList.getValue()!;
 		let index = 0;
 		let maxDiff = Double.NEGATIVE_INFINITY;
 		this.totalCount++;
@@ -118,7 +118,7 @@ export class EntitlementSelector extends DisplayEntity implements SampleProvider
 		// Collect statistics on the sampled values
 		this.sampleCount[index]++;
 		for(let i=0; i<this.sampleCount.length; i++) {
-			this.sampleDifference[i] = this.sampleCount[i] - this.totalCount*this.proportionList.getValue().get(i);
+			this.sampleDifference[i] = this.sampleCount[i] - this.totalCount*this.proportionList.getValue()!.get(i);
 		}
 
 		return this.lastSample;

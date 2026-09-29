@@ -323,10 +323,10 @@ function jEqIgnoreCaseNullable(a: string | null, b: string | null): boolean {
 }
 
 export class ParseContext {
-	readonly context: URI;
+	readonly context: URI | null;
 	readonly jail: string | null;  // null は制限なし
 
-	constructor(ctxt: URI, jail: string | null) {
+	constructor(ctxt: URI | null, jail: string | null) {
 		this.context = ctxt;
 		this.jail = jail;
 	}
@@ -339,8 +339,8 @@ export class ParseContext {
 			return false;
 
 		const pc = obj;
-		// Java は context・jail が null のとき NullPointerException になる
-		return this.context.equals(pc.context) && this.jail === pc.jail;
+		// Java は context が null なら NullPointerException
+		return (this.context as URI).equals(pc.context) && this.jail === pc.jail;
 	}
 
 }

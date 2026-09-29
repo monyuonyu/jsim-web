@@ -26,6 +26,17 @@ import type { Unit } from "../units/Unit.ts";
 import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
 import { Distribution } from "./Distribution.ts";
 
+/** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
+function jint(x: number): number {
+	if (Number.isNaN(x))
+		return 0;
+	if (x >= 2147483647)
+		return 2147483647;
+	if (x <= -2147483648)
+		return -2147483648;
+	return Math.trunc(x);
+}
+
 /**
  * Erlang Distribution.
  * Adapted from A.M. Law, "Simulation Modelling and Analysis, 4th Edition", page 449.
@@ -72,19 +83,19 @@ export class ErlangDistribution extends Distribution {
 
 	protected override getSample(simTime: number): number {
 		const mean = this.meanInput.getNextSample(this, simTime);
-		const shape = Math.trunc(this.shapeInput.getNextSample(this, simTime));
+		const shape = jint(this.shapeInput.getNextSample(this, simTime));
 		return ErlangDistribution.getSample(mean, shape, this.rng);
 	}
 
 	protected override getMean(simTime: number): number {
 		const mean = this.meanInput.getNextSample(this, simTime);
-		const shape = Math.trunc(this.shapeInput.getNextSample(this, simTime));
+		const shape = jint(this.shapeInput.getNextSample(this, simTime));
 		return ErlangDistribution.getMean(mean, shape);
 	}
 
 	protected override getStandardDev(simTime: number): number {
 		const mean = this.meanInput.getNextSample(this, simTime);
-		const shape = Math.trunc(this.shapeInput.getNextSample(this, simTime));
+		const shape = jint(this.shapeInput.getNextSample(this, simTime));
 		return ErlangDistribution.getStandardDev(mean, shape);
 	}
 

@@ -14,6 +14,8 @@
  * - ExternalProgramServer: 外部プログラムを立ち上げたままにして、1 行ずつやり取りする（startServerProcess）
  */
 
+import { tr } from "../i18n/I18n.ts";
+
 /** 立ち上げたままの外部プログラム（ExternalProgramServer が使う） */
 export interface ExternalServerProcess {
 	/** 1 行を書いて、すぐに送る（Java の BufferedWriter.write と flush） */
@@ -81,7 +83,7 @@ const nodeIO: BasicObjectsIO = {
 	startServerProcess(command: string[], onErrorLine: (line: string) => void): ExternalServerProcess {
 		// TODO(移植): 立ち上げたままのプログラムと、同期で 1 行ずつやり取りする仕組みが Node.js には無い
 		// （Worker と Atomics.wait を使えば作れる）。今は使えないという誤りにする。
-		throw new Error("ExternalProgramServer is not supported in this environment");
+		throw new Error(tr("ExternalProgramServer is not supported in this environment"));
 	},
 };
 

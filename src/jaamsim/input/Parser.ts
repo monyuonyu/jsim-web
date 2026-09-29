@@ -19,7 +19,10 @@
  */
 // 注: tokenize の多重定義（3 引数と 4 引数）は、引数の数で見分ける。
 // Java の String.split・String.trim と同じ振る舞いの補助（jsplit・jtrim）も、ここに置く。
-import { Input } from "./Input.ts";
+
+// Input.BRACE_SEPARATOR・Input.SEPARATOR と同じ値（Parser を Input に頼らず読み込めるように、ここにも置く）
+const BRACE_SEPARATOR = " ";
+const SEPARATOR = "  ";
 
 /**
  * Java の String.trim（前後の、文字の値が ' ' 以下の文字を除く。JS の trim とは除く文字が違う）
@@ -276,10 +279,10 @@ export class Parser {
 		let sb = "";
 		for (let i = 0; i < array.length; i++) {
 			if (i > 0)
-				sb += Input.BRACE_SEPARATOR;
-			sb += "{" + Input.BRACE_SEPARATOR;
+				sb += BRACE_SEPARATOR;
+			sb += "{" + BRACE_SEPARATOR;
 			sb += Parser.addQuotesIfNeeded(array[i]);
-			sb += Input.BRACE_SEPARATOR + "}";
+			sb += BRACE_SEPARATOR + "}";
 		}
 		return sb;
 	}
@@ -292,8 +295,8 @@ export class Parser {
 
 			// Opening curly brace
 			if (i > 0)
-				sb += Input.BRACE_SEPARATOR;
-			sb += "{" + Input.BRACE_SEPARATOR;
+				sb += BRACE_SEPARATOR;
+			sb += "{" + BRACE_SEPARATOR;
 
 			// Name of the attribute or custom output
 			sb += args[0];
@@ -309,14 +312,14 @@ export class Parser {
 
 				// Expression for the attribute or custom output value
 				args[1] = Parser.addQuotesIfNeeded(args[1]);
-				sb += Input.SEPARATOR + args[1];
+				sb += SEPARATOR + args[1];
 
 				// Unit type if present
 				if (utName.length > 0) {
-					sb += Input.SEPARATOR + utName;
+					sb += SEPARATOR + utName;
 				}
 			}
-			sb += Input.BRACE_SEPARATOR + "}";
+			sb += BRACE_SEPARATOR + "}";
 		}
 		return sb;
 	}

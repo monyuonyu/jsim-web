@@ -189,7 +189,7 @@ export class JaamSimModel implements EventTimeListener {
 				continue;
 			for (const inp of ent.getEditableInputs()) {
 				const stub = inp.getStubDefinition();
-				if (stub == null || inp.isDef())
+				if (stub == null || inp.getIsDef())
 					continue;
 				const newEnt = this.getNamedEntity(ent.getName());
 				if (newEnt == null)

@@ -243,6 +243,7 @@ export class ExpressionStatistics extends DisplayEntity implements ObserverEntit
 		this.timeStats.addValue(simTime, val);
 		if (!this.histogramBinWidth.isDefault()) {
 			// Java の (int) Math.round(double)（long にしてから int にする）
+			// TODO(移植): int に収まらない値のとき、Java は下位 32 ビットを取るが、ここでは端に張り付く
 			this.freq.addValue(simTime, toInt(Math.round(val/this.getBinWidth())));
 		}
 	}

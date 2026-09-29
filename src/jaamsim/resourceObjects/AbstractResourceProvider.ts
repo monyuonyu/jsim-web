@@ -156,6 +156,8 @@ export abstract class AbstractResourceProvider extends DisplayEntity implements 
 				}
 			}
 		}
+		// TODO(移植): 比べる関数は getPriority()（式の評価）を呼ぶので、比べる回数・順番が Java の TimSort と違うと、
+		// 式の中の乱数などの副作用がずれうる（V8 も TimSort なのでほぼ同じはず。確かめていない）
 		list.sort(userCompare);  // Java の Collections.sort と同じく、安定な並べ替え
 
 		// Attempt to start the resource users in order of priority and wait time

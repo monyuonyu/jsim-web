@@ -93,9 +93,9 @@ export class BooleanIndicator extends DisplayEntity {
 		if (this.expInput.isDefault())
 			return "";
 		if (this.expInput.getNextSample(this, simTime) !== 0.0)
-			return this.trueText.getValue();
+			return this.trueText.getValue()!;
 		else
-			return this.falseText.getValue();
+			return this.falseText.getValue()!;
 	}
 
 }

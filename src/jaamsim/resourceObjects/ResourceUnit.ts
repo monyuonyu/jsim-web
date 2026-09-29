@@ -330,7 +330,7 @@ export class ResourceUnit extends StateUserEntity implements Seizable, ResourceP
 		return false;
 	}
 
-	override thresholdChanged(): void {
+	thresholdChanged(): void {
 		if (this.isTraceFlag())
 			this.trace(0, "thresholdChanged");
 		this.setPresentState();
@@ -361,11 +361,11 @@ export class ResourceUnit extends StateUserEntity implements Seizable, ResourceP
 		// Set the resource unit's position
 		if (this.followAssignment.getNextBoolean(this, simTime)) {
 			if (this.presentAssignment === null) {
-				this.setPosition(this.positionInput.getValue());
+				this.setPosition(this.positionInput.getValue()!);
 			}
 			else {
 				const pos = this.presentAssignment.getGlobalPosition();
-				pos.add3(this.assignmentOffset.getValue());
+				pos.add3(this.assignmentOffset.getValue()!);
 				this.setGlobalPosition(pos);
 			}
 		}

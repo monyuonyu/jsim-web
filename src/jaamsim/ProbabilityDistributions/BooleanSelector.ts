@@ -30,6 +30,17 @@ import { MRG1999a } from "../rng/MRG1999a.ts";
 import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { RandomStreamUser } from "./RandomStreamUser.ts";
 
+/** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
+function jint(x: number): number {
+	if (Number.isNaN(x))
+		return 0;
+	if (x >= 2147483647)
+		return 2147483647;
+	if (x <= -2147483648)
+		return -2147483648;
+	return Math.trunc(x);
+}
+
 export class BooleanSelector extends DisplayEntity implements RandomStreamUser {
 	private readonly randomSeedInput: SampleInput;
 
@@ -81,7 +92,7 @@ export class BooleanSelector extends DisplayEntity implements RandomStreamUser {
 	}
 
 	getStreamNumber(): number {
-		return Math.trunc(this.randomSeedInput.getNextSample(this, 0.0));
+		return jint(this.randomSeedInput.getNextSample(this, 0.0));
 	}
 
 	getStreamNumberKeyword(): string {

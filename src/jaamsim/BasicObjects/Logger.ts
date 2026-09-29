@@ -192,7 +192,7 @@ export abstract class Logger extends DisplayEntity {
 	}
 
 	private isSeparateFiles(simTime: number): boolean {
-		const numThreads = this.getJaamSimModel().getSimulation().getNumberOfThreads();
+		const numThreads = this.getJaamSimModel().getSimulation()!.getNumberOfThreads();
 		return this.separateFiles.getNextBoolean(this, simTime) || numThreads > 1;
 	}
 

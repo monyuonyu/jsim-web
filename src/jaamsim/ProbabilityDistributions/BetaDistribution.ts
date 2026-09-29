@@ -27,6 +27,17 @@ import { MRG1999a } from "../rng/MRG1999a.ts";
 import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { Distribution } from "./Distribution.ts";
 
+/** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
+function jint(x: number): number {
+	if (Number.isNaN(x))
+		return 0;
+	if (x >= 2147483647)
+		return 2147483647;
+	if (x <= -2147483648)
+		return -2147483648;
+	return Math.trunc(x);
+}
+
 /** Java の Double.doubleToLongBits（NaN は 0x7ff8000000000000L にそろえる） */
 function doubleToLongBits(x: number): bigint {
 	if (Number.isNaN(x))
@@ -289,7 +300,7 @@ export class BetaDistribution extends Distribution {
 			}
 		} else if (a > 2.0) {
 			if (b > 1000.0) {
-				const n = Math.trunc(Math.floor(a - 1.0));
+				const n = jint(Math.floor(a - 1.0));
 				let prod = 1.0;
 				let ared = a;
 				for (let i = 0; i < n; i++) {

@@ -25,6 +25,17 @@ import { MRG1999a } from "../rng/MRG1999a.ts";
 import { DimensionlessUnit } from "../units/DimensionlessUnit.ts";
 import { Distribution } from "./Distribution.ts";
 
+/** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
+function jint(x: number): number {
+	if (Number.isNaN(x))
+		return 0;
+	if (x >= 2147483647)
+		return 2147483647;
+	if (x <= -2147483648)
+		return -2147483648;
+	return Math.trunc(x);
+}
+
 /**
  * Geometric Distribution.
  * Adapted from A.M. Law, "Simulation Modelling and Analysis, 5th Edition", page 469.
@@ -84,8 +95,7 @@ export class GeometricDistribution extends Distribution {
 		if (MathUtils.near(p, 1.0))
 			return 0;
 		const rand = rng.nextUniform();
-		// TODO(移植): Java の (int) は範囲外を Integer.MIN/MAX_VALUE に丸め、NaN は 0 にする。p = 0 のとき（-Infinity）だけ差が出る
-		return Math.trunc(Math.log(rand) / Math.log(1 - p));
+		return jint(Math.log(rand) / Math.log(1 - p));
 	}
 
 	static getMeanVal(p: number): number {

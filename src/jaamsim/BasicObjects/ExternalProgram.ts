@@ -74,6 +74,7 @@ export class ExternalProgram extends AbstractExternalProgram {
 
 		try {
 			// Launch the external program
+			// TODO(移植): Java 版は待ち時間（TimeOut）が過ぎても止めず、読み取りで終わるまで待つ。既定の実装も同じく止めない
 			// Wait for the program to terminate
 			// （Java の (long) の型変換。待ち時間は 1 以上の整数）
 			const res = getBasicObjectsIO().runProgram(command, Math.trunc(this.timeOut.getNextSample(this, simTime)));

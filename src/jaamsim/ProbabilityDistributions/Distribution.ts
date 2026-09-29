@@ -37,6 +37,17 @@ import type { Unit } from "../units/Unit.ts";
 import { UserSpecifiedUnit } from "../units/UserSpecifiedUnit.ts";
 import { RandomStreamUser } from "./RandomStreamUser.ts";
 
+/** Java の (int) x（double → int。NaN は 0、範囲の外は端に丸める） */
+function jint(x: number): number {
+	if (Number.isNaN(x))
+		return 0;
+	if (x >= 2147483647)
+		return 2147483647;
+	if (x <= -2147483648)
+		return -2147483648;
+	return Math.trunc(x);
+}
+
 /**
  * ProbablityDistribution is the super-class for the various probability distributions implemented in JaamSim.
  * @author Harry King
@@ -188,7 +199,7 @@ implements SampleProvider, RandomStreamUser {
 	}
 
 	getStreamNumber(): number {
-		return Math.trunc(this.randomSeedInput.getNextSample(this, 0.0));
+		return jint(this.randomSeedInput.getNextSample(this, 0.0));
 	}
 
 	getStreamNumberKeyword(): string {

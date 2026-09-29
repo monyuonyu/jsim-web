@@ -20,3 +20,11 @@ StringProvider（interface）: x instanceof StringProvider → isStringProvider(
 - `Queue.getPosition(DisplayEntity)` → `getPositionOf`（DisplayEntity.getPosition() とぶつかるため）（担当: E）
 - `Color4d.Color4d(int, int, int)`・`Color4d.Color4d(int, int, int, int)` → `Color4d.fromInts(r, g, b[, a])`（255 で割る方。Java で整数だけを渡している所はこちら。double の方はコンストラクタのまま）（担当: A）
 - `DoubleVector.DoubleVector(double...)` → `DoubleVector.ofValues(...vals)`（`new DoubleVector(5)` や `new DoubleVector(0, Infinity)` は容量の指定になるので注意。number[] を 1 つ渡すのはコンストラクタでも可）（担当: A）
+- Seizable（interface）: x instanceof Seizable → isSeizable(x)（const の Seizable も Symbol.hasInstance・isInstance を持つ）（担当: G）
+- ResourceUser（interface）: x instanceof ResourceUser → isResourceUser(x)（同上）（担当: G）
+- ResourceProvider（interface）: x instanceof ResourceProvider → isResourceProvider(x)。static の getUserList(pool) は const の ResourceProvider.getUserList（担当: G）
+- `Input.getValueTokens()`（引数なし）→ `getValueTokenList()`。引数つきの `getValueTokens(toks)` はそのまま（担当: C）
+- `Input.isDef()`（関数）→ `getIsDef()`（フィールドの `isDef` と名前がぶつかるため。フィールドはそのまま）（担当: C）
+- `Input.getValue()` と `getValue(Entity, double, Class)` は 1 つの `getValue` で引数の数で見分ける（名前は変えていない）。`reset()`・`reset(Entity)` も `reset(ent?)` の 1 つ（担当: C）
+- `InputAgent.printReport(Entity, FileEntity, double)`・`printReport(JaamSimModel, double, FileEntity)` は名前はそのまま（最初の引数で見分ける）。中の実体は private の `printReportForEntity`・`printReportForModel`（担当: C）
+- `InputAgent.uiEntitySortOrder`・`subModelSortOrder`・`Input.uiSortOrder` は `Array.sort` に渡せる関数（`compare(a, b)` も持つ）（担当: C）
