@@ -789,7 +789,7 @@ defineOutput(Queue, {
 	description: "The Priority expression value for each entity in the queue.",
 	unitType: DimensionlessUnit,
 	sequence: 3,
-	returnType: "ArrayList",
+	returnType: "ArrayList<Integer>",
 	get: (e, simTime) => e.getPriorityValues(simTime),
 });
 
@@ -907,7 +907,7 @@ defineOutput(Queue, {
 	             + "entities whose Match value is \"SKU1\".",
 	unitType: DimensionlessUnit,
 	sequence: 15,
-	returnType: "LinkedHashMap",
+	returnType: "LinkedHashMap<String,Integer>",
 	get: (e, simTime) => e.getMatchValueCountMap(simTime),
 });
 

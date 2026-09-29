@@ -425,7 +425,7 @@ defineOutput(EntityContainer, {
 	description: "The Priority expression value for each entity in the EntityContainer.",
 	unitType: DimensionlessUnit,
 	sequence: 5,
-	returnType: "ArrayList",
+	returnType: "ArrayList<Integer>",
 	get: (e, simTime) => e.getPriorityValues(simTime),
 });
 
@@ -471,7 +471,7 @@ defineOutput(EntityContainer, {
 	             + "number of entities whose Match value is \"SKU1\".",
 	unitType: DimensionlessUnit,
 	sequence: 10,
-	returnType: "LinkedHashMap",
+	returnType: "LinkedHashMap<String,Integer>",
 	get: (e, simTime) => e.getMatchValueCountMap(simTime),
 });
 

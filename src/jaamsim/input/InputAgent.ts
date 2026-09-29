@@ -26,7 +26,7 @@
 //   printReport(simModel, simTime, file) は最初の引数が Entity かどうかで見分ける。
 // - 入れ子の SubModelComparator・EntityComparator は、関数（compare も持つ）の subModelSortOrder・uiEntitySortOrder にした。
 // - 利用者に見せる文: simModel.logError・logInpError は中で tr するので、英語のまま渡す。InputErrorException は tr で包む。
-import { jformat, jstr, jCompare, jEqualsIgnoreCase, jIsAssignableFrom, NullPointerException } from "../internal.ts";
+import { jformat, jstr, jCompare, jEqualsIgnoreCase, jIsAssignableFrom, NullPointerException, JInteger } from "../internal.ts";
 import type { JClass } from "../java/lang.ts";
 import { ClassRegistry } from "../internal.ts";
 import { tr } from "../internal.ts";
@@ -1635,6 +1635,13 @@ export class InputAgent {
 		// int[] は TS では数の配列なので、戻り値の型で見分ける（Java は ret instanceof int[]）
 		if (retType === "int[]" && ret !== null && ret !== undefined && !(ret instanceof Int32Array))
 			return InputAgent.getOutputString(simModel, Int32Array.from(ret as ArrayLike<number>), floatFmt, factor, unitString);
+
+		// 中身が整数の集まり（Java の ArrayList<Integer>・LinkedHashMap<String, Integer>）: 1.0 でなく 1 と書き、0 も省かない
+		if (retType === "ArrayList<Integer>" && Array.isArray(ret))
+			return InputAgent.getOutputString(simModel, ret.map(v => new JInteger(v as number)), floatFmt, factor, unitString);
+		if (retType === "LinkedHashMap<String,Integer>" && ret instanceof Map)
+			return InputAgent.getOutputString(simModel,
+					new Map([...ret].map(([k, v]) => [k, new JInteger(v as number)])), floatFmt, factor, unitString);
 
 		return InputAgent.getOutputString(simModel, ret, floatFmt, factor, unitString);
 	}

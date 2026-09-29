@@ -631,6 +631,9 @@ export class EventManager {
 	}
 
 	ticksToSeconds(ticks: number): number {
+		// MAX_TICK は Java の Long.MAX_VALUE（「来ない」の印）の代わり。秒にするときは Java と同じ値にする
+		if (ticks === MAX_TICK)
+			return 9223372036854775807 * this.secsPerTick;
 		return ticks * this.secsPerTick;
 	}
 

@@ -68,7 +68,8 @@ export class ExpCollections {
 	 */
 	public static isCollectionClass(klass: unknown): boolean {
 		if (typeof klass === "string") {
-			if (klass.endsWith("[]"))
+			klass = klass.replace(/<.*>$/, "");  // "ArrayList<Integer>" なども集まり
+			if ((klass as string).endsWith("[]"))
 				return true;
 			return klass === "DoubleVector" || klass === "IntegerVector" || klass === "Vec3d"
 					|| klass === "ArrayList" || klass === "List"

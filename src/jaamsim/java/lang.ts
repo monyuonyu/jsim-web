@@ -396,6 +396,13 @@ function nextUp(x: number): number {
 	return buf.getFloat64(0);
 }
 
+/** Java の Integer の箱（文字列にすると "1"。出力を文字列にする所で、中身が整数の集まりに使う） */
+export class JInteger {
+	constructor(readonly value: number) {}
+	toString(): string { return String(this.value); }
+	valueOf(): number { return this.value; }
+}
+
 /** Java の Objects.equals */
 export function jEquals(a: unknown, b: unknown): boolean {
 	if (a === b) return true;

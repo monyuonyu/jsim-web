@@ -16,7 +16,9 @@ import type { JClass } from "../java/lang.ts";
 export type OutputReturnType =
 	| "double" | "long" | "int" | "boolean" | "String" | "Entity"
 	| "double[]" | "int[]" | "DoubleVector" | "IntegerVector"
-	| "ArrayList" | "LinkedHashMap" | "HashMap" | "Vec3d" | "Color4d" | "ExpResult" | "Object";
+	| "ArrayList" | "LinkedHashMap" | "HashMap"
+	// 中身が整数のもの（Java の ArrayList<Integer> など。文字列にするとき 1.0 でなく 1 と書く）
+	| "ArrayList<Integer>" | "LinkedHashMap<String,Integer>" | "Vec3d" | "Color4d" | "ExpResult" | "Object";
 
 export interface OutputSpec<T = unknown> {
 	name: string;
