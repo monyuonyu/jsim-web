@@ -47,16 +47,8 @@ export const LateClasses = {
 	},
 };
 
-/**
- * Java の (int) x（double から int への変換）。NaN は 0、範囲の外は int の端にそろえる。
- * （Math.trunc だけでは NaN と大きな値が Java と違う）
- */
-export function jint(x: number): number {
-	if (Number.isNaN(x)) return 0;
-	if (x >= 2147483647) return 2147483647;
-	if (x <= -2147483648) return -2147483648;
-	return Math.trunc(x);
-}
+// jint は java/lang.ts の物を使う（同じ中身だった）
+export { jint } from "../java/lang.ts";
 
 /** Java の List.equals（要素を equals で比べる）。null どうしも同じとみなす */
 export function jListEquals(a: readonly unknown[] | null | undefined, b: readonly unknown[] | null | undefined): boolean {
