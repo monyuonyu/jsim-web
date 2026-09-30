@@ -4,7 +4,7 @@
  * - 実行の操作（リセット・実行・1 歩・停止・速さ・止める時刻）。描く間ごとに少しずつ時間を進める
  */
 import {
-	JaamSimModel, InputAgent, KeywordIndex, Entity, DisplayEntity, Input, Log, FileSystem,
+	JaamSimModel, InputAgent, KeywordIndex, Entity, DisplayEntity, Input, Log, FileSystem, InputErrorException,
 } from "../../src/jaamsim/internal.ts";
 import type { RunListener } from "../../src/jaamsim/basicsim/RunListener.ts";
 import { installVfs, putUserFile } from "./vfs.ts";
@@ -57,8 +57,19 @@ export class Engine {
 	/** 入力の文字列（.cfg の中身）を読む */
 	readText(text: string, path = "/model/model.cfg"): void {
 		putUserFile(path, text);
-		this.sm.configure(path);
+		const before = this.log.length;
+		try {
+			this.sm.configure(path);
+		}
+		catch (ex) {
+			// 作りかけのモデル（つないでいない部品など）も開く。入力の誤りは知らせるだけ（JaamSim の画面と同じ）
+			if (!(ex instanceof InputErrorException)) throw ex;
+			this.warning = this.log.slice(before).filter(l => /error/i.test(l)).join("\n") || String(ex);
+		}
 	}
+
+	/** 開いた時の入力の誤り（画面が知らせたら null に戻す） */
+	warning: string | null = null;
 
 	/** 部品を足す（名前が重なれば _1 などを付ける） */
 	define(type: string, name: string): Entity {

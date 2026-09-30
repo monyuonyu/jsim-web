@@ -115,5 +115,6 @@
 	"No processors": "プロセッサがありません",
 	"No queues": "キューがありません",
 	"Run the model to see the graph.": "実行するとグラフが出ます。",
-	"Setdown": "後片付け"
+	"Setdown": "後片付け",
+	"The model has input errors. Fix them before running.": "モデルに入力の誤りがあります。実行の前に直してください。"
 }

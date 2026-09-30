@@ -335,6 +335,7 @@ engine.onChange(() => {
 	dirty = true;
 	view.rebuild();
 	if (engine.error) { toast(engine.error); engine.error = null; }
+	if (engine.warning) { toast(t("The model has input errors. Fix them before running.") + "\n" + engine.warning); engine.warning = null; }
 	if (engine.state !== lastState) { lastState = engine.state; props.updateStats(); }
 	updateButtons();
 });
