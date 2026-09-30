@@ -194,9 +194,10 @@ export class InputAgent {
 
 	/**
 	 * 資源のフォルダ（Java では jar の中の /resources/）。
-	 * TODO(移植): 既定は、この機体の JaamSim の源の資源のフォルダ。ブラウザなどでは setResRoot で差し替える
+	 * 既定は環境変数 JAAMSIM_RES、無ければこのリポジトリの resources/（inputs/ の autoload.cfg などを同梱）。
+	 * ブラウザなどでは setResRoot で差し替える
 	 */
-	private static resRoot: URI = new URI("file", "/home/shota/jaamsim-src/src/main/resources/resources/", null).normalize();
+	private static resRoot: URI = new URI("file", defaultResRoot(), null).normalize();
 
 	private static fileReader: FileReaderFn = defaultFileReader;
 
@@ -1938,4 +1939,12 @@ export class InputAgent {
 		}
 	}
 
+}
+
+/** 資源のフォルダの既定（末尾は "/"） */
+function defaultResRoot(): string {
+	const env = (globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env.JAAMSIM_RES;
+	if (env) return env.endsWith("/") ? env : env + "/";
+	const url = new URL("../../../resources/", import.meta.url);
+	return url.protocol === "file:" ? decodeURIComponent(url.pathname) : url.href;
 }

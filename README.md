@@ -23,7 +23,10 @@ npm test                                            # 試験
 node --import tsx tools/run-model.ts test/models/m1.cfg   # モデル（.cfg）を最後まで流し、結果の出力を表示する
 ```
 
-JaamSim の `.cfg` ファイルがそのまま読める。
+JaamSim の `.cfg` ファイルがそのまま読める。部品の定義（`autoload.cfg` など）とアイコンは `resources/` に同梱している
+（別の場所のものを使うときは、環境変数 `JAAMSIM_RES` でそのフォルダを指す）。
+
+`npm run typecheck` は、まだ型の誤りが残っている（動きには関係しない。直している途中）。
 
 ## 作り方の約束
 
