@@ -135,8 +135,33 @@ export class ModelOps {
 		}
 		e.setInput(ent, "Position", `${fmt(x)} ${fmt(y)} 0.0 m`);
 		const q = def.id === "processor" ? this.innerQueue(ent) : null;
-		if (q !== null)
-			e.setInput(q, "Position", `${fmt(x - def.size[0] / 2 - 0.4)} ${fmt(y)} 0.0 m`);
+		if (q !== null) {
+			// 内側の待ち行列は、作業台の入口の側（向きに合わせて回す）
+			const rz = de.getOrientation().z, d = -def.size[0] / 2 - 0.4;
+			e.setInput(q, "Position", `${fmt(x + d * Math.cos(rz))} ${fmt(y + d * Math.sin(rz))} 0.0 m`);
+		}
+	}
+
+	/** 向き（度、床の上で左回り） */
+	rotation(ent: Entity): number {
+		return Math.round((ent as DisplayEntity).getOrientation().z * 180 / Math.PI * 1000) / 1000;
+	}
+
+	rotate(ent: Entity, deg: number): void {
+		const def = this.defOf(ent);
+		const norm = ((deg % 360) + 360) % 360;
+		if (def?.id === "conveyor" || def?.id === "delay") {
+			// コンベヤは点を中心のまわりに回す
+			const pts = this.points(ent as DisplayEntity);
+			const [cx, cy] = this.position(ent);
+			const d = (norm - this.rotation(ent)) * Math.PI / 180;
+			const np = pts.map(([x, y]) => [cx + (x - cx) * Math.cos(d) - (y - cy) * Math.sin(d), cy + (x - cx) * Math.sin(d) + (y - cy) * Math.cos(d)]);
+			const z = def.id === "conveyor" ? def.size[2] : 0;
+			this.engine.setInput(ent, "Points", np.map(p => `{ ${fmt(p[0])} ${fmt(p[1])} ${fmt(z)} m }`).join(" "));
+		}
+		this.engine.setInput(ent, "Orientation", `0 0 ${fmt(norm)} deg`);
+		const [x, y] = this.position(ent);
+		if (def?.id !== "conveyor" && def?.id !== "delay") this.move(ent, x, y);
 	}
 
 	points(de: DisplayEntity): [number, number][] {
@@ -203,6 +228,29 @@ export class ModelOps {
 			else out.push([ent, next]);
 		}
 		return out;
+	}
+
+	/** 写しを作る（設定も写す。つなぎは写さない） */
+	duplicate(ent: Entity, dx = 1.5, dy = -1.5): Entity {
+		const def = this.defOf(ent)!;
+		const [x, y] = this.position(ent);
+		const copy = this.place(def.id, x + dx, y + dy);
+		for (const p of def.props) {
+			if (p.kind === "time") this.setTime(copy, p.key, this.getTime(ent, p.key));
+			else {
+				const v = this.engine.getInputString(ent, p.key);
+				if (v !== "") this.engine.setInput(copy, p.key, v);
+			}
+		}
+		const rot = this.rotation(ent);
+		if (rot !== 0) this.rotate(copy, rot);
+		return copy;
+	}
+
+	/** つなぎを全部外す */
+	disconnectAll(ent: Entity): void {
+		for (const [a, b] of this.links())
+			if (a === ent || b === ent) this.disconnect(a, b);
 	}
 
 	/** 消す（内側の待ち行列・分布も一緒に。ほかの部品からの参照も外す） */

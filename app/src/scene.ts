@@ -48,6 +48,8 @@ export class ModelView {
 	onSelect: (sel: Entity[]) => void = () => {};
 	onDrop: (defId: string, x: number, y: number) => void = () => {};
 	onMessage: (msg: string) => void = () => {};
+	onContextMenu: (ent: Entity | null, x: number, y: number) => void = () => {};
+	onDoubleClick: (ent: Entity) => void = () => {};
 
 	constructor(readonly host: HTMLElement, readonly ops: ModelOps) {
 		this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -181,7 +183,7 @@ export class ModelView {
 			const p = ent.getPosition();
 			v.group.position.copy(toThree(p.x, p.y, 0));
 			const o = ent.getOrientation();
-			v.group.rotation.y = o.z;
+			v.group.rotation.y = pts.length >= 2 ? 0 : o.z;  // コンベヤは点がもう回っている
 		}
 		for (const [ent, v] of this.visuals) {
 			if (!alive.has(ent)) {
@@ -225,7 +227,9 @@ export class ModelView {
 		}
 		const p = ent.getPosition();
 		const s = ent.getSize();
-		return toThree(p.x + (out ? s.x / 2 : -s.x / 2), p.y, h);
+		const rz = ent.getOrientation().z;
+		const dx = out ? s.x / 2 : -s.x / 2;
+		return toThree(p.x + dx * Math.cos(rz), p.y + dx * Math.sin(rz), h);
 	}
 
 	private rebuildSelection(): void {
@@ -289,11 +293,14 @@ export class ModelView {
 					if (m === undefined) return;
 					const layer = Math.floor(i / (cols * rows)), k = i % (cols * rows);
 					const c = k % cols, r = Math.floor(k / cols);
-					const x = qp.x + qs.x / 2 - cell / 2 - c * cell;
-					const y = qp.y + (r - (rows - 1) / 2) * cell;
+					const lx = qs.x / 2 - cell / 2 - c * cell;
+					const ly = (r - (rows - 1) / 2) * cell;
+					const rz = q.getOrientation().z;
+					const x = qp.x + lx * Math.cos(rz) - ly * Math.sin(rz);
+					const y = qp.y + lx * Math.sin(rz) + ly * Math.cos(rz);
 					const h = it.getSize().z;
 					m.position.copy(toThree(x, y, 0.06 + h / 2 + layer * h));
-					m.rotation.y = 0;
+					m.rotation.y = rz;
 				});
 			}
 		}
@@ -453,9 +460,18 @@ export class ModelView {
 				this.rubber.visible = false;
 			}
 			if (mode === "pan" && !moved && ev.button === 0) this.setSelection([]);
+			if (mode === "rotate" && !moved && ev.button === 2) {
+				const hit = this.pick(ev);
+				if (hit !== null && !this.selection.has(hit)) this.setSelection([hit]);
+				this.onContextMenu(hit, ev.clientX, ev.clientY);
+			}
 			if (mode === "move" && moved) this.ops.engine.changed();
 			mode = "none";
 			dragEnt = null;
+		});
+		el.addEventListener("dblclick", ev => {
+			const hit = this.pick(ev);
+			if (hit !== null) this.onDoubleClick(hit);
 		});
 		el.addEventListener("wheel", ev => {
 			ev.preventDefault();

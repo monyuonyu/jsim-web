@@ -83,6 +83,7 @@ export class QuickProps {
 		const [x, y] = this.ops.position(ent);
 		pos.body.append(row("X (m)", numInput(x, v => this.ops.move(ent, v, this.ops.position(ent)[1]))));
 		pos.body.append(row("Y (m)", numInput(y, v => this.ops.move(ent, this.ops.position(ent)[0], v))));
+		pos.body.append(row(t("Rotation") + " (°)", numInput(this.ops.rotation(ent), v => this.ops.rotate(ent, v))));
 		this.host.append(pos.root);
 
 		if (def.stats.length > 0) {

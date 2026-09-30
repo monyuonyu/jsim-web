@@ -39,16 +39,22 @@ export class Engine {
 		for (const fn of this.listeners) fn();
 	}
 
-	newModel(cfgText?: string, name = "新しいモデル"): void {
+	/** モデルの名前（開いたファイルの名前） */
+	modelName = "";
+
+	newModel(cfgText?: string, name = "model"): void {
+		this.modelName = name;
 		this.sm = new JaamSimModel(name);
 		this.sm.autoLoad();
+		// 読む前から記録を始める。ファイルから読んだ物も「足した物・変えた物」になり、保存（saveText）で全部書き出せる
 		this.sm.setRecordEdits(true);
+		if (cfgText !== undefined)
+			this.readText(cfgText);
 		// 画面の側で時間を進めるので、実時間の設定は使わない
 		const sim = this.sm.getSimulation()!;
 		InputAgent.applyArgs(sim, "RealTime", "FALSE");
-		InputAgent.applyArgs(sim, "RunDuration", "1000000", "h");
-		if (cfgText !== undefined)
-			this.readText(cfgText);
+		if (cfgText === undefined)
+			InputAgent.applyArgs(sim, "RunDuration", "1000000", "h");
 		this.state = "idle";
 		this.error = null;
 		this.changed();
@@ -188,8 +194,19 @@ export class Engine {
 
 	/** モデルを .cfg の文字列にする */
 	saveText(): string {
+		// JaamSim の保存は「元のファイルをそのまま写し、後に変えた所を足す」。この画面では元のファイルは写さず、
+		// 今のモデルを全部書き出す（読んだ物も記録の対象にしてあるので、全部が「足した物・変えた物」に入る）
 		const path = "/model/save.cfg";
-		InputAgent.printNewConfigurationFileWithName(this.sm, path);
+		const m = this.sm as unknown as { configFile: string | null };
+		const cfg = m.configFile;
+		m.configFile = null;
+		this.sm.setRecordEditsFound(false);
+		try {
+			InputAgent.printNewConfigurationFileWithName(this.sm, path);
+		}
+		finally {
+			m.configFile = cfg;
+		}
 		return FileSystem.backend.readText(path) ?? "";
 	}
 }

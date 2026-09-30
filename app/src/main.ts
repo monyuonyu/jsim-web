@@ -6,6 +6,7 @@ import { ModelOps } from "./model.ts";
 import { ModelView } from "./scene.ts";
 import { QuickProps } from "./props.ts";
 import { Dashboard } from "./dashboard.ts";
+import { History } from "./history.ts";
 import { CATALOG, categoryLabel, type Category } from "./catalog.ts";
 import { t, LANGS, getLang, setLang } from "./i18n.ts";
 
@@ -23,6 +24,15 @@ catch (ex) {
 }
 const props = new QuickProps($("props"), ops, toast);
 const dash = new Dashboard($("dashboard"), ops);
+const history = new History(engine, () => { view.setSelection([]); view.rebuild(); });
+let clipboard: string[] = [];
+
+function copySel(): void { clipboard = [...view.selection].map(e => e.getName()); }
+function paste(): void {
+	const made = clipboard.map(n => ops.find(n)).filter(e => e !== null).map(e => ops.duplicate(e!));
+	if (made.length > 0) view.setSelection(made);
+}
+function deleteSel(): void { for (const e of view.selection) ops.remove(e); view.setSelection([]); }
 let fileName: string | null = null;
 let dirty = false;
 
@@ -77,8 +87,14 @@ function buildMenus(): void {
 			{ label: t("Open Sample Model"), run: sampleModel },
 		]],
 		[t("Edit"), [
+			{ label: t("Undo"), key: "Ctrl+Z", run: () => history.undo() },
+			{ label: t("Redo"), key: "Ctrl+Y", run: () => history.redo() },
+			"-",
+			{ label: t("Copy"), key: "Ctrl+C", run: copySel },
+			{ label: t("Paste"), key: "Ctrl+V", run: paste },
+			{ label: t("Delete"), key: "Del", run: deleteSel },
+			"-",
 			{ label: t("Select All"), key: "Ctrl+A", run: () => view.setSelection(ops.visibleObjects()) },
-			{ label: t("Delete"), key: "Del", run: () => { for (const e of view.selection) ops.remove(e); view.setSelection([]); } },
 		]],
 		[t("View"), [
 			{ label: t("Fit Model in View"), key: "F", run: () => view.fit() },
@@ -227,6 +243,7 @@ function confirmDiscard(): boolean {
 function newModel(): void {
 	if (!confirmDiscard()) return;
 	engine.newModel();
+	history.clear();
 	fileName = null;
 	filePath = null;
 	dirty = false;
@@ -245,6 +262,7 @@ let filePath: string | null = null;
 function loadText(text: string, name: string): void {
 	try {
 		engine.newModel(text, name);
+		history.clear();
 		fileName = name;
 		dirty = false;
 		view.setSelection([]);
@@ -314,6 +332,7 @@ function sampleModel(): void {
 	ops.connect(p1, conv);
 	ops.connect(p2, conv);
 	ops.connect(conv, sink);
+	history.clear();
 	dirty = false;
 	view.setSelection([]);
 	view.fit();
@@ -321,6 +340,82 @@ function sampleModel(): void {
 
 // ---- つなぎ込み ----
 view.onSelect = sel => props.show(sel);
+
+// 右クリックのメニュー
+function contextMenu(items: [string, () => void][], x: number, y: number): void {
+	document.querySelector(".ctx-menu")?.remove();
+	const m = document.createElement("div");
+	m.className = "ctx-menu menu-items";
+	m.style.display = "block";
+	for (const [label, run] of items) {
+		if (label === "-") { m.append(Object.assign(document.createElement("div"), { className: "menu-sep" })); continue; }
+		const r = document.createElement("div");
+		r.className = "menu-item";
+		r.textContent = label;
+		r.onclick = () => { m.remove(); run(); };
+		m.append(r);
+	}
+	m.style.left = `${x}px`;
+	m.style.top = `${y}px`;
+	document.body.append(m);
+	const close = (ev: Event) => { if (!m.contains(ev.target as Node)) { m.remove(); document.removeEventListener("pointerdown", close, true); } };
+	setTimeout(() => document.addEventListener("pointerdown", close, true));
+}
+view.onContextMenu = (ent, x, y) => {
+	if (ent === null) {
+		contextMenu([
+			[t("Paste"), paste],
+			[t("Fit Model in View"), () => view.fit()],
+		], x, y);
+		return;
+	}
+	contextMenu([
+		[t("Properties..."), () => openProperties(ent)],
+		["-", () => {}],
+		[t("Rotate 90°"), () => { for (const e of view.selection) ops.rotate(e, ops.rotation(e) + 90); }],
+		[t("Disconnect All"), () => { for (const e of view.selection) ops.disconnectAll(e); }],
+		["-", () => {}],
+		[t("Copy"), copySel],
+		[t("Duplicate"), () => { copySel(); paste(); }],
+		[t("Delete"), deleteSel],
+	], x, y);
+};
+
+// プロパティの窓（FlexSim でダブルクリックした時の窓）
+function openProperties(ent: import("../../src/jaamsim/internal.ts").Entity): void {
+	document.querySelector(".prop-window")?.remove();
+	const w = document.createElement("div");
+	w.className = "prop-window";
+	const head = document.createElement("div");
+	head.className = "prop-window-head";
+	head.textContent = t("Properties") + " - " + ent.getName();
+	const close = document.createElement("button");
+	close.textContent = "×";
+	close.onclick = () => w.remove();
+	head.append(close);
+	const body = document.createElement("div");
+	body.className = "prop-window-body";
+	w.append(head, body);
+	document.body.append(w);
+	const qp = new QuickProps(body, ops, toast);
+	qp.show([ent]);
+	body.querySelector(".qp-title")?.remove();
+	body.querySelectorAll(".qp-section").forEach(s => s.classList.add("open"));
+	// 見出しをつかんで動かす
+	let drag: [number, number] | null = null;
+	head.onpointerdown = ev => {
+		const r = w.getBoundingClientRect();
+		w.style.transform = "none";
+		w.style.left = `${r.left}px`;
+		w.style.top = `${r.top}px`;
+		drag = [ev.clientX - r.left, ev.clientY - r.top];
+		head.setPointerCapture(ev.pointerId);
+	};
+	head.onpointermove = ev => { if (drag) { w.style.left = `${ev.clientX - drag[0]}px`; w.style.top = `${ev.clientY - drag[1]}px`; } };
+	head.onpointerup = () => { drag = null; };
+	const timer = window.setInterval(() => { if (!document.body.contains(w)) clearInterval(timer); else qp.updateStats(); }, 300);
+}
+view.onDoubleClick = ent => openProperties(ent);
 view.onMessage = toast;
 view.onDrop = (id, x, y) => {
 	try {
@@ -359,6 +454,11 @@ window.addEventListener("keydown", ev => {
 	else if (ev.ctrlKey && ev.key.toLowerCase() === "o") { ev.preventDefault(); openModel(); }
 	else if (ev.ctrlKey && ev.key.toLowerCase() === "n") { ev.preventDefault(); newModel(); }
 	else if (ev.ctrlKey && ev.key.toLowerCase() === "a") { ev.preventDefault(); view.setSelection(ops.visibleObjects()); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "z") { ev.preventDefault(); history.undo(); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "y") { ev.preventDefault(); history.redo(); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "c") { ev.preventDefault(); copySel(); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "v") { ev.preventDefault(); paste(); }
+	else if (ev.key === "Escape") { document.querySelector(".ctx-menu")?.remove(); document.querySelector(".prop-window")?.remove(); }
 	else if (ev.key === " ") { ev.preventDefault(); if (engine.state === "running") engine.stop(); else engine.run(); }
 	else if (ev.key.toLowerCase() === "f" && !ev.ctrlKey) view.fit();
 });

@@ -50,6 +50,50 @@ await p.mouse.up();
 const after = await p.evaluate(() => window.jsim.ops.position(window.jsim.ops.find("プロセッサ1")));
 ok(`ドラッグで動く (${before} → ${after})`, after[0] > before[0] && after[1] < before[1]);
 
+// 元に戻す（動かす前の位置に戻る）
+await p.waitForTimeout(400);
+await p.keyboard.press("Control+z");
+await p.waitForTimeout(300);
+const undone = await p.evaluate(() => window.jsim.ops.position(window.jsim.ops.find("プロセッサ1")));
+ok(`Ctrl+Z で元に戻る (${undone})`, undone[0] === before[0] && undone[1] === before[1]);
+await p.keyboard.press("Control+y");
+await p.waitForTimeout(300);
+const redone = await p.evaluate(() => window.jsim.ops.position(window.jsim.ops.find("プロセッサ1")));
+ok(`Ctrl+Y でやり直せる (${redone})`, redone[0] === after[0] && redone[1] === after[1]);
+
+// 部品の今の画面の位置
+const screenOf = name => p.evaluate(n => {
+	const j = window.jsim; const e = j.ops.find(n); const pos = e.getPosition();
+	const v = new (j.view.camera.position.constructor)(pos.x, 0.5, -pos.y).project(j.view.camera);
+	const r = j.view.renderer.domElement.getBoundingClientRect();
+	return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height];
+}, name);
+
+// 右クリックのメニューで 90° 回す
+await p.evaluate(() => window.jsim.view.fit());
+await p.waitForTimeout(300);
+const scr = await screenOf("プロセッサ1");
+await p.mouse.click(scr[0], scr[1], { button: "right" });
+await p.waitForTimeout(200);
+ok("右クリックでメニューが出る", await p.locator(".ctx-menu").isVisible());
+await p.locator(".ctx-menu .menu-item", { hasText: "90° 回転" }).click();
+ok("メニューで 90° 回る", (await p.evaluate(() => window.jsim.ops.rotation(window.jsim.ops.find("プロセッサ1")))) === 90);
+
+// ダブルクリックでプロパティの窓
+await p.mouse.dblclick(scr[0], scr[1]);
+await p.waitForTimeout(200);
+ok("ダブルクリックでプロパティの窓が出る", await p.locator(".prop-window").isVisible());
+await p.locator(".prop-window-head button").click();
+
+// コピーと貼り付け
+await p.keyboard.press("Control+c");
+await p.keyboard.press("Control+v");
+await p.waitForTimeout(200);
+ok("Ctrl+C / Ctrl+V で写しができる", await count() === 4);
+await p.keyboard.press("Control+z");
+await p.waitForTimeout(400);
+ok("貼り付けも元に戻せる", await count() === 3);
+
 // 実行
 await p.keyboard.press("Escape");
 await p.evaluate(() => { window.jsim.engine.speed = 100; });
@@ -62,11 +106,11 @@ await p.locator(".tb-btn", { hasText: "リセット" }).click();
 ok("リセットで時間が 0 に戻る", (await p.evaluate(() => window.jsim.engine.simTime())) === 0);
 
 // 選んで Delete
-const sp = at(0.7, 0.5);
-await p.mouse.click(sp.x, sp.y);
+const sp = await screenOf("シンク1");
+await p.mouse.click(sp[0], sp[1]);
 await p.keyboard.press("Delete");
 await p.waitForTimeout(200);
-ok("選んで Delete で消える", await count() === 2);
+ok("選んで Delete で消える", await count() === 2 && (await p.evaluate(() => window.jsim.ops.find("シンク1"))) === null);
 
 // 保存の中身（.cfg）
 const text = await p.evaluate(() => window.jsim.engine.saveText());
@@ -78,7 +122,8 @@ const n = await p.evaluate(t => {
 	catch (e) { return String(e) + " / " + window.jsim.engine.log.slice(-3).join(" / ") + "\n" + t; }
 }, text);
 if (typeof n === "string") console.log(n);
-ok("保存したものを開き直せる", n === 2);
+if (n !== 2) console.log(text, "\n---\n", await p.evaluate(() => window.jsim.ops.visibleObjects().map(e => e.getName()).join(",")));
+ok(`保存したものを開き直せる (${n} 個)`, n === 2);
 await p.screenshot({ path: "/tmp/uitest.png" });
 await b.close();
 console.log(ng === 0 ? "すべて OK" : `NG ${ng} 件`);

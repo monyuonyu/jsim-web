@@ -116,5 +116,15 @@
 	"No queues": "キューがありません",
 	"Run the model to see the graph.": "実行するとグラフが出ます。",
 	"Setdown": "後片付け",
-	"The model has input errors. Fix them before running.": "モデルに入力の誤りがあります。実行の前に直してください。"
+	"The model has input errors. Fix them before running.": "モデルに入力の誤りがあります。実行の前に直してください。",
+	"Undo": "元に戻す",
+	"Redo": "やり直し",
+	"Copy": "コピー",
+	"Paste": "貼り付け",
+	"Duplicate": "複製",
+	"Rotation": "回転",
+	"Properties...": "プロパティ...",
+	"Properties": "プロパティ",
+	"Rotate 90°": "90° 回転",
+	"Disconnect All": "つなぎをすべて外す"
 }
