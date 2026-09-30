@@ -466,7 +466,11 @@ export class JaamSimModel implements EventTimeListener {
 		}
 	}
 
-	start(l: RunListener | null, trc: EventTraceListener | null): void {
+	/**
+	 * resumeNow は TS で足したもの（既定は Java と同じ true）。画面は false で始め、
+	 * 描く間ごとに eventManager.resumeTicks で少しずつ時間を進める。
+	 */
+	start(l: RunListener | null, trc: EventTraceListener | null, resumeNow = true): void {
 		if (l == null)
 			throw new NullPointerException("A runlistener must be provided to start a run");
 		this.runListener = l;
@@ -483,7 +487,8 @@ export class JaamSimModel implements EventTimeListener {
 			em.setTraceListener(trc);
 		this.eventManager.setTickLength(this.getSimulation()!.getTickLength());
 		this.eventManager.scheduleProcessExternal(0, Entity.PRI_HIGHEST, Entity.EVT_LIFO, new InitModelTarget(this), null);
-		this.resume();
+		if (resumeNow)
+			this.resume();
 	}
 
 	/**

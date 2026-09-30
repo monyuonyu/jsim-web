@@ -1,0 +1,343 @@
+/*
+ * 画面の組み立て: メニュー・ツールバー（実行の操作）・ライブラリ・3D の作業場・クイックプロパティ・状態の行
+ */
+import { Engine } from "./engine.ts";
+import { ModelOps } from "./model.ts";
+import { ModelView } from "./scene.ts";
+import { QuickProps } from "./props.ts";
+import { CATALOG, categoryLabel, type Category } from "./catalog.ts";
+import { t, LANGS, getLang, setLang } from "./i18n.ts";
+
+const $ = (id: string) => document.getElementById(id)!;
+const engine = new Engine();
+const ops = new ModelOps(engine);
+const view = new ModelView($("view"), ops);
+const props = new QuickProps($("props"), ops, toast);
+let fileName: string | null = null;
+let dirty = false;
+
+document.title = t("jsim - Simulation");
+$("tab-model").textContent = t("Model");
+
+// ---- お知らせ ----
+let toastTimer = 0;
+function toast(msg: string): void {
+	const el = $("toast");
+	el.textContent = msg;
+	el.classList.add("show");
+	clearTimeout(toastTimer);
+	toastTimer = window.setTimeout(() => el.classList.remove("show"), 3500);
+}
+
+// ---- アイコン ----
+const ic = (d: string, fill = "none") =>
+	`<svg viewBox="0 0 24 24" fill="${fill}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const ICONS = {
+	new: ic(`<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>`),
+	open: ic(`<path d="M3 7h6l2 2h10v10H3z"/>`),
+	save: ic(`<path d="M5 3h12l3 3v15H5z"/><path d="M8 3v5h8V3M8 21v-7h8v7"/>`),
+	reset: `<svg viewBox="0 0 24 24"><path d="M5 12a7 7 0 1 0 2-5" fill="none" stroke="#1f6fb2" stroke-width="2.2" stroke-linecap="round"/><path d="M4 3v5h5" fill="none" stroke="#1f6fb2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+	run: `<svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#2f9e44"/></svg>`,
+	stop: `<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" fill="#c92a2a"/></svg>`,
+	step: `<svg viewBox="0 0 24 24"><path d="M5 5l9 7-9 7z" fill="#2f9e44"/><rect x="16" y="5" width="3" height="14" fill="#2f9e44"/></svg>`,
+	fit: ic(`<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>`),
+};
+
+// ---- メニュー ----
+type MenuItem = { label: string; key?: string; run: () => void } | "-";
+function buildMenus(): void {
+	const menus: [string, MenuItem[]][] = [
+		[t("File"), [
+			{ label: t("New Model"), key: "Ctrl+N", run: newModel },
+			{ label: t("Open Model..."), key: "Ctrl+O", run: openModel },
+			{ label: t("Save"), key: "Ctrl+S", run: () => saveModel(false) },
+			{ label: t("Save As..."), run: () => saveModel(true) },
+			"-",
+			{ label: t("Open Sample Model"), run: sampleModel },
+		]],
+		[t("Edit"), [
+			{ label: t("Select All"), key: "Ctrl+A", run: () => view.setSelection(ops.visibleObjects()) },
+			{ label: t("Delete"), key: "Del", run: () => { for (const e of view.selection) ops.remove(e); view.setSelection([]); } },
+		]],
+		[t("View"), [
+			{ label: t("Fit Model in View"), key: "F", run: () => view.fit() },
+			"-",
+			...LANGS.map(([code, name]) => ({ label: (getLang() === code ? "✓ " : "") + name, run: () => setLang(code) })),
+		]],
+		[t("Execute"), [
+			{ label: t("Reset"), run: () => engine.reset() },
+			{ label: t("Run"), key: "Space", run: () => engine.run() },
+			{ label: t("Stop"), run: () => engine.stop() },
+			{ label: t("Step"), run: () => engine.step() },
+		]],
+		[t("Help"), [
+			{ label: t("How to Use"), run: () => toast(t("Drag objects from the Library into the model. Hold A and drag from one object to another to connect them.")) },
+			{ label: t("About jsim"), run: () => toast(t("jsim — a discrete-event simulator based on JaamSim (Apache-2.0)")) },
+		]],
+	];
+	const bar = $("menubar");
+	for (const [title, items] of menus) {
+		const m = document.createElement("div");
+		m.className = "menu";
+		m.textContent = title;
+		const list = document.createElement("div");
+		list.className = "menu-items";
+		for (const it of items) {
+			if (it === "-") { list.append(Object.assign(document.createElement("div"), { className: "menu-sep" })); continue; }
+			const row = document.createElement("div");
+			row.className = "menu-item";
+			row.innerHTML = `<span></span><span class="key"></span>`;
+			(row.children[0] as HTMLElement).textContent = it.label;
+			(row.children[1] as HTMLElement).textContent = it.key ?? "";
+			row.onclick = ev => { ev.stopPropagation(); bar.querySelectorAll(".menu.open").forEach(x => x.classList.remove("open")); it.run(); };
+			list.append(row);
+		}
+		m.append(list);
+		m.onclick = ev => { ev.stopPropagation(); const was = m.classList.contains("open"); bar.querySelectorAll(".menu.open").forEach(x => x.classList.remove("open")); if (!was) m.classList.add("open"); };
+		m.onmouseenter = () => { if (bar.querySelector(".menu.open") && !m.classList.contains("open")) { bar.querySelectorAll(".menu.open").forEach(x => x.classList.remove("open")); m.classList.add("open"); } };
+		bar.append(m);
+	}
+	document.addEventListener("click", () => bar.querySelectorAll(".menu.open").forEach(x => x.classList.remove("open")));
+}
+
+// ---- ツールバー ----
+const tb: Record<string, HTMLButtonElement> = {};
+let timeEl: HTMLElement, speedEl: HTMLElement, stopEl: HTMLInputElement;
+function buildToolbar(): void {
+	const bar = $("toolbar");
+	const btn = (id: keyof typeof ICONS, label: string, run: () => void) => {
+		const b = document.createElement("button");
+		b.className = "tb-btn";
+		b.innerHTML = ICONS[id] + `<span>${label}</span>`;
+		b.title = label;
+		b.onclick = run;
+		tb[id] = b;
+		bar.append(b);
+	};
+	const sep = () => bar.append(Object.assign(document.createElement("div"), { className: "tb-sep" }));
+	btn("new", t("New"), newModel);
+	btn("open", t("Open"), openModel);
+	btn("save", t("Save"), () => saveModel(false));
+	sep();
+	btn("fit", t("Fit"), () => view.fit());
+	sep();
+	btn("reset", t("Reset"), () => engine.reset());
+	btn("run", t("Run"), () => engine.run());
+	btn("stop", t("Stop"), () => engine.stop());
+	btn("step", t("Step"), () => engine.step());
+	sep();
+	const g1 = document.createElement("div");
+	g1.className = "tb-group";
+	g1.innerHTML = `<span></span><span class="tb-time"></span>`;
+	(g1.children[0] as HTMLElement).textContent = t("Run Time:");
+	timeEl = g1.children[1] as HTMLElement;
+	bar.append(g1);
+	const g2 = document.createElement("div");
+	g2.className = "tb-group";
+	g2.innerHTML = `<span></span><input type="number" min="0" step="any">`;
+	(g2.children[0] as HTMLElement).textContent = t("Stop Time (h):");
+	stopEl = g2.children[1] as HTMLInputElement;
+	stopEl.placeholder = t("(none)");
+	stopEl.onchange = () => { const v = Number(stopEl.value); engine.stopTime = stopEl.value !== "" && v > 0 ? v * 3600 : null; };
+	bar.append(g2);
+	const g3 = document.createElement("div");
+	g3.className = "tb-group";
+	g3.innerHTML = `<span></span><input type="range" min="0" max="100" value="33"><span class="tb-speed"></span>`;
+	(g3.children[0] as HTMLElement).textContent = t("Run Speed:");
+	const slider = g3.children[1] as HTMLInputElement;
+	speedEl = g3.children[2] as HTMLElement;
+	// 0.1 倍 〜 10 万倍（対数）
+	const setSpeed = () => { engine.speed = Math.pow(10, -1 + Number(slider.value) / 100 * 6); speedEl.textContent = fmtSpeed(engine.speed); };
+	slider.oninput = setSpeed;
+	setSpeed();
+	bar.append(g3);
+}
+
+function fmtSpeed(v: number): string {
+	return v >= 100 ? Math.round(v).toLocaleString() : v >= 10 ? v.toFixed(1) : v.toFixed(2);
+}
+
+function fmtTime(s: number): string {
+	const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+	const hms = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${sec.toFixed(2).padStart(5, "0")}`;
+	return d > 0 ? t("{0}d", d) + " " + hms : hms;
+}
+
+// ---- ライブラリ ----
+function buildLibrary(): void {
+	const lib = $("library");
+	lib.innerHTML = "";
+	const title = document.createElement("div");
+	title.className = "dock-title";
+	title.textContent = t("Library");
+	lib.append(title);
+	const cats: Category[] = ["fixed", "conveyor", "logic"];
+	for (const c of cats) {
+		const g = document.createElement("div");
+		g.className = "lib-group";
+		const head = document.createElement("div");
+		head.className = "lib-group-head";
+		head.textContent = categoryLabel(c);
+		head.onclick = () => g.classList.toggle("closed");
+		const items = document.createElement("div");
+		items.className = "lib-items";
+		for (const d of CATALOG.filter(x => x.category === c)) {
+			const it = document.createElement("div");
+			it.className = "lib-item";
+			it.draggable = true;
+			it.innerHTML = d.icon + "<span></span>";
+			(it.lastElementChild as HTMLElement).textContent = t(d.label);
+			it.title = t("Drag into the model");
+			it.ondragstart = ev => { ev.dataTransfer!.setData("text/x-jsim-object", d.id); ev.dataTransfer!.effectAllowed = "copy"; };
+			items.append(it);
+		}
+		g.append(head, items);
+		lib.append(g);
+	}
+}
+
+// ---- ファイル ----
+function confirmDiscard(): boolean {
+	return !dirty || confirm(t("Discard the changes to the present model?"));
+}
+
+function newModel(): void {
+	if (!confirmDiscard()) return;
+	engine.newModel();
+	fileName = null;
+	dirty = false;
+	view.setSelection([]);
+	view.fit();
+}
+
+function openModel(): void {
+	if (!confirmDiscard()) return;
+	const input = $("file-open") as HTMLInputElement;
+	input.value = "";
+	input.onchange = async () => {
+		const f = input.files?.[0];
+		if (!f) return;
+		try {
+			engine.newModel(await f.text(), f.name);
+			fileName = f.name;
+			dirty = false;
+			view.setSelection([]);
+			view.fit();
+		}
+		catch (ex) {
+			toast(t("Could not open the model: {0}", ex instanceof Error ? ex.message : String(ex)));
+			engine.newModel();
+		}
+	};
+	input.click();
+}
+
+function saveModel(as: boolean): void {
+	let name = fileName ?? "model.cfg";
+	if (as || fileName === null) {
+		const n = prompt(t("File name"), name);
+		if (!n) return;
+		name = n.endsWith(".cfg") ? n : n + ".cfg";
+	}
+	const text = engine.saveText();
+	const a = document.createElement("a");
+	a.href = URL.createObjectURL(new Blob([text], { type: "text/plain" }));
+	a.download = name;
+	a.click();
+	URL.revokeObjectURL(a.href);
+	fileName = name;
+	dirty = false;
+}
+
+/** 見本: ソース → キュー → プロセッサ 2 台 → コンベヤ → シンク */
+function sampleModel(): void {
+	if (!confirmDiscard()) return;
+	engine.newModel();
+	const src = ops.place("source", -8, 0);
+	const q = ops.place("queue", -4, 0);
+	const p1 = ops.place("processor", 0, 2);
+	const p2 = ops.place("processor", 0, -2);
+	const conv = ops.place("conveyor", 5, 0);
+	const sink = ops.place("sink", 10, 0);
+	ops.setTime(src, "InterArrivalTime", { kind: "exp", params: [6], unit: "s" });
+	ops.setTime(p1, "ServiceTime", { kind: "tri", params: [8, 10, 14], unit: "s" });
+	ops.setTime(p2, "ServiceTime", { kind: "tri", params: [8, 10, 14], unit: "s" });
+	ops.connect(src, q);
+	ops.connect(q, p1);
+	ops.connect(q, p2);
+	ops.connect(p1, conv);
+	ops.connect(p2, conv);
+	ops.connect(conv, sink);
+	dirty = false;
+	view.setSelection([]);
+	view.fit();
+}
+
+// ---- つなぎ込み ----
+view.onSelect = sel => props.show(sel);
+view.onMessage = toast;
+view.onDrop = (id, x, y) => {
+	try {
+		const ent = ops.place(id, x, y);
+		view.setSelection([ent]);
+	}
+	catch (ex) { toast(ex instanceof Error ? ex.message : String(ex)); }
+};
+
+let lastState = engine.state;
+engine.onChange(() => {
+	dirty = true;
+	view.rebuild();
+	if (engine.error) { toast(engine.error); engine.error = null; }
+	if (engine.state !== lastState) { lastState = engine.state; props.updateStats(); }
+	updateButtons();
+});
+
+function updateButtons(): void {
+	const s = engine.state;
+	tb.run.disabled = s === "running" || s === "ended";
+	tb.stop.disabled = s !== "running";
+	tb.step.disabled = s === "running" || s === "ended";
+	tb.reset.disabled = s === "idle";
+	$("statusbar").textContent = [
+		t({ idle: "Ready", running: "Running", paused: "Stopped", ended: "Finished" }[s]),
+		t("{0} objects", ops.visibleObjects().length),
+		fileName ?? t("(unsaved)"),
+	].join("   |   ");
+}
+
+window.addEventListener("keydown", ev => {
+	if ((ev.target as HTMLElement).closest("input, textarea, select")) return;
+	if (ev.ctrlKey && ev.key.toLowerCase() === "s") { ev.preventDefault(); saveModel(false); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "o") { ev.preventDefault(); openModel(); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "n") { ev.preventDefault(); newModel(); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "a") { ev.preventDefault(); view.setSelection(ops.visibleObjects()); }
+	else if (ev.key === " ") { ev.preventDefault(); if (engine.state === "running") engine.stop(); else engine.run(); }
+	else if (ev.key.toLowerCase() === "f" && !ev.ctrlKey) view.fit();
+});
+window.addEventListener("beforeunload", ev => { if (dirty) ev.preventDefault(); });
+
+buildMenus();
+buildToolbar();
+buildLibrary();
+props.show([]);
+updateButtons();
+if (new URLSearchParams(location.search).has("sample")) sampleModel();
+
+// ---- 描く ----
+let prev = performance.now();
+let statTimer = 0;
+function frame(now: number): void {
+	const dt = (now - prev) / 1000;
+	prev = now;
+	try { engine.advance(dt); }
+	catch (ex) { engine.stop(); toast(ex instanceof Error ? ex.message : String(ex)); }
+	view.syncDynamic(engine.simTime(), engine.state === "running");
+	view.render();
+	timeEl.textContent = fmtTime(engine.simTime());
+	statTimer += dt;
+	if (statTimer > 0.25) { statTimer = 0; props.updateStats(); }
+	requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+(window as unknown as { jsim: unknown }).jsim = { engine, ops, view };
