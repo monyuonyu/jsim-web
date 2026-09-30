@@ -1,0 +1,12 @@
+jsim-web
+Copyright 2026 shota
+
+このソフトウェアは JaamSim（https://jaamsim.com/ 、https://github.com/jaamsim/jaamsim）を
+Java から TypeScript に移したものを含む。
+JaamSim Discrete Event Simulation
+Copyright (C) 2002-2015 Ausenco Engineering Canada Inc.
+Copyright (C) 2015-2026 JaamSim Software Inc.
+Apache License, Version 2.0 のもとで配布されている。
+
+各ファイルの先頭に、元の Java のファイルの著作権表示を残している。
+移植にあたって、Java の文法を TypeScript に書き換え、画面の言葉を多言語（日本語など）にできるようにした。
