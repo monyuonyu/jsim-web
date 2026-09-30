@@ -11,8 +11,8 @@
     "dev": "vite",
     "build": "vite build",
     "app": "vite build && electron .",
-    "dist:win": "vite build && electron-builder --win nsis",
-    "dist:linux": "vite build && electron-builder --linux AppImage"
+    "dist:win": "vite build && electron-builder --win nsis --publish never",
+    "dist:linux": "vite build && electron-builder --linux AppImage --publish never"
   },
   "devDependencies": {
     "@types/node": "^26.6.3",

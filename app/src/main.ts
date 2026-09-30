@@ -5,6 +5,7 @@ import { Engine } from "./engine.ts";
 import { ModelOps } from "./model.ts";
 import { ModelView } from "./scene.ts";
 import { QuickProps } from "./props.ts";
+import { Dashboard } from "./dashboard.ts";
 import { CATALOG, categoryLabel, type Category } from "./catalog.ts";
 import { t, LANGS, getLang, setLang } from "./i18n.ts";
 
@@ -21,11 +22,23 @@ catch (ex) {
 	throw ex;
 }
 const props = new QuickProps($("props"), ops, toast);
+const dash = new Dashboard($("dashboard"), ops);
 let fileName: string | null = null;
 let dirty = false;
 
 document.title = t("jsim - Simulation");
 $("tab-model").textContent = t("Model");
+$("tab-dash").textContent = t("Dashboard");
+function showTab(which: "model" | "dash"): void {
+	$("tab-model").classList.toggle("active", which === "model");
+	$("tab-dash").classList.toggle("active", which === "dash");
+	$("view").style.display = which === "model" ? "" : "none";
+	$("dashboard").classList.toggle("show", which === "dash");
+	dash.setVisible(which === "dash");
+	if (which === "model") view.resize();
+}
+$("tab-model").onclick = () => showTab("model");
+$("tab-dash").onclick = () => showTab("dash");
 
 // ---- お知らせ ----
 let toastTimer = 0;
@@ -69,6 +82,8 @@ function buildMenus(): void {
 		]],
 		[t("View"), [
 			{ label: t("Fit Model in View"), key: "F", run: () => view.fit() },
+			{ label: t("Model"), run: () => showTab("model") },
+			{ label: t("Dashboard"), run: () => showTab("dash") },
 			"-",
 			...LANGS.map(([code, name]) => ({ label: (getLang() === code ? "✓ " : "") + name, run: () => setLang(code) })),
 		]],
@@ -358,6 +373,7 @@ if (new URLSearchParams(location.search).has("sample")) sampleModel();
 // ---- 描く ----
 let prev = performance.now();
 let statTimer = 0;
+let dashTimer = 0;
 function frame(now: number): void {
 	const dt = (now - prev) / 1000;
 	prev = now;
@@ -366,9 +382,12 @@ function frame(now: number): void {
 	view.syncDynamic(engine.simTime(), engine.state === "running");
 	view.render();
 	timeEl.textContent = fmtTime(engine.simTime());
+	dash.sample();
 	statTimer += dt;
 	if (statTimer > 0.25) { statTimer = 0; props.updateStats(); }
+	dashTimer += dt;
+	if (dashTimer > 0.5) { dashTimer = 0; dash.draw(); }
 	requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
-(window as unknown as { jsim: unknown }).jsim = { engine, ops, view };
+(window as unknown as { jsim: unknown }).jsim = { engine, ops, view, showTab };

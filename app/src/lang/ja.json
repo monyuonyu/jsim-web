@@ -107,5 +107,13 @@
 	"Discard the changes to the present model?": "今のモデルの変更を捨てますか？",
 	"Could not open the model: {0}": "モデルを開けませんでした: {0}",
 	"File name": "ファイル名",
-	"3D graphics (WebGL) are not available on this PC.": "この PC では 3D の描画（WebGL）が使えません。"
+	"3D graphics (WebGL) are not available on this PC.": "この PC では 3D の描画（WebGL）が使えません。",
+	"Dashboard": "ダッシュボード",
+	"Queue content over time": "キューの数の推移",
+	"Items exited over time": "シンクに入った数の推移",
+	"Average staytime (s)": "平均滞在時間（秒）",
+	"No processors": "プロセッサがありません",
+	"No queues": "キューがありません",
+	"Run the model to see the graph.": "実行するとグラフが出ます。",
+	"Setdown": "後片付け"
 }

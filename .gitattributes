@@ -1,0 +1,5 @@
+# 改行はどの OS でも LF（試験の正解のファイルを Windows でも同じに読むため）
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.dae binary
