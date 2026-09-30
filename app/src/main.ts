@@ -18,7 +18,10 @@ try {
 	view = new ModelView($("view"), ops);
 }
 catch (ex) {
-	// 3D（WebGL）が使えない PC。画面の枠だけ出して知らせる
+	// 3D（WebGL）が使えない PC。アプリ（Electron）なら、ソフトウェアの描画で起動し直してみる
+	const h = (window as unknown as { jsimHost?: { relaunchSoftGL?(): Promise<boolean> } }).jsimHost;
+	void h?.relaunchSoftGL?.();
+	// 起動し直せない時（ブラウザ・もうソフトウェアで描いている）は、画面の枠だけ出して知らせる
 	$("view").innerHTML = `<div style="padding:40px;color:#b00">${t("3D graphics (WebGL) are not available on this PC.")}<br>${String(ex)}</div>`;
 	throw ex;
 }

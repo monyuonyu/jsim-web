@@ -7,6 +7,12 @@ const path = require("node:path");
 // GPU が使えない PC（リモートデスクトップ・仮想マシン・古い GPU、サインイン前の起動など）でも、
 // ソフトウェアで 3D を描けるようにする（読むのは同梱の画面だけなので、この許可の心配は当たらない）
 app.commandLine.appendSwitch("enable-unsafe-swiftshader");
+// それでも 3D を作れなかった時は、画面がこの印を付けて起動し直させる。印があれば、はじめからソフトウェアで描く
+const SOFT_GL = "--jsim-soft-gl";
+if (process.argv.includes(SOFT_GL)) {
+	app.commandLine.appendSwitch("use-gl", "angle");
+	app.commandLine.appendSwitch("use-angle", "swiftshader");
+}
 
 let win = null;
 const ROOT = path.join(__dirname, "..", "dist", "app");
@@ -57,6 +63,13 @@ function selfTest(out) {
 		app.exit(0);
 	});
 }
+
+ipcMain.handle("relaunch-soft-gl", () => {
+	if (process.argv.includes(SOFT_GL)) return false;  // もうソフトウェアで描いている
+	app.relaunch({ args: process.argv.slice(1).concat([SOFT_GL]) });
+	app.exit(0);
+	return true;
+});
 
 ipcMain.handle("open-model", async () => {
 	const r = await dialog.showOpenDialog(win, { filters: [{ name: "jsim / JaamSim", extensions: ["cfg"] }], properties: ["openFile"] });

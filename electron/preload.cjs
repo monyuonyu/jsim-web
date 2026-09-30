@@ -3,4 +3,5 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("jsimHost", {
 	openModel: () => ipcRenderer.invoke("open-model"),
 	saveModel: (path, text, as) => ipcRenderer.invoke("save-model", { path, text, as }),
+	relaunchSoftGL: () => ipcRenderer.invoke("relaunch-soft-gl"),
 });
