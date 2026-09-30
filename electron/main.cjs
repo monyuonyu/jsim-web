@@ -4,6 +4,10 @@ const { pathToFileURL } = require("node:url");
 const fs = require("node:fs");
 const path = require("node:path");
 
+// GPU が使えない PC（リモートデスクトップ・仮想マシン・古い GPU、サインイン前の起動など）でも、
+// ソフトウェアで 3D を描けるようにする（読むのは同梱の画面だけなので、この許可の心配は当たらない）
+app.commandLine.appendSwitch("enable-unsafe-swiftshader");
+
 let win = null;
 const ROOT = path.join(__dirname, "..", "dist", "app");
 

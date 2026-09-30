@@ -1,6 +1,6 @@
 {
   "name": "jsim-web",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "JaamSim を TypeScript に移したもの（ウェブと Electron で動く、日本語のシミュレーター）",
   "license": "Apache-2.0",
