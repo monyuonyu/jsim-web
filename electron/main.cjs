@@ -19,6 +19,39 @@ function createWindow() {
 	});
 	Menu.setApplicationMenu(null);  // メニューは画面の中に持つ（FlexSim と同じ位置）
 	win.loadURL("app://jsim/index.html");
+	if (process.env.JSIM_SELFTEST_SHOT) selfTest(process.env.JSIM_SELFTEST_SHOT);
+}
+
+// 試験用: 画面の中身（この窓だけ）を PNG に撮って終わる。サインインしていない PC でも ssh から確かめられる。
+// JSIM_SELFTEST_SHOT=保存先.png、JSIM_SELFTEST_LANG=ja など
+function selfTest(out) {
+	const logs = [];
+	win.webContents.on("console-message", (ev) => logs.push(`[${ev.level}] ${ev.message}`));
+	win.webContents.once("did-finish-load", async () => {
+		const wait = ms => new Promise(r => setTimeout(r, ms));
+		try {
+			const lang = process.env.JSIM_SELFTEST_LANG ?? "ja";
+			await win.webContents.executeJavaScript(`localStorage.getItem("lang") === ${JSON.stringify(lang)} || (localStorage.setItem("lang", ${JSON.stringify(lang)}), location.reload())`);
+			await wait(2500);
+			const info = await win.webContents.executeJavaScript(`(() => {
+				const j = window.jsim;
+				if (!j) return "no jsim: " + document.body.innerText.slice(0, 300);
+				document.querySelectorAll(".menu-item").forEach(m => { if (m.textContent.includes("サンプル") || m.textContent.includes("Sample")) m.click(); });
+				j.engine.speed = 60; j.engine.run();
+				return "gl=" + (j.view.renderer.getContext().getParameter(j.view.renderer.getContext().VERSION));
+			})()`);
+			logs.push("[selftest] " + info);
+			await wait(6000);
+			const img = await win.webContents.capturePage();
+			fs.writeFileSync(out, img.toPNG());
+			logs.push(`[selftest] saved ${img.getSize().width}x${img.getSize().height}`);
+		}
+		catch (e) {
+			logs.push("[selftest] error " + (e && e.stack || e));
+		}
+		fs.writeFileSync(out + ".log", logs.join("\n"));
+		app.exit(0);
+	});
 }
 
 ipcMain.handle("open-model", async () => {

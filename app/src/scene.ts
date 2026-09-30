@@ -147,7 +147,7 @@ export class ModelView {
 		}
 		box.getCenter(this.target);
 		const size = box.getSize(new THREE.Vector3());
-		this.radius = Math.max(8, Math.max(size.x, size.z * 1.6) * 1.15);
+		this.radius = Math.max(8, Math.max(size.x, size.z * 1.6) * 1.35);
 	}
 
 	// ---- モデルと合わせる ----
