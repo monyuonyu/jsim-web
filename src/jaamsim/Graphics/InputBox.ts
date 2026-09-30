@@ -62,7 +62,8 @@ export class InputBox extends TextBasics {
 		}
 		try {
 			const kw = KeywordIndex.formatInput(this.target.getValue()!, this.getText());
-			this.getJaamSimModel().storeAndExecute(new KeywordCommand(this.target.getTargetEntity(), kw));
+			// Java も getTargetEntity() をそのまま渡す（原型から値を受け継いだときは null のことがあるが、Java と同じにする）
+			this.getJaamSimModel().storeAndExecute(new KeywordCommand(this.target.getTargetEntity()!, kw));
 			super.acceptEdits();
 		}
 		catch (e) {

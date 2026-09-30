@@ -232,7 +232,7 @@ export class ExpressionLogger extends Logger implements StateEntityListener, Obs
 	getWatchList(): SubjectEntity[] {
 		if (!this.isActive())
 			return [];
-		return this.watchList.getValue();
+		return this.watchList.getValue()!;
 	}
 
 	isVerifyWatchList(simTime: number): boolean {

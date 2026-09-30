@@ -182,7 +182,7 @@ export class ExpressionStatistics extends DisplayEntity implements ObserverEntit
 	}
 
 	updateUnitTypeInputValue(): void {
-		const ut: JClass<Unit> = this.unitType.getUnitType();
+		const ut: JClass<Unit> = this.unitType.getUnitType()!;
 		this.dataSource.setUnitType(ut);
 		this.histogramBinWidth.setUnitType(ut);
 		this.updateUserOutputMap();
@@ -223,7 +223,7 @@ export class ExpressionStatistics extends DisplayEntity implements ObserverEntit
 	}
 
 	getWatchList(): SubjectEntity[] {
-		return this.watchList.getValue();
+		return this.watchList.getValue()!;
 	}
 
 	observerUpdate(subj: SubjectEntity): void {

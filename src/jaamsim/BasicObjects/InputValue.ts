@@ -76,7 +76,7 @@ export class InputValue extends TextBasics implements SampleProvider {
 	}
 
 	updateUnitType(): void {
-		this.setUnitType(this.unitType.getUnitType());
+		this.setUnitType(this.unitType.getUnitType()!);
 		if (this.valInput.isDefault())
 			this.setText(this.valInput.getDefaultString(this.getJaamSimModel()));
 		this.updateUserOutputMap();
@@ -111,11 +111,11 @@ export class InputValue extends TextBasics implements SampleProvider {
 	}
 
 	getUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	override getUserUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	getNextSample(thisEnt: Entity, simTime: number): number {

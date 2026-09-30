@@ -231,7 +231,7 @@ export class DowntimeEntity extends StateEntity implements StateEntityListener, 
 		this.numLateEvents = 0;
 		this.totalLateTime = 0;
 
-		this.resUserDelegate = new ResourceUserDelegate(this.resourceList.getValue());
+		this.resUserDelegate = new ResourceUserDelegate(this.resourceList.getValue()!);
 		this.seizedUnits = [];
 
 		if (!this.isActive())

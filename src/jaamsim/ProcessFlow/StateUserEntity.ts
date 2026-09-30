@@ -168,16 +168,20 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	// THRESHOLDS
 	// ********************************************************************************************
 
+	// Java では interface ThresholdUser の関数で、この抽象クラスには書かれていない（子クラスが実装する）。
+	// TS では implements した抽象クラスにも宣言が要るので、抽象の宣言だけ置く（実行時には何も生まれない）
+	abstract thresholdChanged(): void;
+
 	getThresholds(): Threshold[] {
-		const ret: Threshold[] = [...this.operatingThresholdList.getValue()];
-		ret.push(...this.releaseThresholdList.getValue());
-		ret.push(...this.immediateThresholdList.getValue());
-		ret.push(...this.immediateReleaseThresholdList.getValue());
+		const ret: Threshold[] = [...this.operatingThresholdList.getValue()!];
+		ret.push(...this.releaseThresholdList.getValue()!);
+		ret.push(...this.immediateThresholdList.getValue()!);
+		ret.push(...this.immediateReleaseThresholdList.getValue()!);
 		return ret;
 	}
 
 	isImmediateThresholdClosure(): boolean {
-		for (const thresh of this.immediateThresholdList.getValue()) {
+		for (const thresh of this.immediateThresholdList.getValue()!) {
 			if (!thresh.isOpen())
 				return true;
 		}
@@ -185,7 +189,7 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isImmediateReleaseThresholdClosure(): boolean {
-		for (const thresh of this.immediateReleaseThresholdList.getValue()) {
+		for (const thresh of this.immediateReleaseThresholdList.getValue()!) {
 			if (!thresh.isOpen())
 				return true;
 		}
@@ -193,7 +197,7 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isOperatingThresholdClosure(): boolean {
-		for (const thr of this.operatingThresholdList.getValue()) {
+		for (const thr of this.operatingThresholdList.getValue()!) {
 			if (!thr.isOpen())
 				return true;
 		}
@@ -201,7 +205,7 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isReleaseThresholdClosure(): boolean {
-		for (const thr of this.releaseThresholdList.getValue()) {
+		for (const thr of this.releaseThresholdList.getValue()!) {
 			if (!thr.isOpen())
 				return true;
 		}
@@ -251,15 +255,15 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	override isMaintenance(): boolean {
-		for (const de of this.immediateMaintenanceList.getValue()) {
+		for (const de of this.immediateMaintenanceList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
-		for (const de of this.forcedMaintenanceList.getValue()) {
+		for (const de of this.forcedMaintenanceList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
-		for (const de of this.opportunisticMaintenanceList.getValue()) {
+		for (const de of this.opportunisticMaintenanceList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
@@ -267,7 +271,7 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isImmediateMaintenance(): boolean {
-		for (const de of this.immediateMaintenanceList.getValue()) {
+		for (const de of this.immediateMaintenanceList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
@@ -275,15 +279,15 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	override isBreakdown(): boolean {
-		for (const de of this.immediateBreakdownList.getValue()) {
+		for (const de of this.immediateBreakdownList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
-		for (const de of this.forcedBreakdownList.getValue()) {
+		for (const de of this.forcedBreakdownList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
-		for (const de of this.opportunisticBreakdownList.getValue()) {
+		for (const de of this.opportunisticBreakdownList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
@@ -291,7 +295,7 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isImmediateBreakdown(): boolean {
-		for (const de of this.immediateBreakdownList.getValue()) {
+		for (const de of this.immediateBreakdownList.getValue()!) {
 			if (de.isDown())
 				return true;
 		}
@@ -299,11 +303,11 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isForcedDowntimePending(): boolean {
-		for (const de of this.forcedMaintenanceList.getValue()) {
+		for (const de of this.forcedMaintenanceList.getValue()!) {
 			if (de.isDowntimePending())
 				return true;
 		}
-		for (const de of this.forcedBreakdownList.getValue()) {
+		for (const de of this.forcedBreakdownList.getValue()!) {
 			if (de.isDowntimePending())
 				return true;
 		}
@@ -311,11 +315,11 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isImmediateDowntimePending(): boolean {
-		for (const de of this.immediateMaintenanceList.getValue()) {
+		for (const de of this.immediateMaintenanceList.getValue()!) {
 			if (de.isDowntimePending())
 				return true;
 		}
-		for (const de of this.immediateBreakdownList.getValue()) {
+		for (const de of this.immediateBreakdownList.getValue()!) {
 			if (de.isDowntimePending())
 				return true;
 		}
@@ -335,22 +339,22 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	// ********************************************************************************************
 
 	getDowntimeEntities(): DowntimeEntity[] {
-		const ret: DowntimeEntity[] = [...this.immediateMaintenanceList.getValue()];
-		ret.push(...this.immediateBreakdownList.getValue());
-		ret.push(...this.forcedMaintenanceList.getValue());
-		ret.push(...this.forcedBreakdownList.getValue());
-		ret.push(...this.opportunisticMaintenanceList.getValue());
-		ret.push(...this.opportunisticBreakdownList.getValue());
+		const ret: DowntimeEntity[] = [...this.immediateMaintenanceList.getValue()!];
+		ret.push(...this.immediateBreakdownList.getValue()!);
+		ret.push(...this.forcedMaintenanceList.getValue()!);
+		ret.push(...this.forcedBreakdownList.getValue()!);
+		ret.push(...this.opportunisticMaintenanceList.getValue()!);
+		ret.push(...this.opportunisticBreakdownList.getValue()!);
 		return ret;
 	}
 
 	isDowntimeUser(down: DowntimeEntity): boolean {
-		return this.immediateMaintenanceList.getValue().includes(down)
-				|| this.immediateBreakdownList.getValue().includes(down)
-		        || this.forcedMaintenanceList.getValue().includes(down)
-				|| this.forcedBreakdownList.getValue().includes(down)
-		        || this.opportunisticMaintenanceList.getValue().includes(down)
-				|| this.opportunisticBreakdownList.getValue().includes(down);
+		return this.immediateMaintenanceList.getValue()!.includes(down)
+				|| this.immediateBreakdownList.getValue()!.includes(down)
+		        || this.forcedMaintenanceList.getValue()!.includes(down)
+				|| this.forcedBreakdownList.getValue()!.includes(down)
+		        || this.opportunisticMaintenanceList.getValue()!.includes(down)
+				|| this.opportunisticBreakdownList.getValue()!.includes(down);
 	}
 
 	canStartDowntime(down: DowntimeEntity): boolean {
@@ -388,18 +392,18 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 	}
 
 	isImmediateDowntime(down: DowntimeEntity): boolean {
-		return this.immediateMaintenanceList.getValue().includes(down)
-				|| this.immediateBreakdownList.getValue().includes(down);
+		return this.immediateMaintenanceList.getValue()!.includes(down)
+				|| this.immediateBreakdownList.getValue()!.includes(down);
 	}
 
 	isForcedDowntime(down: DowntimeEntity): boolean {
-		return this.forcedMaintenanceList.getValue().includes(down)
-				|| this.forcedBreakdownList.getValue().includes(down);
+		return this.forcedMaintenanceList.getValue()!.includes(down)
+				|| this.forcedBreakdownList.getValue()!.includes(down);
 	}
 
 	isOpportunisticDowntime(down: DowntimeEntity): boolean {
-		return this.opportunisticMaintenanceList.getValue().includes(down)
-				|| this.opportunisticBreakdownList.getValue().includes(down);
+		return this.opportunisticMaintenanceList.getValue()!.includes(down)
+				|| this.opportunisticBreakdownList.getValue()!.includes(down);
 	}
 
 	// ********************************************************************************************
@@ -412,13 +416,13 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 
 	getNextMaintenanceTime(simTime: number): number {
 		let ret = Double.POSITIVE_INFINITY;
-		for (const down of this.immediateMaintenanceList.getValue()) {
+		for (const down of this.immediateMaintenanceList.getValue()!) {
 			ret = Math.min(ret, down.getNextStartTime(simTime));
 		}
-		for (const down of this.forcedMaintenanceList.getValue()) {
+		for (const down of this.forcedMaintenanceList.getValue()!) {
 			ret = Math.min(ret, down.getNextStartTime(simTime));
 		}
-		for (const down of this.opportunisticMaintenanceList.getValue()) {
+		for (const down of this.opportunisticMaintenanceList.getValue()!) {
 			ret = Math.min(ret, down.getNextStartTime(simTime));
 		}
 		return ret;
@@ -426,13 +430,13 @@ export abstract class StateUserEntity extends AbstractStateUserEntity implements
 
 	getNextBreakdownTime(simTime: number): number {
 		let ret = Double.POSITIVE_INFINITY;
-		for (const down of this.immediateBreakdownList.getValue()) {
+		for (const down of this.immediateBreakdownList.getValue()!) {
 			ret = Math.min(ret, down.getNextStartTime(simTime));
 		}
-		for (const down of this.forcedBreakdownList.getValue()) {
+		for (const down of this.forcedBreakdownList.getValue()!) {
 			ret = Math.min(ret, down.getNextStartTime(simTime));
 		}
-		for (const down of this.opportunisticBreakdownList.getValue()) {
+		for (const down of this.opportunisticBreakdownList.getValue()!) {
 			ret = Math.min(ret, down.getNextStartTime(simTime));
 		}
 		return ret;

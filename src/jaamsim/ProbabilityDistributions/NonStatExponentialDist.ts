@@ -100,7 +100,7 @@ export class NonStatExponentialDist extends Distribution {
 	protected override getSample(simTime: number): number {
 
 		const ticksNow = EventManager.simTicks();  // ignore the simTime passed as an argument
-		const ts: TimeSeriesProvider = this.expectedArrivals.getValue();
+		const ts: TimeSeriesProvider = this.expectedArrivals.getValue()!;
 		const factor = this.getScaleFactor(simTime);
 		const valueNow = factor * ts.getInterpolatedCumulativeValueForTicks(ticksNow);
 		const valueNext = valueNow - Math.log(this.rng.nextUniform());
@@ -119,8 +119,8 @@ export class NonStatExponentialDist extends Distribution {
 		if (this.expectedArrivals.getValue() == null)
 			return Double.NaN;
 		const factor = this.getScaleFactor(simTime);
-		const arrivals = factor * this.expectedArrivals.getValue().getMaxValue();
-		const dt = this.getJaamSimModel().getEventManager().ticksToSeconds( this.expectedArrivals.getValue().getMaxTicksValue() );
+		const arrivals = factor * this.expectedArrivals.getValue()!.getMaxValue();
+		const dt = this.getJaamSimModel().getEventManager().ticksToSeconds( this.expectedArrivals.getValue()!.getMaxTicksValue() );
 		return dt/arrivals;
 	}
 
@@ -131,13 +131,13 @@ export class NonStatExponentialDist extends Distribution {
 	protected override getMin(simTime: number): number {
 		if (this.expectedArrivals.isDefault())
 			return Double.NaN;
-		return this.expectedArrivals.getValue().getMinValue();
+		return this.expectedArrivals.getValue()!.getMinValue();
 	}
 
 	protected override getMax(simTime: number): number {
 		if (this.expectedArrivals.isDefault())
 			return Double.NaN;
-		return this.expectedArrivals.getValue().getMaxValue();
+		return this.expectedArrivals.getValue()!.getMaxValue();
 	}
 
 }

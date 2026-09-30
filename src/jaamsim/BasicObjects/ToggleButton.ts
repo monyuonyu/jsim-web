@@ -134,7 +134,7 @@ export class ToggleButton extends GameEntity implements SubjectEntity, LineEntit
 		this.subject.notifyObservers();
 	}
 
-	getObserverList(): ObserverEntity[] {
+	override getObserverList(): ObserverEntity[] {
 		return this.subject.getObserverList();
 	}
 

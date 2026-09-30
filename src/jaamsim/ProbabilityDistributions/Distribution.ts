@@ -179,7 +179,7 @@ implements SampleProvider, RandomStreamUser {
 	}
 
 	override getUserUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	/**
@@ -188,7 +188,7 @@ implements SampleProvider, RandomStreamUser {
 	protected abstract getSample(simTime: number): number;
 
 	getUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	protected setUnitType(ut: JClass<Unit>): void {

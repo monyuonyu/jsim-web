@@ -215,7 +215,7 @@ export abstract class LinkedService extends LinkedDevice implements QueueUser {
 	}
 
 	override getWatchList(): SubjectEntity[] {
-		return this.watchList.getValue();
+		return this.watchList.getValue()!;
 	}
 
 	override observerUpdate(subj: SubjectEntity): void {
@@ -455,7 +455,7 @@ export abstract class LinkedService extends LinkedDevice implements QueueUser {
 			ent.moveToProcessPosition(ce, ce.getProcessPosition());
 			return;
 		}
-		ent.moveToProcessPosition(this, this.processPosition.getValue());
+		ent.moveToProcessPosition(this, this.processPosition.getValue()!);
 	}
 
 	override getSourceEntities(): DisplayEntity[] {

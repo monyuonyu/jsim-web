@@ -33,6 +33,7 @@ import { ExpResult } from "../internal.ts";
 import { FileInput } from "../internal.ts";
 import { Input } from "../internal.ts";
 import type { InputCallback } from "../input/InputCallback.ts";
+import type { URI } from "../input/ParseContext.ts";
 import { defineOutput } from "../internal.ts";
 import { DimensionlessUnit } from "../internal.ts";
 import { TimeUnit } from "../internal.ts";
@@ -92,19 +93,19 @@ export abstract class FileToArray extends LinkedComponent {
 			this.clearValue();
 			return;
 		}
-		this.setValueForURI(this.dataFile.getValue(), 0.0);
+		this.setValueForURI(this.dataFile.getValue()!, 0.0);
 	}
 
 	override earlyInit(): void {
 		super.earlyInit();
 		if (this.dataFile.getValue() !== null)
-			this.setValueForURI(this.dataFile.getValue(), 0.0);
+			this.setValueForURI(this.dataFile.getValue()!, 0.0);
 	}
 
 	override addEntity(ent: DisplayEntity): void {
 		super.addEntity(ent);
 		if (this.dataFile.getValue() !== null)
-			this.setValueForURI(this.dataFile.getValue(), EventManager.simSeconds());
+			this.setValueForURI(this.dataFile.getValue()!, EventManager.simSeconds());
 		this.sendToNextComponent(ent);
 	}
 
@@ -112,9 +113,10 @@ export abstract class FileToArray extends LinkedComponent {
 		this.value = val;
 	}
 
-	private setValueForURI(uri: ReturnType<FileInput["getValue"]>, simTime: number): void {
-		const tokens: string[][] = FileInput.getTokensFromURI(uri);
-		this.value = this.getValueForTokens(tokens, simTime);
+	private setValueForURI(uri: URI, simTime: number): void {
+		const tokens: string[][] | null = FileInput.getTokensFromURI(uri);
+		// 読めなかったときは null。Java もそのまま getValueForTokens に渡す（そこで落ちる）ので、同じにする
+		this.value = this.getValueForTokens(tokens!, simTime);
 	}
 
 	protected abstract getValueForTokens(tokens: string[][], simTime: number): ExpResult;

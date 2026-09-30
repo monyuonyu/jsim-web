@@ -45,10 +45,10 @@ export abstract class AbstractStateUserEntity extends StateEntity {
 
 	protected static readonly COL_MAINTENANCE: Color4d = ColourInput.RED;
 	protected static readonly COL_BREAKDOWN: Color4d = ColourInput.RED;
-	protected static readonly COL_STOPPED: Color4d = ColourInput.getColorWithName("gray25");
-	protected static readonly COL_BLOCKED: Color4d = ColourInput.getColorWithName("gray25");
-	protected static readonly COL_SETUP: Color4d = ColourInput.getColorWithName("gray25");
-	protected static readonly COL_SETDOWN: Color4d = ColourInput.getColorWithName("gray25");
+	protected static readonly COL_STOPPED: Color4d = ColourInput.getColorWithName("gray25")!;
+	protected static readonly COL_BLOCKED: Color4d = ColourInput.getColorWithName("gray25")!;
+	protected static readonly COL_SETUP: Color4d = ColourInput.getColorWithName("gray25")!;
+	protected static readonly COL_SETDOWN: Color4d = ColourInput.getColorWithName("gray25")!;
 
 	// Perform state verification at each event time
 	private readonly verifyStateConditional: Conditional;

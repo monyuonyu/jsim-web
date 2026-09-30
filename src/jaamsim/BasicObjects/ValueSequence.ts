@@ -81,11 +81,11 @@ export class ValueSequence extends DisplayEntity implements SampleProvider {
 	}
 
 	override getUserUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	getUnitType(): JClass<Unit> {
-		return this.unitType.getUnitType();
+		return this.unitType.getUnitType()!;
 	}
 
 	getMeanValue(simTime: number): number {

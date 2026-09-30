@@ -106,7 +106,7 @@ export class EntitySystem extends AbstractStateUserEntity implements ObserverEnt
 	}
 
 	getWatchList(): SubjectEntity[] {
-		return this.watchList.getValue();
+		return this.watchList.getValue()!;
 	}
 
 	observerUpdate(subj: SubjectEntity): void {
@@ -203,7 +203,8 @@ export class EntitySystem extends AbstractStateUserEntity implements ObserverEnt
 
 		// Calculate the state from the StateExpression input
 		const str = this.stateExp.getNextResult(this, EventManager.simSeconds()).stringVal;
-		this.setPresentState(str);
+		// 結果の型は STRING に決めてある（getNextResult が確かめる）ので、stringVal は null にならない
+		this.setPresentState(str!);
 		if (this.isTraceFlag()) this.trace(1, "setPresentState - %s", str);
 	}
 
