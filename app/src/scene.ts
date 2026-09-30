@@ -147,7 +147,13 @@ export class ModelView {
 		}
 		box.getCenter(this.target);
 		const size = box.getSize(new THREE.Vector3());
-		this.radius = Math.max(8, Math.max(size.x, size.z * 1.6) * 1.35);
+		// 横は窓の幅、奥行きは窓の高さに入るように（狭い窓でも左右が切れないように）
+		const vfov = this.camera.fov * Math.PI / 180;
+		const hfov = 2 * Math.atan(Math.tan(vfov / 2) * this.camera.aspect);
+		const margin = 1.5;  // 部品の大きさと名前の分（m）
+		const needW = (size.x / 2 + margin) / Math.tan(hfov / 2);
+		const needD = ((size.z / 2 + margin) / Math.tan(vfov / 2)) / Math.max(Math.cos(this.phi), 0.3);
+		this.radius = Math.max(8, needW, needD);
 	}
 
 	// ---- モデルと合わせる ----
