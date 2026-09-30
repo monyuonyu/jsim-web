@@ -14,7 +14,7 @@ const count = () => p.evaluate(() => window.jsim.ops.visibleObjects().length);
 const view = await p.locator("#view canvas").boundingBox();
 const at = (fx, fy) => ({ x: view.x + view.width * fx, y: view.y + view.height * fy });
 const drop = async (label, fx, fy) => {
-	const item = p.locator(".lib-item", { hasText: label });
+	const item = p.locator(`.lib-item:has(span:text-is("${label}"))`);
 	await item.dragTo(p.locator("#view"), { targetPosition: { x: view.width * fx, y: view.height * fy } });
 	await p.waitForTimeout(200);
 };

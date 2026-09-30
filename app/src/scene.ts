@@ -11,6 +11,10 @@ import type { ModelOps } from "./model.ts";
 import { clsName } from "./model.ts";
 import { getOutputDef } from "../../src/jaamsim/input/OutputRegistry.ts";
 
+function out(ent: Entity, name: string, simTime: number): unknown {
+	try { return getOutputDef(ent.constructor as never, name)?.get(ent, simTime); } catch { return undefined; }
+}
+
 /** JaamSim (x, y, z) → three */
 const toThree = (x: number, y: number, z: number) => new THREE.Vector3(x, z, -y);
 
@@ -167,7 +171,7 @@ export class ModelView {
 					const local = pts.map(p => toThree(p[0] - p0.x, p[1] - p0.y, 0));
 					body = def.id === "conveyor" ? buildConveyor(local, size.y, size.z) : buildPath(local);
 				}
-				else body = buildMesh(def.id, size.x, size.y, size.z);
+				else body = buildMesh(def.id, size.x, size.y, size.z, def.color);
 				body.traverse(o => { o.userData.entity = ent; });
 				group.add(body);
 				const div = document.createElement("div");
@@ -302,6 +306,19 @@ export class ModelView {
 					m.position.copy(toThree(x, y, 0.06 + h / 2 + layer * h));
 					m.rotation.y = rz;
 				});
+			}
+		}
+		// 処理中の品物（出力 obj）は、部品の上に載せる（JaamSim のモデルは処理の位置が床の高さのことが多い）
+		if (this.ops.engine.state !== "idle") {
+			for (const [ent, v] of this.visuals) {
+				const def = this.ops.defOf(ent);
+				if (def === undefined || def.id === "queue" || def.id === "conveyor" || def.id === "delay" || def.id === "sink") continue;
+				const it = out(ent, "obj", simTime);
+				if (!(it instanceof DisplayEntity)) continue;
+				const m = this.items.get(it);
+				if (m === undefined) continue;
+				const top = new THREE.Box3().setFromObject(v.group.children[0]).max.y;
+				m.position.set(v.group.position.x, top + it.getSize().z / 2 + 0.01, v.group.position.z);
 			}
 		}
 		for (const [e, m] of this.items) {

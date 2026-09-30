@@ -210,7 +210,7 @@ function buildLibrary(): void {
 	title.className = "dock-title";
 	title.textContent = t("Library");
 	lib.append(title);
-	const cats: Category[] = ["fixed", "conveyor", "logic"];
+	const cats: Category[] = ["fixed", "conveyor", "resource", "logic"];
 	for (const c of cats) {
 		const g = document.createElement("div");
 		g.className = "lib-group";
@@ -220,7 +220,7 @@ function buildLibrary(): void {
 		head.onclick = () => g.classList.toggle("closed");
 		const items = document.createElement("div");
 		items.className = "lib-items";
-		for (const d of CATALOG.filter(x => x.category === c)) {
+		for (const d of CATALOG.filter(x => x.category === c && !x.hidden)) {
 			const it = document.createElement("div");
 			it.className = "lib-item";
 			it.draggable = true;

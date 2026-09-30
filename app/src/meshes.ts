@@ -45,7 +45,7 @@ export function makeLamp(): THREE.Mesh {
 }
 
 /** sx: 長さ（x）、sy: 奥行き（JaamSim の y）、sz: 高さ */
-export function buildMesh(id: string, sx: number, sy: number, sz: number): THREE.Group {
+export function buildMesh(id: string, sx: number, sy: number, sz: number, color = 0x868e96): THREE.Group {
 	const g = new THREE.Group();
 	switch (id) {
 		case "source": {
@@ -97,8 +97,27 @@ export function buildMesh(id: string, sx: number, sy: number, sz: number): THREE
 			g.add(hole);
 			break;
 		}
+		case "resource":
+		case "resunit":
+		case "pool": {
+			// 作業者（FlexSim のオペレーターのような人の形）
+			const body = mat(color);
+			const h = Math.max(sz, 1.2);
+			const legs = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.14, h * 0.45, 16), mat(0x2b3a55));
+			legs.position.y = h * 0.225; legs.castShadow = true; g.add(legs);
+			const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.18, h * 0.35, 16), body);
+			torso.position.y = h * 0.62; torso.castShadow = true; g.add(torso);
+			const head = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 12), mat(0xf1c7a0));
+			head.position.y = h * 0.88; head.castShadow = true; g.add(head);
+			const hat = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(0xf5c400));
+			hat.position.y = h * 0.9; g.add(hat);
+			break;
+		}
 		default: {
-			g.add(box(sx, Math.max(sz, 0.05), sy, M.panel, 0, Math.max(sz, 0.05) / 2, 0));
+			// 形の決まっていない部品: 台と、種類の色の天板
+			const hh = Math.max(sz, 0.05);
+			g.add(box(sx, hh - 0.08, sy, M.panel, 0, (hh - 0.08) / 2, 0));
+			g.add(box(sx, 0.08, sy, mat(color), 0, hh - 0.04, 0));
 		}
 	}
 	return g;

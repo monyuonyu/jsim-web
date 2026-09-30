@@ -109,6 +109,23 @@ export class ModelOps {
 			case "delay":
 				this.setTime(ent, "Duration", { kind: "const", params: [5], unit: "s" });
 				break;
+			case "branch":
+				e.setInput(ent, "Choice", "1");
+				break;
+			case "seize":
+			case "release": {
+				// 資源が 1 つだけなら、それを使う
+				const res = this.visibleObjects().filter(o => this.defOf(o)?.id === "resource");
+				if (res.length === 1) e.setInput(ent, "ResourceList", res[0].getName());
+				break;
+			}
+			case "entproc":
+			case "combine":
+			case "pack":
+			case "unpack":
+			case "assemble":
+				this.setTime(ent, "ServiceTime", { kind: "const", params: [10], unit: "s" });
+				break;
 		}
 		this.move(ent, x, y);
 		return ent;
@@ -181,51 +198,82 @@ export class ModelOps {
 		if (!da.output) return t("A sink cannot send items.");
 		if (a === b) return null;
 		if (!db.direct && db.id === "source") return t("A source cannot receive items.");
-		// 待ち行列 → 作業台: 作業台がその待ち行列から取る
-		if (da.id === "queue" && db.id === "processor") {
-			this.engine.setInput(b, "WaitQueue", a.getName());
-			return null;
-		}
+		// 待ち行列 → 待ち行列から取る部品（作業台・コンバイナなど）: その部品がこの待ち行列から取る
 		if (da.id === "queue") {
+			if (b.getInput("WaitQueue") !== null) { this.engine.setInput(b, "WaitQueue", a.getName()); return null; }
+			if (b.getInput("WaitQueueList") !== null) { this.addToList(b, "WaitQueueList", a); return null; }
 			return t("A queue can only be connected to a processor. Put a processor between them.");
 		}
 		const target = db.direct ? b : this.innerQueue(b);
-		if (target === null) return null;
-		// 作業台に待ち行列からつないでいたら、内側の待ち行列に戻す
-		this.engine.setInput(a, "NextComponent", target.getName());
+		if (target === null) {
+			if (b.getInput("WaitQueueList") !== null) return t("Put a queue in front of the {0}.", t(db.label));
+			return null;
+		}
+		if (da.list) this.addToList(a, "NextComponentList", target);
+		else this.engine.setInput(a, "NextComponent", target.getName());
 		return null;
 	}
 
 	disconnect(a: Entity, b: Entity): void {
 		const db = this.defOf(b);
-		if (this.defOf(a)?.id === "queue" && db?.id === "processor") {
-			const q = this.innerQueue(b);
-			if (q !== null) this.engine.setInput(b, "WaitQueue", q.getName());
+		if (this.defOf(a)?.id === "queue") {
+			if (b.getInput("WaitQueue") !== null && this.engine.getInputString(b, "WaitQueue") === a.getName()) {
+				const q = this.innerQueue(b);
+				this.engine.setInput(b, "WaitQueue", q !== null ? q.getName() : "");
+			}
+			if (b.getInput("WaitQueueList") !== null) this.removeFromList(b, "WaitQueueList", a);
 			return;
 		}
-		const next = this.engine.getInputString(a, "NextComponent");
 		const target = db?.direct ? b : this.innerQueue(b);
-		if (target !== null && next === target.getName())
+		if (target === null) return;
+		if (a.getInput("NextComponentList") !== null) this.removeFromList(a, "NextComponentList", target);
+		if (a.getInput("NextComponent") !== null && this.engine.getInputString(a, "NextComponent") === target.getName())
 			this.engine.setInput(a, "NextComponent", "");
 	}
 
-	/** 画面に描くつながり [送る側, 受ける側] */
+	private listOf(ent: Entity, key: string): string[] {
+		return this.engine.getInputString(ent, key).split(/\s+/).filter(n => n !== "" && n !== "{" && n !== "}");
+	}
+
+	private addToList(ent: Entity, key: string, item: Entity): void {
+		const l = this.listOf(ent, key);
+		if (!l.includes(item.getName())) this.engine.setInput(ent, key, [...l, item.getName()].join(" "));
+	}
+
+	private removeFromList(ent: Entity, key: string, item: Entity): void {
+		const l = this.listOf(ent, key);
+		if (l.includes(item.getName())) this.engine.setInput(ent, key, l.filter(n => n !== item.getName()).join(" "));
+	}
+
+	/** 画面に描くつながり [送る側, 受ける側]（両端とも画面に出す部品のものだけ） */
 	links(): [Entity, Entity][] {
 		const out: [Entity, Entity][] = [];
-		for (const ent of this.visibleObjects()) {
-			const def = this.defOf(ent)!;
-			if (def.id === "processor") {
-				const wq = this.find(this.engine.getInputString(ent, "WaitQueue"));
-				if (wq !== null && !this.isInner(wq)) out.push([wq, ent]);
+		const vis = new Set<Entity>(this.visibleObjects());
+		const owner = (e: Entity): Entity | null => {
+			if (vis.has(e)) return e;
+			if (this.isInner(e)) return this.find(e.getName().slice(0, -INNER.length));
+			return null;
+		};
+		const names = (ent: Entity, key: string): Entity[] =>
+			this.engine.getInputString(ent, key).split(/\s+/).filter(n => n !== "" && n !== "{" && n !== "}")
+				.map(n => this.find(n)).filter((e): e is Entity => e !== null);
+		for (const ent of vis) {
+			// 送り先（NextComponent・分岐の NextComponentList）
+			for (const key of ["NextComponent", "NextComponentList"]) {
+				if (ent.getInput(key) === null) continue;
+				for (const n of names(ent, key)) {
+					const o = owner(n);
+					if (o !== null && o !== ent && this.defOf(ent)?.id !== "queue") out.push([ent, o]);
+				}
 			}
-			if (!def.output || def.id === "queue") continue;
-			const next = this.find(this.engine.getInputString(ent, "NextComponent"));
-			if (next === null) continue;
-			if (this.isInner(next)) {
-				const owner = this.find(next.getName().slice(0, -INNER.length));
-				if (owner !== null) out.push([ent, owner]);
+			// 取りに行く待ち行列（WaitQueue・WaitQueueList）は、待ち行列 → この部品
+			for (const key of ["WaitQueue", "WaitQueueList"]) {
+				if (ent.getInput(key) === null) continue;
+				for (const q of names(ent, key)) {
+					if (this.isInner(q)) continue;
+					if (vis.has(q)) out.push([q, ent]);
+				}
 			}
-			else out.push([ent, next]);
 		}
 		return out;
 	}
