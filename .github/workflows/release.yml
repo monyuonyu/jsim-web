@@ -1,0 +1,57 @@
+name: Build app
+
+# 画面のアプリ（Electron）を Windows（インストーラー）と Linux（AppImage）で作る。
+# タグ名を入れて実行するとリリース（試用版）に載せる。空なら成果物（Artifacts）に置くだけ。
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "リリースのタグ（例 v0.1.0）。空なら成果物だけ"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            target: dist:win
+            files: dist/release/*.exe
+          - os: ubuntu-latest
+            target: dist:linux
+            files: dist/release/*.AppImage
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Tests (the ported engine)
+        run: npm test
+      - name: Type check (engine and app)
+        run: npm run typecheck && npx tsc --noEmit -p app
+      - name: Build
+        run: npm run ${{ matrix.target }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jsim-${{ matrix.os }}
+          path: ${{ matrix.files }}
+      - name: Upload to the release
+        if: inputs.tag != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "${{ inputs.tag }}" > /dev/null 2>&1 || \
+            gh release create "${{ inputs.tag }}" --target "${{ github.sha }}" --prerelease \
+              --title "jsim ${{ inputs.tag }}" --notes "画面つきの試用版。Windows はインストーラー（署名なし。SmartScreen が出たら「詳細情報」→「実行」）、Linux は AppImage。" || true
+          gh release upload "${{ inputs.tag }}" ${{ matrix.files }} --clobber

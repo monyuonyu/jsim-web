@@ -11,7 +11,15 @@ import { t, LANGS, getLang, setLang } from "./i18n.ts";
 const $ = (id: string) => document.getElementById(id)!;
 const engine = new Engine();
 const ops = new ModelOps(engine);
-const view = new ModelView($("view"), ops);
+let view: ModelView;
+try {
+	view = new ModelView($("view"), ops);
+}
+catch (ex) {
+	// 3D（WebGL）が使えない PC。画面の枠だけ出して知らせる
+	$("view").innerHTML = `<div style="padding:40px;color:#b00">${t("3D graphics (WebGL) are not available on this PC.")}<br>${String(ex)}</div>`;
+	throw ex;
+}
 const props = new QuickProps($("props"), ops, toast);
 let fileName: string | null = null;
 let dirty = false;
@@ -205,34 +213,57 @@ function newModel(): void {
 	if (!confirmDiscard()) return;
 	engine.newModel();
 	fileName = null;
+	filePath = null;
 	dirty = false;
 	view.setSelection([]);
 	view.fit();
 }
 
+/** Electron で動いている時のファイルの窓口（preload.cjs） */
+interface Host {
+	openModel(): Promise<{ path: string; name: string; text: string } | null>;
+	saveModel(path: string | null, text: string, as: boolean): Promise<{ path: string; name: string } | null>;
+}
+const host = (window as unknown as { jsimHost?: Host }).jsimHost;
+let filePath: string | null = null;
+
+function loadText(text: string, name: string): void {
+	try {
+		engine.newModel(text, name);
+		fileName = name;
+		dirty = false;
+		view.setSelection([]);
+		view.fit();
+	}
+	catch (ex) {
+		toast(t("Could not open the model: {0}", ex instanceof Error ? ex.message : String(ex)));
+		engine.newModel();
+	}
+}
+
 function openModel(): void {
 	if (!confirmDiscard()) return;
+	if (host) {
+		void host.openModel().then(r => { if (r) { filePath = r.path; loadText(r.text, r.name); } });
+		return;
+	}
 	const input = $("file-open") as HTMLInputElement;
 	input.value = "";
 	input.onchange = async () => {
 		const f = input.files?.[0];
 		if (!f) return;
-		try {
-			engine.newModel(await f.text(), f.name);
-			fileName = f.name;
-			dirty = false;
-			view.setSelection([]);
-			view.fit();
-		}
-		catch (ex) {
-			toast(t("Could not open the model: {0}", ex instanceof Error ? ex.message : String(ex)));
-			engine.newModel();
-		}
+		loadText(await f.text(), f.name);
 	};
 	input.click();
 }
 
 function saveModel(as: boolean): void {
+	if (host) {
+		void host.saveModel(filePath, engine.saveText(), as).then(r => {
+			if (r) { filePath = r.path; fileName = r.name; dirty = false; updateButtons(); }
+		});
+		return;
+	}
 	let name = fileName ?? "model.cfg";
 	if (as || fileName === null) {
 		const n = prompt(t("File name"), name);

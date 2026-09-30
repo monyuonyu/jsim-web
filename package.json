@@ -7,18 +7,51 @@
   "type": "module",
   "scripts": {
     "test": "node --import tsx --test test/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "dev": "vite",
+    "build": "vite build",
+    "app": "vite build && electron .",
+    "dist:win": "vite build && electron-builder --win nsis",
+    "dist:linux": "vite build && electron-builder --linux AppImage"
   },
   "devDependencies": {
     "@types/node": "^26.6.3",
     "@types/three": "^0.186.0",
+    "electron": "^44.5.0",
+    "electron-builder": "^26.15.3",
     "playwright-core": "^1.63.0",
     "ts5": "npm:typescript@^5.9.3",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "vite": "^8.3.1"
-  },
-  "dependencies": {
+    "vite": "^8.3.1",
     "three": "^0.186.1"
-  }
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "org.helloidea.jsim",
+    "productName": "jsim",
+    "files": [
+      "electron/**",
+      "dist/app/**",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist/release"
+    },
+    "win": {
+      "target": "nsis",
+      "artifactName": "jsim-${version}-setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Science",
+      "artifactName": "jsim-${version}.${ext}"
+    }
+  },
+  "author": "shota"
 }

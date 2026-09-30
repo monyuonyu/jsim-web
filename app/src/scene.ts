@@ -9,6 +9,7 @@ import { DisplayEntity, Entity } from "../../src/jaamsim/internal.ts";
 import { buildConveyor, buildItem, buildMesh, buildPath } from "./meshes.ts";
 import type { ModelOps } from "./model.ts";
 import { clsName } from "./model.ts";
+import { getOutputDef } from "../../src/jaamsim/input/OutputRegistry.ts";
 
 /** JaamSim (x, y, z) → three */
 const toThree = (x: number, y: number, z: number) => new THREE.Vector3(x, z, -y);
@@ -70,19 +71,33 @@ export class ModelView {
 		cx.fillRect(0, 0, 2, 256);
 		this.scene.background = new THREE.CanvasTexture(c);
 
-		const floor = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.MeshStandardMaterial({ color: 0xf4f6f8, roughness: 1 }));
+		// 床: 5 m 四方の絵（1 m ごとの細い線と、外周の濃い線）を敷き詰める
+		const gc = document.createElement("canvas");
+		gc.width = gc.height = 500;
+		const g = gc.getContext("2d")!;
+		g.fillStyle = "#fbfcfd";
+		g.fillRect(0, 0, 500, 500);
+		g.strokeStyle = "#d5dae0";
+		g.lineWidth = 2;
+		for (let i = 1; i < 5; i++) {
+			g.beginPath(); g.moveTo(i * 100, 0); g.lineTo(i * 100, 500); g.stroke();
+			g.beginPath(); g.moveTo(0, i * 100); g.lineTo(500, i * 100); g.stroke();
+		}
+		g.strokeStyle = "#a3adb8";
+		g.lineWidth = 4;
+		g.strokeRect(0, 0, 500, 500);
+		const tex = new THREE.CanvasTexture(gc);
+		tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+		tex.repeat.set(80, 80);
+		tex.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+		tex.colorSpace = THREE.SRGBColorSpace;
+		const floor = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.MeshLambertMaterial({ map: tex }));
 		floor.rotation.x = -Math.PI / 2;
 		floor.receiveShadow = true;
 		floor.name = "floor";
 		this.scene.add(floor);
-		const minor = new THREE.GridHelper(200, 200, 0xd3d8de, 0xdde2e7);
-		minor.position.y = 0.002;
-		this.scene.add(minor);
-		const major = new THREE.GridHelper(200, 40, 0xb4bcc5, 0xb4bcc5);
-		major.position.y = 0.003;
-		this.scene.add(major);
 
-		this.scene.add(new THREE.HemisphereLight(0xffffff, 0x8a939c, 1.4));
+		this.scene.add(new THREE.HemisphereLight(0xffffff, 0xa9b1ba, 1.6));
 		const sun = new THREE.DirectionalLight(0xffffff, 1.6);
 		sun.position.set(30, 50, 20);
 		sun.castShadow = true;
@@ -255,6 +270,31 @@ export class ModelView {
 				// 位置合わせ（Alignment）の点が Position にある。three の箱は中心なので直す
 				m.position.copy(toThree(p.x - al.x * s.x, p.y - al.y * s.y, p.z - al.z * s.z));
 				m.rotation.y = e.getOrientation().z;
+			}
+		}
+		// キューの品物は、FlexSim のように台の上に並べる（出口の側から詰め、いっぱいなら上に積む）
+		if (this.ops.engine.state !== "idle") {
+			for (const [ent] of this.visuals) {
+				if (this.ops.defOf(ent)?.id !== "queue") continue;
+				const od = getOutputDef(ent.constructor as never, "QueueList");
+				let list: unknown;
+				try { list = od?.get(ent, simTime); } catch { list = null; }
+				if (!Array.isArray(list)) continue;
+				const q = ent as DisplayEntity;
+				const qs = q.getSize(), qp = q.getPosition();
+				const cell = 0.6;
+				const cols = Math.max(1, Math.floor(qs.x / cell)), rows = Math.max(1, Math.floor(qs.y / cell));
+				list.forEach((it: DisplayEntity, i: number) => {
+					const m = this.items.get(it);
+					if (m === undefined) return;
+					const layer = Math.floor(i / (cols * rows)), k = i % (cols * rows);
+					const c = k % cols, r = Math.floor(k / cols);
+					const x = qp.x + qs.x / 2 - cell / 2 - c * cell;
+					const y = qp.y + (r - (rows - 1) / 2) * cell;
+					const h = it.getSize().z;
+					m.position.copy(toThree(x, y, 0.06 + h / 2 + layer * h));
+					m.rotation.y = 0;
+				});
 			}
 		}
 		for (const [e, m] of this.items) {
