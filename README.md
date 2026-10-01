@@ -35,3 +35,22 @@ Java 版と結果を比べる道具は `ref/`（Java 側）と `tools/`（`cmp-e
 ## ライセンス
 
 Apache License 2.0（`LICENSE`）。JaamSim の著作権表示は `NOTICE` と各ファイルの先頭に残している。
+
+## Code signing policy（署名の方針）
+
+Windows 版は、SignPath Foundation の証明書で署名する予定（申し込み中）。
+
+- Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)
+- 署名する物: このリポジトリのソースから GitHub Actions（`.github/workflows/release.yml`）で作ったアプリと、そのインストーラーだけ
+- 役割（Committers and reviewers / Approvers）:
+  - 作者・レビューする人（Committers and reviewers）: [monyuonyu](https://github.com/monyuonyu)
+  - 署名を承認する人（Approvers）: [monyuonyu](https://github.com/monyuonyu)
+- 署名のたびに、承認する人が SignPath で承認する
+
+## Privacy policy（送る情報）
+
+This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it.
+
+- AI チャットは、利用者が自分の Anthropic の API キーを入れて依頼を送った時だけ、依頼の文と、AI が道具で読んだモデルの内容を Anthropic の API（api.anthropic.com）に送る。扱いは [Anthropic のプライバシーポリシー](https://www.anthropic.com/legal/privacy)による
+- AI チャットを使わなければ、何も送らない。更新の確認などの通信もしない
+- API キーは、この PC の利用者のデータの場所に、OS の鍵の仕組みで暗号にして置く（「API キー…」から消せる）

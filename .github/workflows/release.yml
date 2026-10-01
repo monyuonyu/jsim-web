@@ -38,9 +38,68 @@ jobs:
       - name: Type check (engine and app)
         run: npm run typecheck && npx tsc --noEmit -p app
       - name: Build
+        if: matrix.os != 'windows-latest' || vars.SIGNPATH_ORGANIZATION_ID == ''
         run: npm run ${{ matrix.target }}
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
+
+      # ---- Windows の署名（SignPath Foundation。設定 vars.SIGNPATH_* と secrets.SIGNPATH_API_TOKEN があるときだけ）----
+      # 1) アプリを展開した形で作り、中の exe・dll に署名する  2) 署名した物からインストーラーを作り、それにも署名する。
+      # どちらの署名も、SignPath の画面で承認した後に進む
+      - name: Build the unpacked app (to be signed)
+        if: matrix.os == 'windows-latest' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        run: npx vite build && npx electron-builder --win dir --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - id: unsigned-app
+        if: matrix.os == 'windows-latest' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: jsim-win-unpacked-unsigned
+          path: dist/release/win-unpacked/
+      - name: Sign the app
+        if: matrix.os == 'windows-latest' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: app
+          github-artifact-id: ${{ steps.unsigned-app.outputs.artifact-id }}
+          wait-for-completion-timeout-in-seconds: 7200
+          output-artifact-directory: dist/release/win-signed
+      - name: Build the installer from the signed app
+        if: matrix.os == 'windows-latest' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        shell: bash
+        run: |
+          rm -rf dist/release/win-unpacked
+          npx electron-builder --win nsis --prepackaged dist/release/win-signed --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - id: unsigned-installer
+        if: matrix.os == 'windows-latest' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: jsim-installer-unsigned
+          path: dist/release/*.exe
+      - name: Sign the installer
+        if: matrix.os == 'windows-latest' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: installer
+          github-artifact-id: ${{ steps.unsigned-installer.outputs.artifact-id }}
+          wait-for-completion-timeout-in-seconds: 7200
+          output-artifact-directory: dist/release/signed
+      - name: Use the signed installer
+        if: matrix.os == 'windows-latest' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        shell: bash
+        run: cp -f dist/release/signed/*.exe dist/release/
+
       - uses: actions/upload-artifact@v4
         with:
           name: jsim-${{ matrix.os }}
@@ -53,5 +112,5 @@ jobs:
         run: |
           gh release view "${{ inputs.tag }}" > /dev/null 2>&1 || \
             gh release create "${{ inputs.tag }}" --target "${{ github.sha }}" --prerelease \
-              --title "jsim ${{ inputs.tag }}" --notes "画面つきの試用版。Windows はインストーラー（署名なし。SmartScreen が出たら「詳細情報」→「実行」）、Linux は AppImage。" || true
+              --title "jsim ${{ inputs.tag }}" --notes "画面つきの試用版。Windows はインストーラー、Linux は AppImage。Code signing policy: README の「署名の方針（Code signing policy）」を参照。" || true
           gh release upload "${{ inputs.tag }}" ${{ matrix.files }} --clobber
