@@ -20,11 +20,11 @@
     "electron": "^44.5.0",
     "electron-builder": "^26.15.3",
     "playwright-core": "^1.63.0",
+    "three": "^0.186.1",
     "ts5": "npm:typescript@^5.9.3",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "vite": "^8.3.1",
-    "three": "^0.186.1"
+    "vite": "^8.3.1"
   },
   "main": "electron/main.cjs",
   "build": {
@@ -53,5 +53,8 @@
       "artifactName": "jsim-${version}.${ext}"
     }
   },
-  "author": "shota"
+  "author": "shota",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0"
+  }
 }

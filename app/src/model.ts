@@ -322,11 +322,12 @@ export class ModelOps {
 		if (name === old || name === "") return null;
 		if (!/^[^\s{}"'#.]+$/.test(name)) return t("The name cannot contain spaces or the characters {0}.", "{ } \" ' # .");
 		if (this.find(name) !== null) return t("The name is already used.");
-		const q = this.innerQueue(ent);
-		const helpers = this.engine.displayEntities().filter(e => e.getName().startsWith(old + "_") && !e.isGenerated());
+		// 付き物（内側の待ち行列・分布）も、新しい名前に合わせる。名前は先に全部決めてから変える
+		const helpers = this.engine.displayEntities()
+			.filter(e => e !== ent && e.getName().startsWith(old + "_") && !e.isGenerated())
+			.map(e => [e, name + e.getName().substring(old.length)] as const);
 		InputAgent.applyArgs(ent, "Name", name);
-		if (q !== null) InputAgent.applyArgs(q, "Name", name + INNER);
-		for (const h of helpers) InputAgent.applyArgs(h, "Name", name + h.getName().substring(old.length));
+		for (const [h, newName] of helpers) InputAgent.applyArgs(h, "Name", newName);
 		this.engine.changed();
 		return null;
 	}

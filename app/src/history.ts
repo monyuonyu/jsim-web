@@ -29,16 +29,29 @@ export class History {
 		this.current = this.engine.saveText();
 	}
 
+	private batching = 0;
+
+	/** まとめて 1 段にする（AI の 1 回の依頼の変更など）。end で 1 回だけ控える */
+	begin(): void {
+		clearTimeout(this.timer);
+		this.batching++;
+	}
+
+	end(): void {
+		if (this.batching > 0) this.batching--;
+		if (this.batching === 0) this.record(true);
+	}
+
 	private schedule(): void {
-		if (this.restoring || this.engine.state !== "idle") return;
+		if (this.restoring || this.batching > 0 || this.engine.state !== "idle") return;
 		clearTimeout(this.timer);
 		// ドラッグで動かす間などの細かな変化は、まとめて 1 回にする
 		this.timer = window.setTimeout(() => this.record(), 250);
 	}
 
-	private record(): void {
-		if (this.engine.state !== "idle") return;
-		if (this.pressed) { this.schedule(); return; }
+	private record(force = false): void {
+		if (this.engine.state !== "idle" && !force) return;
+		if (this.pressed && !force) { this.schedule(); return; }
 		const text = this.engine.saveText();
 		if (text === this.current) return;
 		this.undoStack.push(this.current);

@@ -192,6 +192,23 @@ export class Engine {
 		if (this.state === "paused") this.changed();
 	}
 
+	/** 最初から流して、simSeconds（秒）の時点まで一気に進める（AI の道具が使う）。誤りがあれば文で返す */
+	runFor(simSeconds: number): string | null {
+		this.reset();
+		if (!this.ensureStarted()) {
+			const e = this.error;
+			this.error = null;
+			return e ?? "始められない";
+		}
+		const em = this.sm.getEventManager();
+		em.resumeTicks(em.secondsToNearestTick(simSeconds));
+		if (this.state === "running") this.state = "paused";
+		this.changed();
+		const e = this.error;
+		this.error = null;
+		return e;
+	}
+
 	/** モデルを .cfg の文字列にする */
 	saveText(): string {
 		// JaamSim の保存は「元のファイルをそのまま写し、後に変えた所を足す」。この画面では元のファイルは写さず、

@@ -11,3 +11,5 @@ Apache License, Version 2.0 のもとで配布されている。
 各ファイルの先頭に、元の Java のファイルの著作権表示を残している。
 resources/（inputs・images・shapes）は、JaamSim の資源のフォルダをそのまま写したもの。
 移植にあたって、Java の文法を TypeScript に書き換え、画面の言葉を多言語（日本語など）にできるようにした。
+
+AI チャットは Anthropic の API の SDK（@anthropic-ai/sdk、MIT License、https://github.com/anthropics/anthropic-sdk-typescript）を使う。

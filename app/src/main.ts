@@ -7,6 +7,8 @@ import { ModelView } from "./scene.ts";
 import { QuickProps } from "./props.ts";
 import { Dashboard } from "./dashboard.ts";
 import { History } from "./history.ts";
+import { AiTools } from "./ai-tools.ts";
+import { AiChat } from "./ai-chat.ts";
 import { CATALOG, categoryLabel, type Category } from "./catalog.ts";
 import { t, LANGS, getLang, setLang } from "./i18n.ts";
 
@@ -29,6 +31,19 @@ const props = new QuickProps($("props"), ops, toast);
 const dash = new Dashboard($("dashboard"), ops);
 const history = new History(engine, () => { view.setSelection([]); view.rebuild(); });
 let clipboard: string[] = [];
+const aiChat = new AiChat($("ai"), new AiTools(ops), history, toast);
+// 右の欄の切り替え（クイックプロパティ / AI チャット）
+$("rtab-props").textContent = t("Quick Properties");
+$("rtab-ai").textContent = t("AI Chat");
+function showRight(which: "props" | "ai"): void {
+	$("rtab-props").classList.toggle("active", which === "props");
+	$("rtab-ai").classList.toggle("active", which === "ai");
+	($("props") as HTMLElement).hidden = which !== "props";
+	($("ai") as HTMLElement).hidden = which !== "ai";
+}
+$("rtab-props").onclick = () => showRight("props");
+$("rtab-ai").onclick = () => showRight("ai");
+void aiChat;
 
 function copySel(): void { clipboard = [...view.selection].map(e => e.getName()); }
 function paste(): void {
@@ -494,4 +509,4 @@ function frame(now: number): void {
 	requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
-(window as unknown as { jsim: unknown }).jsim = { engine, ops, view, showTab };
+(window as unknown as { jsim: unknown }).jsim = { engine, ops, view, showTab, showRight, history, aiTools: (aiChat as unknown as { tools: AiTools }).tools };

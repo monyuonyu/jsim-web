@@ -1,6 +1,7 @@
 // Electron の入口: 画面（dist/app）を窓に出し、ファイルの開く・保存をつなぐ
 const { app, BrowserWindow, dialog, ipcMain, Menu, protocol, net } = require("electron");
 const { pathToFileURL } = require("node:url");
+const { setupAi } = require("./ai.cjs");
 const fs = require("node:fs");
 const path = require("node:path");
 
@@ -90,6 +91,7 @@ ipcMain.handle("save-model", async (_ev, { path: p, text, as }) => {
 });
 
 app.whenReady().then(() => {
+	setupAi();
 	protocol.handle("app", req => {
 		const rel = decodeURIComponent(new URL(req.url).pathname);
 		const file = path.normalize(path.join(ROOT, rel));
