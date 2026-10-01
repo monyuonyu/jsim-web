@@ -12,4 +12,5 @@ Apache License, Version 2.0 のもとで配布されている。
 resources/（inputs・images・shapes）は、JaamSim の資源のフォルダをそのまま写したもの。
 移植にあたって、Java の文法を TypeScript に書き換え、画面の言葉を多言語（日本語など）にできるようにした。
 
-AI チャットは Anthropic の API の SDK（@anthropic-ai/sdk、MIT License、https://github.com/anthropics/anthropic-sdk-typescript）を使う。
+AI チャットは Anthropic の Claude Agent SDK（@anthropic-ai/claude-agent-sdk。同梱の claude を含む）を使う。
+これは Anthropic の利用規約（https://www.anthropic.com/legal/commercial-terms）に従うもので、Apache License 2.0 の対象ではない。

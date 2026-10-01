@@ -1,19 +1,18 @@
-// AI チャット（Electron の本体の側）。Anthropic の API（@anthropic-ai/sdk、MIT）で AI とやり取りし、
-// AI が使う道具は画面の側（app/src/ai-tools.ts）で実行してもらう。
+// AI チャット（Electron の本体の側）。Claude Agent SDK（同梱の claude）で AI とやり取りし、
+// AI が使う道具は画面の側（app/src/ai-tools.ts）で実行してもらう。KiCad・FreeCAD の AI チャットと同じ作り。
 //
 // - API キーは利用者が入れた物だけを使う。OS の鍵の仕組み（safeStorage）で暗号にして、利用者のデータの場所に置く。
 //   画面の側にはキーを渡さない。
 // - AI に送るのは、利用者が依頼した時の依頼の文と、AI が道具で読んだモデルの内容だけ（送り先は Anthropic の API）。
+// - claude には jsim の道具だけを使わせる（ファイルやコマンドの道具は渡さない。利用者の設定も読ませない）。
 const { app, ipcMain, safeStorage } = require("electron");
 const fs = require("node:fs");
 const path = require("node:path");
-const AnthropicModule = require("@anthropic-ai/sdk");
-const Anthropic = AnthropicModule.default ?? AnthropicModule;
 
-const MODEL = "claude-opus-5-5";
+const MODEL = "opus";   // いちばん新しい Opus
 
 // 本人用: この環境変数に Claude の長期トークン（claude setup-token で発行）があれば、API キーの代わりに使う。
-// KiCad・FreeCAD の AI チャットと同じ名前。起動した時に読んで、すぐ環境から消す（子のプロセスに渡さない）
+// KiCad・FreeCAD の AI チャットと同じ名前。起動した時に読んで、すぐ環境から消す
 const TOKEN_ENV = "JA_CLAUDE_OAUTH_TOKEN";
 const oauthToken = (process.env[TOKEN_ENV] || "").trim() || null;
 delete process.env[TOKEN_ENV];
@@ -44,48 +43,40 @@ normal（[平均, 標準偏差]）、lognormal（[正規の平均, 正規の標�
 - 1 回の依頼でした変更は、利用者が「元に戻す」1 回で戻せる。何をしたかを一言で伝える
 - 統計（稼働率・待ちの長さ・滞在時間・処理数）から、ボトルネックや改善案を具体的な数字で示す`;
 
-/** 道具の定義（実行は画面の側） */
-const TOOLS = [
-	tool("get_model", "今のモデル（部品の一覧・種類・位置・設定・つながり）と、実行の状態を返す", {}),
-	tool("place_object", "部品を置く。置いた部品の名前を返す", {
-		type: { type: "string", description: "部品の種類（source, queue, processor, sink, conveyor, delay, branch など）" },
-		x: { type: "number", description: "x（m）" },
-		y: { type: "number", description: "y（m）" },
-		name: { type: ["string", "null"], description: "付けたい名前（null なら自動）" },
-	}),
-	tool("move_object", "部品を動かす・回す", {
-		name: { type: "string" },
-		x: { type: "number" },
-		y: { type: "number" },
-		rotation_deg: { type: ["number", "null"], description: "向き（度）。null なら変えない" },
-	}),
-	tool("rename_object", "部品の名前を変える", { name: { type: "string" }, new_name: { type: "string" } }),
-	tool("delete_object", "部品を消す（つながりも外れる）", { name: { type: "string" } }),
-	tool("connect", "品物の流れをつなぐ（from から to へ）", { from: { type: "string" }, to: { type: "string" } }),
-	tool("disconnect", "つながりを外す", { from: { type: "string" }, to: { type: "string" } }),
-	tool("set_time", "時間の設定（到着間隔・処理時間・搬送時間など）を、定数か確率分布にする", {
-		object: { type: "string" },
-		property: { type: "string", description: "InterArrivalTime, ServiceTime, TravelTime, Duration, FirstArrivalTime など" },
-		kind: { type: "string", enum: ["const", "exp", "uniform", "tri", "normal", "lognormal", "gamma", "weibull", "erlang"] },
-		params: { type: "array", items: { type: "number" } },
-		unit: { type: "string", enum: ["s", "min", "h"] },
-	}),
-	tool("set_property", "時間以外の設定を変える（例: キューの MaxPerLine、リソースの Capacity、分岐の Choice、プロセッサの ResourceList）。値は JaamSim の入力の書き方", {
-		object: { type: "string" },
-		property: { type: "string" },
-		value: { type: "string" },
-	}),
-	tool("run_simulation", "最初からシミュレーションを流し、終わった時の部品ごとの統計を返す（画面にもその時点の結果が出る）", {
-		hours: { type: "number", description: "流す長さ（時間）" },
-	}),
-	tool("get_stats", "今の時点の部品ごとの統計を返す", {}),
-];
-
-function tool(name, description, properties) {
-	return {
-		name, description, strict: true,
-		input_schema: { type: "object", properties, required: Object.keys(properties), additionalProperties: false },
-	};
+/** 道具の定義（実行は画面の側）。[名前, 説明, 入力の形] */
+function toolDefs(z) {
+	const str = z.string(), num = z.number();
+	return [
+		["get_model", "今のモデル（部品の一覧・種類・位置・設定・つながり）と、実行の状態を返す", {}],
+		["place_object", "部品を置く。置いた部品の名前を返す", {
+			type: str.describe("部品の種類（source, queue, processor, sink, conveyor, delay, branch など）"),
+			x: num.describe("x（m）"),
+			y: num.describe("y（m）"),
+			name: str.optional().describe("付けたい名前（省けば自動）"),
+		}],
+		["move_object", "部品を動かす・回す", {
+			name: str, x: num, y: num,
+			rotation_deg: num.optional().describe("向き（度）。省けば変えない"),
+		}],
+		["rename_object", "部品の名前を変える", { name: str, new_name: str }],
+		["delete_object", "部品を消す（つながりも外れる）", { name: str }],
+		["connect", "品物の流れをつなぐ（from から to へ）", { from: str, to: str }],
+		["disconnect", "つながりを外す", { from: str, to: str }],
+		["set_time", "時間の設定（到着間隔・処理時間・搬送時間など）を、定数か確率分布にする", {
+			object: str,
+			property: str.describe("InterArrivalTime, ServiceTime, TravelTime, Duration, FirstArrivalTime など"),
+			kind: z.enum(["const", "exp", "uniform", "tri", "normal", "lognormal", "gamma", "weibull", "erlang"]),
+			params: z.array(num),
+			unit: z.enum(["s", "min", "h"]),
+		}],
+		["set_property", "時間以外の設定を変える（例: キューの MaxPerLine、リソースの Capacity、分岐の Choice、プロセッサの ResourceList）。値は JaamSim の入力の書き方", {
+			object: str, property: str, value: str,
+		}],
+		["run_simulation", "最初からシミュレーションを流し、終わった時の部品ごとの統計を返す（画面にもその時点の結果が出る）", {
+			hours: num.describe("流す長さ（時間）"),
+		}],
+		["get_stats", "今の時点の部品ごとの統計を返す", {}],
+	];
 }
 
 const keyFile = () => path.join(app.getPath("userData"), "ai-api-key.bin");
@@ -106,13 +97,14 @@ function saveKey(key) {
 	fs.writeFileSync(keyFile(), data, { mode: 0o600 });
 }
 
-let messages = [];
+let sessionId = null;   // 会話の続き（claude の会話の ID）
 let abort = null;
 let toolSeq = 0;
+let sender = null;     // 今の依頼を出した画面
 const pendingTools = new Map();
 
 /** 画面の側で道具を実行してもらい、結果を待つ */
-function callTool(sender, name, input) {
+function callTool(name, input) {
 	const id = ++toolSeq;
 	return new Promise(resolve => {
 		pendingTools.set(id, resolve);
@@ -120,88 +112,107 @@ function callTool(sender, name, input) {
 	});
 }
 
-/** 止めた時などに、道具の結果の無い tool_use が履歴に残らないようにする（残ると次の依頼が誤りになる） */
-function closeDanglingToolUses(why) {
-	const last = messages[messages.length - 1];
-	if (!last || last.role !== "assistant" || !Array.isArray(last.content)) return;
-	const uses = last.content.filter(b => b.type === "tool_use");
-	if (uses.length === 0) return;
-	messages.push({ role: "user", content: uses.map(u => ({ type: "tool_result", tool_use_id: u.id, content: why, is_error: true })) });
+/** 同梱の claude の場所。asar の中のものは実行できないので、外に出した物（app.asar.unpacked）を指す */
+function claudePath() {
+	const pkg = `@anthropic-ai/claude-agent-sdk-${process.platform}-${process.arch}`;
+	let dir;
+	try { dir = path.dirname(require.resolve(`${pkg}/package.json`)); }
+	catch { return undefined; }   // 無ければ SDK に任せる
+	dir = dir.replace(/app\.asar([\\/])/, "app.asar.unpacked$1");
+	for (const name of ["claude.exe", "claude"]) {
+		const f = path.join(dir, name);
+		if (fs.existsSync(f)) return f;
+	}
+	return undefined;
 }
 
-async function runTurn(sender, text) {
+let sdk = null;
+let server = null;
+async function loadSdk() {
+	if (sdk) return;
+	sdk = await import("@anthropic-ai/claude-agent-sdk");
+	const { z } = await import("zod");
+	const tools = toolDefs(z).map(([name, desc, shape]) => sdk.tool(name, desc, shape, async input => {
+		sender.send("ai:event", { type: "tool", name, input });
+		const r = await callTool(name, input);
+		return { content: [{ type: "text", text: r.text }], isError: !!r.isError };
+	}));
+	server = sdk.createSdkMcpServer({ name: "jsim", version: "1", tools });
+}
+
+function options(key) {
+	const env = { ...process.env, CLAUDE_CODE_DISABLE_AUTO_MEMORY: "1", ENABLE_CLAUDEAI_MCP_SERVERS: "false" };
+	delete env.ANTHROPIC_API_KEY;
+	delete env.CLAUDE_CODE_OAUTH_TOKEN;
+	if (oauthToken) env.CLAUDE_CODE_OAUTH_TOKEN = oauthToken;
+	else env.ANTHROPIC_API_KEY = key;
+	const cwd = path.join(app.getPath("userData"), "ai-work");
+	fs.mkdirSync(cwd, { recursive: true });
+	return {
+		model: MODEL, systemPrompt: SYSTEM,
+		pathToClaudeCodeExecutable: claudePath(),
+		tools: [], allowedTools: ["mcp__jsim__*"], permissionMode: "dontAsk",
+		mcpServers: { jsim: server }, strictMcpConfig: true, settingSources: [],
+		cwd, maxTurns: MAX_TURNS, env, includePartialMessages: true,
+		abortController: abort, ...(sessionId ? { resume: sessionId } : {}),
+	};
+}
+
+const AUTH_ERRORS = ["authentication_failed", "oauth_org_not_allowed"];
+
+async function runTurn(text) {
 	const key = oauthToken ? null : loadKey();
 	if (!oauthToken && !key) {
 		sender.send("ai:event", { type: "need_key" });
 		return;
 	}
-	const client = oauthToken ? new Anthropic({ apiKey: null, authToken: oauthToken }) : new Anthropic({ apiKey: key });
-	// 長期トークンの時は、その印の beta も付ける
-	const betas = ["server-side-fallback-2026-07-01", ...(oauthToken ? ["oauth-2025-04-20"] : [])];
 	abort = new AbortController();
-	messages.push({ role: "user", content: text });
 	sender.send("ai:event", { type: "start" });
+	let error = null, authFailed = false;
 	try {
-		for (let turn = 0; ; turn++) {
-			if (turn >= MAX_TURNS) {
-				closeDanglingToolUses("回数の上限");
-				sender.send("ai:event", { type: "error", text: `やり取りの回数の上限（${MAX_TURNS} 回）に達したので、途中で止めた。続けるには「続けて」と送る` });
-				break;
+		await loadSdk();
+		for await (const m of sdk.query({ prompt: text, options: options(key) })) {
+			if (m.session_id) sessionId = m.session_id;
+			if (m.type === "stream_event" && !m.parent_tool_use_id) {
+				const ev = m.event;
+				if (ev.type === "content_block_delta" && ev.delta.type === "text_delta")
+					sender.send("ai:event", { type: "text", delta: ev.delta.text });
 			}
-			const stream = client.beta.messages.stream({
-				model: MODEL,
-				max_tokens: 64000,
-				// 断られた時は、Anthropic の勧める別のモデルで続ける
-				betas,
-				fallbacks: "default",
-				thinking: { type: "adaptive" },
-				output_config: { effort: "medium" },
-				cache_control: { type: "ephemeral" },
-				system: SYSTEM,
-				tools: TOOLS,
-				messages,
-			}, { signal: abort.signal });
-			stream.on("text", delta => sender.send("ai:event", { type: "text", delta }));
-			const msg = await stream.finalMessage();
-			messages.push({ role: "assistant", content: msg.content });
-			if (msg.stop_reason === "refusal") {
-				closeDanglingToolUses("断られた");
-				sender.send("ai:event", { type: "error", text: "AI がこの依頼を断った" });
-				break;
+			else if (m.type === "assistant" && m.error) {
+				if (AUTH_ERRORS.includes(m.error)) authFailed = true;
+				else if (m.error === "rate_limit") error = "使いすぎの制限に当たった。少し待ってから送り直す";
+				else if (m.error === "billing_error") error = "API の支払いの設定を確かめる（残高が無いなど）";
+				else error = `API の誤り（${m.error}）`;
 			}
-			if (msg.stop_reason === "pause_turn") continue;
-			const uses = msg.content.filter(b => b.type === "tool_use");
-			if (uses.length === 0) break;
-			if (msg.stop_reason === "max_tokens") {
-				closeDanglingToolUses("出力の上限で切れた");
-				sender.send("ai:event", { type: "error", text: "AI の出力が長すぎて切れた" });
-				break;
+			else if (m.type === "result") {
+				if (m.subtype === "error_max_turns")
+					error = `やり取りの回数の上限（${MAX_TURNS} 回）に達したので、途中で止めた。続けるには「続けて」と送る`;
+				else if (m.is_error && !error && !authFailed) {
+					const t = (m.subtype === "success" ? m.result : "") || m.subtype || "AI の回が失敗した";
+					if (/401|authenticat/i.test(t)) authFailed = true;
+					else error = t;
+				}
 			}
-			const results = [];
-			for (const u of uses) {
-				sender.send("ai:event", { type: "tool", name: u.name, input: u.input });
-				const r = await callTool(sender, u.name, u.input);
-				results.push({ type: "tool_result", tool_use_id: u.id, content: r.text, is_error: !!r.isError });
-			}
-			messages.push({ role: "user", content: results });
-			if (abort.signal.aborted) throw new Error("止めた");
 		}
 	}
 	catch (err) {
-		closeDanglingToolUses("止めた");
-		if (abort.signal.aborted) sender.send("ai:event", { type: "error", text: "止めた" });
-		else if (err instanceof Anthropic.AuthenticationError && oauthToken)
-			sender.send("ai:event", { type: "error", text: `長期トークン（${TOKEN_ENV}）が正しくないか、期限が切れています。claude setup-token で発行し直してください` });
-		else if (err instanceof Anthropic.AuthenticationError) sender.send("ai:event", { type: "bad_key" });
-		else if (err instanceof Anthropic.RateLimitError) sender.send("ai:event", { type: "error", text: "使いすぎの制限に当たった。少し待ってから送り直す" });
-		else if (err instanceof Anthropic.APIConnectionError) sender.send("ai:event", { type: "error", text: "Anthropic の API につながらない（ネットワークを確かめる）" });
-		else if (err instanceof Anthropic.APIError) sender.send("ai:event", { type: "error", text: `API の誤り（${err.status}）: ${err.message}` });
-		else sender.send("ai:event", { type: "error", text: String(err && err.message || err) });
+		if (abort.signal.aborted) error = "止めた";
+		else if (/401|authenticat/i.test(String(err && err.message))) authFailed = true;
+		else error = String(err && err.message || err);
 	}
 	finally {
 		abort = null;
-		sender.send("ai:event", { type: "done" });
 	}
+	if (authFailed && oauthToken)
+		error = `長期トークン（${TOKEN_ENV}）が正しくないか、期限が切れています。claude setup-token で発行し直してください`;
+	else if (authFailed) sender.send("ai:event", { type: "bad_key" });
+	if (error) sender.send("ai:event", { type: "error", text: error });
+	sender.send("ai:event", { type: "done" });
+}
+
+function stopTools(why) {
+	for (const [, resolve] of pendingTools) resolve({ text: why, isError: true });
+	pendingTools.clear();
 }
 
 function setupAi() {
@@ -218,18 +229,19 @@ function setupAi() {
 	});
 	ipcMain.handle("ai:reset", () => {
 		if (abort) abort.abort();
-		messages = [];
+		stopTools("会話を始め直した");
+		sessionId = null;
 		return true;
 	});
 	ipcMain.handle("ai:stop", () => {
 		if (abort) abort.abort();
-		for (const [, resolve] of pendingTools) resolve({ text: "止めた", isError: true });
-		pendingTools.clear();
+		stopTools("止めた");
 		return true;
 	});
 	ipcMain.handle("ai:send", (e, text) => {
 		if (abort) return false;   // 走っている間は受けない
-		void runTurn(e.sender, String(text || ""));
+		sender = e.sender;
+		void runTurn(String(text || ""));
 		return true;
 	});
 	ipcMain.handle("ai:tool-result", (_e, id, result) => {
