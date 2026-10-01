@@ -65,9 +65,16 @@ export class ModelOps {
 
 	/** 流れる品物の型（無ければ作る） */
 	itemPrototype(): Entity {
-		let item = this.find(ITEM_NAME);
+		// 利用者が部品に「Box」と名付けていることもあるので、品物（SimEntity）の物だけを使う。無ければ空いた名前で作る
+		let name = ITEM_NAME;
+		for (let n = 2; ; n++) {
+			const e = this.find(name);
+			if (e === null || clsName(e) === "SimEntity") break;
+			name = ITEM_NAME + n;
+		}
+		let item = this.find(name);
 		if (item === null) {
-			item = this.engine.define("SimEntity", ITEM_NAME);
+			item = this.engine.define("SimEntity", name);
 			this.engine.setInput(item, "Size", "0.5 0.5 0.4 m");
 			this.engine.setInput(item, "Alignment", "0 0 -0.5");
 			this.engine.setInput(item, "Position", "0 -1000 0 m");

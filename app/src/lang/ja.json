@@ -181,5 +181,8 @@
 	"Reading the statistics": "統計を読んでいます",
 	"Save the changes to the model before closing?": "閉じる前に、モデルの変更を保存しますか？",
 	"Save and close": "保存して閉じる",
-	"Close without saving": "保存しないで閉じる"
+	"Close without saving": "保存しないで閉じる",
+	"Discard": "捨てる",
+	"The run has reached the stop time. Extend the stop time, or reset.": "停止時間に達しています。停止時間を延ばすか、リセットしてください。",
+	"The run was reset to undo the change.": "元に戻すため、実行の結果はリセットしました。"
 }

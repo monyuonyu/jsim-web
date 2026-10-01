@@ -154,6 +154,12 @@ export class Engine {
 		return true;
 	}
 
+	/** 停止時間に達している（これ以上「実行」しても進まない） */
+	atStopTime(): boolean {
+		// 止まる時刻は刻みに丸められるので（1.8 秒が 1.7999999…）、少しの差は達したとみなす
+		return this.state !== "idle" && this.stopTime !== null && this.simTime() >= this.stopTime - 1e-6 * Math.max(1, this.stopTime);
+	}
+
 	run(): void {
 		if (!this.ensureStarted()) return;
 		if (this.state === "ended") return;

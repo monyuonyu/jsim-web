@@ -28,9 +28,11 @@ catch (ex) {
 	throw ex;
 }
 const props = new QuickProps($("props"), ops, toast);
+props.onStopTime = () => { syncStopTime(); updateButtons(); };
 const dash = new Dashboard($("dashboard"), ops);
 const history = new History(engine, () => { view.setSelection([]); view.rebuild(); });
-let clipboard: string[] = [];
+let clipboard: import("../../src/jaamsim/internal.ts").Entity[] = [];
+let pasteCount = 0;
 const aiChat = new AiChat($("ai"), new AiTools(ops), history, toast);
 // 右の欄の切り替え（クイックプロパティ / AI チャット）
 $("rtab-props").textContent = t("Quick Properties");
@@ -45,14 +47,20 @@ $("rtab-props").onclick = () => showRight("props");
 $("rtab-ai").onclick = () => showRight("ai");
 void aiChat;
 
-function copySel(): void { clipboard = [...view.selection].map(e => e.getName()); }
+function copySel(): void { clipboard = [...view.selection]; pasteCount = 0; }
 function paste(): void {
-	const made = clipboard.map(n => ops.find(n)).filter(e => e !== null).map(e => ops.duplicate(e!));
-	if (made.length > 0) view.setSelection(made);
+	// 写した部品そのものを控える（名前で探すと、新しいモデルの同じ名前の別の部品を写してしまう）。消えた物は除く
+	const live = new Set(ops.visibleObjects());
+	const src = clipboard.filter(e => live.has(e as never));
+	if (src.length === 0) return;
+	// 貼るたびにずらす（同じ所に重ならないように）
+	pasteCount++;
+	const made = src.map(e => ops.duplicate(e, 1.5 * pasteCount, -1.5 * pasteCount));
+	view.setSelection(made);
 }
-function deleteSel(): void { for (const e of view.selection) ops.remove(e); view.setSelection([]); }
+function deleteSel(): void { for (const e of view.selection) ops.remove(e); view.setSelection([]); closeStalePropWindow(); }
 let fileName: string | null = null;
-let dirty = false;
+const isDirty = (check = false) => history.isDirty(check);
 
 document.title = t("jsim - Simulation");
 $("tab-model").textContent = t("Model");
@@ -105,8 +113,8 @@ function buildMenus(): void {
 			{ label: t("Open Sample Model"), run: sampleModel },
 		]],
 		[t("Edit"), [
-			{ label: t("Undo"), key: "Ctrl+Z", run: () => history.undo() },
-			{ label: t("Redo"), key: "Ctrl+Y", run: () => history.redo() },
+			{ label: t("Undo"), key: "Ctrl+Z", run: undo },
+			{ label: t("Redo"), key: "Ctrl+Y", run: redo },
 			"-",
 			{ label: t("Copy"), key: "Ctrl+C", run: copySel },
 			{ label: t("Paste"), key: "Ctrl+V", run: paste },
@@ -119,11 +127,11 @@ function buildMenus(): void {
 			{ label: t("Model"), run: () => showTab("model") },
 			{ label: t("Dashboard"), run: () => showTab("dash") },
 			"-",
-			...LANGS.map(([code, name]) => ({ label: (getLang() === code ? "✓ " : "") + name, run: () => setLang(code) })),
+			...LANGS.map(([code, name]) => ({ label: (getLang() === code ? "✓ " : "") + name, run: () => switchLang(code) })),
 		]],
 		[t("Execute"), [
 			{ label: t("Reset"), run: () => engine.reset() },
-			{ label: t("Run"), key: "Space", run: () => engine.run() },
+			{ label: t("Run"), key: "Space", run },
 			{ label: t("Stop"), run: () => engine.stop() },
 			{ label: t("Step"), run: () => engine.step() },
 		]],
@@ -179,7 +187,7 @@ function buildToolbar(): void {
 	btn("fit", t("Fit"), () => view.fit());
 	sep();
 	btn("reset", t("Reset"), () => engine.reset());
-	btn("run", t("Run"), () => engine.run());
+	btn("run", t("Run"), run);
 	btn("stop", t("Stop"), () => engine.stop());
 	btn("step", t("Step"), () => engine.step());
 	sep();
@@ -195,7 +203,13 @@ function buildToolbar(): void {
 	(g2.children[0] as HTMLElement).textContent = t("Stop Time (h):");
 	stopEl = g2.children[1] as HTMLInputElement;
 	stopEl.placeholder = t("(none)");
-	stopEl.onchange = () => { const v = Number(stopEl.value); engine.stopTime = stopEl.value !== "" && v > 0 ? v * 3600 : null; };
+	stopEl.onchange = () => {
+		const v = Number(stopEl.value);
+		engine.stopTime = stopEl.value !== "" && v > 0 ? v * 3600 : null;
+		stopEl.value = engine.stopTime === null ? "" : String(engine.stopTime / 3600);
+		props.refreshValues();
+		updateButtons();
+	};
 	bar.append(g2);
 	const g3 = document.createElement("div");
 	g3.className = "tb-group";
@@ -254,19 +268,29 @@ function buildLibrary(): void {
 }
 
 // ---- ファイル ----
-function confirmDiscard(): boolean {
-	return !dirty || confirm(t("Discard the changes to the present model?"));
+/** 変更を捨ててよいか。アプリでは本体の側の窓で聞く（同期の confirm だと、その間に閉じる要求に応えられない） */
+async function confirmDiscard(): Promise<boolean> {
+	if (!isDirty(true)) return true;
+	if (host?.ask) return (await host.ask(t("Discard the changes to the present model?"), [t("Discard"), t("Cancel")])) === 0;
+	return confirm(t("Discard the changes to the present model?"));
 }
 
-function newModel(): void {
-	if (!confirmDiscard()) return;
-	engine.newModel();
+/** 別のモデルにした時の後始末 */
+function modelReplaced(name: string | null, path: string | null): void {
 	history.clear();
-	fileName = null;
-	filePath = null;
-	dirty = false;
+	fileName = name;
+	filePath = path;
+	clipboard = [];
+	document.querySelector(".prop-window")?.remove();
 	view.setSelection([]);
 	view.fit();
+	updateButtons();
+}
+
+async function newModel(): Promise<void> {
+	if (!(await confirmDiscard())) return;
+	engine.newModel();
+	modelReplaced(null, null);
 }
 
 /** Electron で動いている時のファイルの窓口（preload.cjs） */
@@ -275,31 +299,32 @@ interface Host {
 	saveModel(path: string | null, text: string, as: boolean): Promise<{ path: string; name: string } | null>;
 	onCloseRequest?(fn: () => void): void;
 	confirmClose?(message: string, buttons: string[]): Promise<number>;
+	ask?(message: string, buttons: string[]): Promise<number>;
 	closeNow?(): void;
 	cancelClose?(): void;
 }
 const host = (window as unknown as { jsimHost?: Host }).jsimHost;
 let filePath: string | null = null;
 
-function loadText(text: string, name: string): void {
+function loadText(text: string, name: string, path: string | null): boolean {
 	try {
 		engine.newModel(text, name);
-		history.clear();
-		fileName = name;
-		dirty = false;
-		view.setSelection([]);
-		view.fit();
+		modelReplaced(name, path);
+		return true;
 	}
 	catch (ex) {
 		toast(t("Could not open the model: {0}", ex instanceof Error ? ex.message : String(ex)));
 		engine.newModel();
+		modelReplaced(null, null);
+		return false;
 	}
 }
 
-function openModel(): void {
-	if (!confirmDiscard()) return;
+async function openModel(): Promise<void> {
+	if (!(await confirmDiscard())) return;
 	if (host) {
-		void host.openModel().then(r => { if (r) { filePath = r.path; loadText(r.text, r.name); } });
+		const r = await host.openModel();
+		if (r) loadText(r.text, r.name, r.path);
 		return;
 	}
 	const input = $("file-open") as HTMLInputElement;
@@ -307,22 +332,24 @@ function openModel(): void {
 	input.onchange = async () => {
 		const f = input.files?.[0];
 		if (!f) return;
-		loadText(await f.text(), f.name);
+		loadText(await f.text(), f.name, null);
 	};
 	input.click();
 }
 
-function saveModel(as: boolean): void {
+async function saveModel(as: boolean): Promise<boolean> {
+	// 書きかけの欄を確定してから保存する
+	(document.activeElement as HTMLElement | null)?.blur?.();
+	history.flush();
 	if (host) {
-		void host.saveModel(filePath, engine.saveText(), as).then(r => {
-			if (r) { filePath = r.path; fileName = r.name; dirty = false; updateButtons(); }
-		});
-		return;
+		const r = await host.saveModel(filePath, engine.saveText(), as);
+		if (r) { filePath = r.path; fileName = r.name; history.markSaved(); updateButtons(); }
+		return r !== null;
 	}
 	let name = fileName ?? "model.cfg";
 	if (as || fileName === null) {
 		const n = prompt(t("File name"), name);
-		if (!n) return;
+		if (!n) return false;
 		name = n.endsWith(".cfg") ? n : n + ".cfg";
 	}
 	const text = engine.saveText();
@@ -332,12 +359,14 @@ function saveModel(as: boolean): void {
 	a.click();
 	URL.revokeObjectURL(a.href);
 	fileName = name;
-	dirty = false;
+	history.markSaved();
+	updateButtons();
+	return true;
 }
 
 /** 見本: ソース → キュー → プロセッサ 2 台 → コンベヤ → シンク */
-function sampleModel(): void {
-	if (!confirmDiscard()) return;
+async function sampleModel(): Promise<void> {
+	if (!(await confirmDiscard())) return;
 	engine.newModel();
 	const src = ops.place("source", -8, 0);
 	const q = ops.place("queue", -4, 0);
@@ -354,10 +383,28 @@ function sampleModel(): void {
 	ops.connect(p1, conv);
 	ops.connect(p2, conv);
 	ops.connect(conv, sink);
-	history.clear();
-	dirty = false;
-	view.setSelection([]);
-	view.fit();
+	modelReplaced(null, null);
+}
+
+/** 表示の言語を変える（読み直すので、今のモデルを持ち越す） */
+function switchLang(code: string): void {
+	if (code === getLang()) return;
+	sessionStorage.setItem(CARRY, JSON.stringify({ text: engine.saveText(), name: engine.modelName, fileName, filePath, dirty: isDirty(true) }));
+	setLang(code);
+}
+const CARRY = "jsim-carry-model";
+function restoreCarried(): boolean {
+	const raw = sessionStorage.getItem(CARRY);
+	if (raw === null) return false;
+	sessionStorage.removeItem(CARRY);
+	try {
+		const c = JSON.parse(raw) as { text: string; name: string; fileName: string | null; filePath: string | null; dirty: boolean };
+		engine.newModel(c.text, c.name);
+		modelReplaced(c.fileName, c.filePath);
+		if (c.dirty) history.markUnsaved();
+		return true;
+	}
+	catch { return false; }
 }
 
 // ---- つなぎ込み ----
@@ -404,6 +451,12 @@ view.onContextMenu = (ent, x, y) => {
 };
 
 // プロパティの窓（FlexSim でダブルクリックした時の窓）
+let propWindowEnt: import("../../src/jaamsim/internal.ts").Entity | null = null;
+/** 窓の部品が消えていたら（消した・元に戻した・別のモデルにした）、窓を閉じる */
+function closeStalePropWindow(): void {
+	const w = document.querySelector(".prop-window");
+	if (w && (propWindowEnt === null || !ops.visibleObjects().includes(propWindowEnt as never))) w.remove();
+}
 function openProperties(ent: import("../../src/jaamsim/internal.ts").Entity): void {
 	document.querySelector(".prop-window")?.remove();
 	const w = document.createElement("div");
@@ -419,6 +472,7 @@ function openProperties(ent: import("../../src/jaamsim/internal.ts").Entity): vo
 	body.className = "prop-window-body";
 	w.append(head, body);
 	document.body.append(w);
+	propWindowEnt = ent;
 	const qp = new QuickProps(body, ops, toast);
 	qp.show([ent]);
 	body.querySelector(".qp-title")?.remove();
@@ -448,58 +502,84 @@ view.onDrop = (id, x, y) => {
 };
 
 let lastState = engine.state;
-history.onEdit = () => { dirty = true; updateButtons(); };
+history.onEdit = () => updateButtons();
 engine.onChange(() => {
 	view.rebuild();
+	closeStalePropWindow();
+	props.refreshValues();
+	syncStopTime();
 	if (engine.error) { toast(engine.error); engine.error = null; }
 	if (engine.warning) { toast(t("The model has input errors. Fix them before running.") + "\n" + engine.warning); engine.warning = null; }
 	if (engine.state !== lastState) { lastState = engine.state; props.updateStats(); }
 	updateButtons();
 });
 
+/** ツールバーの停止時間の欄を、今の値に合わせる（右の欄でも変えられるので） */
+function syncStopTime(): void {
+	if (document.activeElement === stopEl) return;
+	stopEl.value = engine.stopTime === null ? "" : String(engine.stopTime / 3600);
+}
+
 function updateButtons(): void {
 	const s = engine.state;
-	tb.run.disabled = s === "running" || s === "ended";
+	const dirty = isDirty();
+	document.title = (dirty ? "* " : "") + (fileName ? fileName + " - " : "") + t("jsim - Simulation");
+	tb.run.disabled = s === "running" || s === "ended" || engine.atStopTime();
 	tb.stop.disabled = s !== "running";
 	tb.step.disabled = s === "running" || s === "ended";
 	tb.reset.disabled = s === "idle";
 	$("statusbar").textContent = [
 		t({ idle: "Ready", running: "Running", paused: "Stopped", ended: "Finished" }[s]),
 		t("{0} objects", ops.visibleObjects().length),
-		fileName ?? t("(unsaved)"),
+		(fileName ?? t("(unsaved)")) + (dirty ? " *" : ""),
 	].join("   |   ");
 }
 
 window.addEventListener("keydown", ev => {
+	if (ev.key === "Escape") $("menubar").querySelectorAll(".menu.open").forEach(x => x.classList.remove("open"));
+	// 保存・開く・新規は、入力欄の中でも効かせる（書きかけの値は確定してから）
+	if (ev.ctrlKey && ev.key.toLowerCase() === "s") { ev.preventDefault(); void saveModel(false); return; }
+	if (ev.ctrlKey && ev.key.toLowerCase() === "o") { ev.preventDefault(); (document.activeElement as HTMLElement | null)?.blur?.(); void openModel(); return; }
+	if (ev.ctrlKey && ev.key.toLowerCase() === "n") { ev.preventDefault(); (document.activeElement as HTMLElement | null)?.blur?.(); void newModel(); return; }
 	if ((ev.target as HTMLElement).closest("input, textarea, select")) return;
-	if (ev.ctrlKey && ev.key.toLowerCase() === "s") { ev.preventDefault(); saveModel(false); }
-	else if (ev.ctrlKey && ev.key.toLowerCase() === "o") { ev.preventDefault(); openModel(); }
-	else if (ev.ctrlKey && ev.key.toLowerCase() === "n") { ev.preventDefault(); newModel(); }
-	else if (ev.ctrlKey && ev.key.toLowerCase() === "a") { ev.preventDefault(); view.setSelection(ops.visibleObjects()); }
-	else if (ev.ctrlKey && ev.key.toLowerCase() === "z") { ev.preventDefault(); history.undo(); }
-	else if (ev.ctrlKey && ev.key.toLowerCase() === "y") { ev.preventDefault(); history.redo(); }
+	if (ev.ctrlKey && ev.key.toLowerCase() === "a") { ev.preventDefault(); view.setSelection(ops.visibleObjects()); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "z") { ev.preventDefault(); undo(); }
+	else if (ev.ctrlKey && ev.key.toLowerCase() === "y") { ev.preventDefault(); redo(); }
 	else if (ev.ctrlKey && ev.key.toLowerCase() === "c") { ev.preventDefault(); copySel(); }
 	else if (ev.ctrlKey && ev.key.toLowerCase() === "v") { ev.preventDefault(); paste(); }
 	else if (ev.key === "Escape") { document.querySelector(".ctx-menu")?.remove(); document.querySelector(".prop-window")?.remove(); }
-	else if (ev.key === " ") { ev.preventDefault(); if (engine.state === "running") engine.stop(); else engine.run(); }
+	else if (ev.key === " ") { ev.preventDefault(); if (engine.state === "running") engine.stop(); else run(); }
 	else if (ev.key.toLowerCase() === "f" && !ev.ctrlKey) view.fit();
 });
 // 閉じる時の確認。アプリでは本体の側の窓で聞く（Electron では beforeunload は窓を出さずに閉じるのを止めるだけ）
 if (host?.onCloseRequest) {
 	host.onCloseRequest(async () => {
-		if (!dirty) return host.closeNow!();
+		if (!isDirty(true)) return host.closeNow!();
 		const choice = await host.confirmClose!(t("Save the changes to the model before closing?"),
 			[t("Save and close"), t("Close without saving"), t("Cancel")]);
 		if (choice === 0) {
-			const r = await host.saveModel(filePath, engine.saveText(), false);
-			if (r) host.closeNow!();
+			if (await saveModel(false)) host.closeNow!();
+			else host.cancelClose!();
 		}
 		else if (choice === 1) host.closeNow!();
 		else host.cancelClose!();
 	});
 }
 else {
-	window.addEventListener("beforeunload", ev => { if (dirty) ev.preventDefault(); });
+	window.addEventListener("beforeunload", ev => { if (isDirty(true) && sessionStorage.getItem(CARRY) === null) ev.preventDefault(); });
+}
+
+/** 実行。停止時間に達していれば知らせる（黙って何もしないように見えないように） */
+function run(): void {
+	if (engine.atStopTime()) { toast(t("The run has reached the stop time. Extend the stop time, or reset.")); return; }
+	engine.run();
+}
+/** 元に戻す・やり直す。実行の途中なら、実行の結果は消える（モデルを読み直すため）ので知らせる */
+function undo(): void { const was = engine.state; if (!history.canUndo()) return; history.undo(); afterRestore(was); }
+function redo(): void { const was = engine.state; if (!history.canRedo()) return; history.redo(); afterRestore(was); }
+function afterRestore(was: string): void {
+	closeStalePropWindow();
+	if (was !== "idle") toast(t("The run was reset to undo the change."));
 }
 
 buildMenus();
@@ -507,7 +587,7 @@ buildToolbar();
 buildLibrary();
 props.show([]);
 updateButtons();
-if (new URLSearchParams(location.search).has("sample")) sampleModel();
+if (!restoreCarried() && new URLSearchParams(location.search).has("sample")) void sampleModel();
 
 // ---- 描く ----
 let prev = performance.now();

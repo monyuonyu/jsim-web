@@ -30,12 +30,19 @@ function row(label: string, ...controls: HTMLElement[]): HTMLElement {
 	return r;
 }
 
-function numInput(value: number, onChange: (v: number) => void, step = "any"): HTMLInputElement {
+/** 数の欄。get は今の値。入れた後は、受け付けられなかった時も含めて、欄を今の値に戻す（空欄は 0 にしない） */
+function numInput(get: () => number, onChange: (v: number) => void, step = "any", allowEmpty = false): HTMLInputElement {
 	const i = el("input");
 	i.type = "number";
 	i.step = step;
-	i.value = Number.isFinite(value) ? String(value) : "";
-	i.onchange = () => { const v = Number(i.value); if (Number.isFinite(v)) onChange(v); };
+	const show = () => { const v = get(); i.value = Number.isFinite(v) ? String(Math.round(v * 1e9) / 1e9) : ""; };
+	show();
+	i.onchange = () => {
+		const text = i.value.trim();
+		const v = Number(text);
+		if (text === "" ? allowEmpty : Number.isFinite(v)) onChange(text === "" ? NaN : v);
+		show();
+	};
 	return i;
 }
 
@@ -45,6 +52,9 @@ const unitLabel = (u: TimeUnitName) => t({ s: "seconds", min: "minutes", h: "hou
 export class QuickProps {
 	private statCells: { ent: Entity; def: StatDef; cell: HTMLElement }[] = [];
 	private current: Entity[] = [];
+
+	/** 停止時間を変えた時（ツールバーの欄も合わせる） */
+	onStopTime: () => void = () => {};
 
 	constructor(readonly host: HTMLElement, readonly ops: ModelOps, readonly msg: (s: string) => void) {}
 
@@ -69,7 +79,8 @@ export class QuickProps {
 		name.value = ent.getName();
 		name.onchange = () => {
 			const err = this.ops.rename(ent, name.value.trim());
-			if (err) { this.msg(err); name.value = ent.getName(); }
+			if (err) this.msg(err);
+			name.value = ent.getName();
 		};
 		head.append(icon, name, el("span", "qp-type", t(def.label)));
 		this.host.append(head);
@@ -80,10 +91,9 @@ export class QuickProps {
 			this.host.append(s.root);
 		}
 		const pos = section(t("Location"), false);
-		const [x, y] = this.ops.position(ent);
-		pos.body.append(row("X (m)", numInput(x, v => this.ops.move(ent, v, this.ops.position(ent)[1]))));
-		pos.body.append(row("Y (m)", numInput(y, v => this.ops.move(ent, this.ops.position(ent)[0], v))));
-		pos.body.append(row(t("Rotation") + " (°)", numInput(this.ops.rotation(ent), v => this.ops.rotate(ent, v))));
+		pos.body.append(row("X (m)", numInput(() => this.ops.position(ent)[0], v => this.ops.move(ent, v, this.ops.position(ent)[1]))));
+		pos.body.append(row("Y (m)", numInput(() => this.ops.position(ent)[1], v => this.ops.move(ent, this.ops.position(ent)[0], v))));
+		pos.body.append(row(t("Rotation") + " (°)", numInput(() => this.ops.rotation(ent), v => this.ops.rotate(ent, v))));
 		this.host.append(pos.root);
 
 		if (def.stats.length > 0) {
@@ -111,17 +121,16 @@ export class QuickProps {
 				const i = el("input");
 				i.type = "number"; i.step = "1"; i.placeholder = t("(unlimited)");
 				i.value = cur;
-				i.onchange = () => apply(i.value.trim());
+				i.onchange = () => { apply(i.value.trim()); i.value = e.getInputString(ent, p.key); };
 				return row(t(p.label), i);
 			}
 			case "length": {
-				const cur = parseFloat(e.getInputString(ent, p.key)) || 0;
-				return row(t(p.label) + " (m)", numInput(cur, v => apply(`${fmt(v)} m`)));
+				return row(t(p.label) + " (m)", numInput(() => parseFloat(e.getInputString(ent, p.key)) || 0, v => apply(`${fmt(v)} m`)));
 			}
 			default: {
 				const i = el("input");
 				i.value = e.getInputString(ent, p.key);
-				i.onchange = () => apply(i.value);
+				i.onchange = () => { apply(i.value); i.value = e.getInputString(ent, p.key); };
 				return row(t(p.label), i);
 			}
 		}
@@ -145,9 +154,11 @@ export class QuickProps {
 		const draw = (s: TimeSpec) => {
 			params.innerHTML = "";
 			DISTS[s.kind].params.forEach((pd, i) => {
-				params.append(row(t(pd.label), numInput(s.params[i] ?? NaN, v => {
+				params.append(row(t(pd.label), numInput(() => s.params[i] ?? NaN, v => {
+					const old = s.params[i];
 					s.params[i] = v;
-					this.commitTime(ent, p.key, s);
+					// 受け付けられなければ、元の値に戻す
+					if (!this.commitTime(ent, p.key, s)) s.params[i] = old;
 				})));
 			});
 		};
@@ -169,15 +180,18 @@ export class QuickProps {
 		return wrap;
 	}
 
-	private commitTime(ent: Entity, key: string, spec: TimeSpec): void {
-		try { this.ops.setTime(ent, key, spec); }
-		catch (ex) { this.msg(ex instanceof Error ? ex.message : String(ex)); }
+	private commitTime(ent: Entity, key: string, spec: TimeSpec): boolean {
+		try { this.ops.setTime(ent, key, spec); return true; }
+		catch (ex) { this.msg(ex instanceof Error ? ex.message : String(ex)); return false; }
 	}
 
 	private showModel(): void {
 		const e = this.ops.engine;
 		const s = section(t("Model"));
-		const stop = numInput(e.stopTime === null ? NaN : e.stopTime / 3600, v => { e.stopTime = v > 0 ? v * 3600 : null; });
+		const stop = numInput(() => e.stopTime === null ? NaN : e.stopTime / 3600, v => {
+			e.stopTime = v > 0 ? v * 3600 : null;
+			this.onStopTime();
+		}, "any", true);
 		stop.placeholder = t("(none)");
 		s.body.append(row(t("Stop time") + ` (${t("hours")})`, stop));
 		s.body.append(el("div", "qp-note", t("Drag objects from the Library into the model. Hold A and drag from one object to another to connect them.")));
@@ -206,6 +220,18 @@ export class QuickProps {
 			}
 			else cell.textContent = "–";
 		}
+	}
+
+	/** モデルが変わった時に、欄の値を今の値にする（ドラッグで動かした時など）。入力の途中なら触らない。
+	 *  開いている節・巻き上げの位置はそのまま */
+	refreshValues(): void {
+		if (this.host.contains(document.activeElement)) return;
+		const open = [...this.host.querySelectorAll(".qp-section")].map(x => x.classList.contains("open"));
+		const scroll = this.host.scrollTop;
+		this.refresh();
+		const secs = [...this.host.querySelectorAll(".qp-section")];
+		if (secs.length === open.length) secs.forEach((x, i) => x.classList.toggle("open", open[i]));
+		this.host.scrollTop = scroll;
 	}
 
 	refresh(): void {

@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld("jsimHost", {
 	relaunchSoftGL: () => ipcRenderer.invoke("relaunch-soft-gl"),
 	onCloseRequest: fn => ipcRenderer.on("app:close-request", () => { ipcRenderer.invoke("app:close-ack"); fn(); }),
 	confirmClose: (message, buttons) => ipcRenderer.invoke("app:confirm-close", message, buttons),
+	ask: (message, buttons) => ipcRenderer.invoke("app:ask", message, buttons),
 	closeNow: () => ipcRenderer.invoke("app:close-now"),
 	cancelClose: () => {},
 	// AI チャット（キーは本体の側だけが持つ）

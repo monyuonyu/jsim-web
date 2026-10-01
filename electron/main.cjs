@@ -44,6 +44,12 @@ function createWindow() {
 	ipcMain.handle("app:close-ack", () => clearTimeout(closeTimer));
 	ipcMain.removeHandler("app:close-now");
 	ipcMain.handle("app:close-now", () => { clearTimeout(closeTimer); allowClose = true; win.close(); });
+	// 画面からの問い（同期の confirm は画面を止め、その間は閉じる要求に応えられないので、こちらで聞く）。最後のボタンが取り消し
+	ipcMain.removeHandler("app:ask");
+	ipcMain.handle("app:ask", async (_e, message, buttons) => {
+		const r = await dialog.showMessageBox(win, { type: "question", message, buttons, defaultId: 0, cancelId: buttons.length - 1, noLink: true });
+		return r.response;
+	});
 	ipcMain.removeHandler("app:confirm-close");
 	ipcMain.handle("app:confirm-close", async (_e, message, buttons) => {
 		clearTimeout(closeTimer);
