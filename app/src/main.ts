@@ -273,6 +273,10 @@ function newModel(): void {
 interface Host {
 	openModel(): Promise<{ path: string; name: string; text: string } | null>;
 	saveModel(path: string | null, text: string, as: boolean): Promise<{ path: string; name: string } | null>;
+	onCloseRequest?(fn: () => void): void;
+	confirmClose?(message: string, buttons: string[]): Promise<number>;
+	closeNow?(): void;
+	cancelClose?(): void;
 }
 const host = (window as unknown as { jsimHost?: Host }).jsimHost;
 let filePath: string | null = null;
@@ -444,8 +448,8 @@ view.onDrop = (id, x, y) => {
 };
 
 let lastState = engine.state;
+history.onEdit = () => { dirty = true; updateButtons(); };
 engine.onChange(() => {
-	dirty = true;
 	view.rebuild();
 	if (engine.error) { toast(engine.error); engine.error = null; }
 	if (engine.warning) { toast(t("The model has input errors. Fix them before running.") + "\n" + engine.warning); engine.warning = null; }
@@ -480,7 +484,23 @@ window.addEventListener("keydown", ev => {
 	else if (ev.key === " ") { ev.preventDefault(); if (engine.state === "running") engine.stop(); else engine.run(); }
 	else if (ev.key.toLowerCase() === "f" && !ev.ctrlKey) view.fit();
 });
-window.addEventListener("beforeunload", ev => { if (dirty) ev.preventDefault(); });
+// 閉じる時の確認。アプリでは本体の側の窓で聞く（Electron では beforeunload は窓を出さずに閉じるのを止めるだけ）
+if (host?.onCloseRequest) {
+	host.onCloseRequest(async () => {
+		if (!dirty) return host.closeNow!();
+		const choice = await host.confirmClose!(t("Save the changes to the model before closing?"),
+			[t("Save and close"), t("Close without saving"), t("Cancel")]);
+		if (choice === 0) {
+			const r = await host.saveModel(filePath, engine.saveText(), false);
+			if (r) host.closeNow!();
+		}
+		else if (choice === 1) host.closeNow!();
+		else host.cancelClose!();
+	});
+}
+else {
+	window.addEventListener("beforeunload", ev => { if (dirty) ev.preventDefault(); });
+}
 
 buildMenus();
 buildToolbar();

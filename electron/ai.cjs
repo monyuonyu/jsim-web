@@ -11,6 +11,12 @@ const AnthropicModule = require("@anthropic-ai/sdk");
 const Anthropic = AnthropicModule.default ?? AnthropicModule;
 
 const MODEL = "claude-opus-5-5";
+
+// 本人用: この環境変数に Claude の長期トークン（claude setup-token で発行）があれば、API キーの代わりに使う。
+// KiCad・FreeCAD の AI チャットと同じ名前。起動した時に読んで、すぐ環境から消す（子のプロセスに渡さない）
+const TOKEN_ENV = "JA_CLAUDE_OAUTH_TOKEN";
+const oauthToken = (process.env[TOKEN_ENV] || "").trim() || null;
+delete process.env[TOKEN_ENV];
 const MAX_TURNS = 60;   // 1 回の依頼で道具を呼んで進められる回数の上限
 
 const SYSTEM = `あなたは離散事象シミュレーター jsim（FlexSim に似た画面。中身は JaamSim の移植）に組み込まれた助手です。
@@ -124,12 +130,14 @@ function closeDanglingToolUses(why) {
 }
 
 async function runTurn(sender, text) {
-	const key = loadKey();
-	if (!key) {
+	const key = oauthToken ? null : loadKey();
+	if (!oauthToken && !key) {
 		sender.send("ai:event", { type: "need_key" });
 		return;
 	}
-	const client = new Anthropic({ apiKey: key });
+	const client = oauthToken ? new Anthropic({ apiKey: null, authToken: oauthToken }) : new Anthropic({ apiKey: key });
+	// 長期トークンの時は、その印の beta も付ける
+	const betas = ["server-side-fallback-2026-07-01", ...(oauthToken ? ["oauth-2025-04-20"] : [])];
 	abort = new AbortController();
 	messages.push({ role: "user", content: text });
 	sender.send("ai:event", { type: "start" });
@@ -144,7 +152,7 @@ async function runTurn(sender, text) {
 				model: MODEL,
 				max_tokens: 64000,
 				// 断られた時は、Anthropic の勧める別のモデルで続ける
-				betas: ["server-side-fallback-2026-07-01"],
+				betas,
 				fallbacks: "default",
 				thinking: { type: "adaptive" },
 				output_config: { effort: "medium" },
@@ -182,6 +190,8 @@ async function runTurn(sender, text) {
 	catch (err) {
 		closeDanglingToolUses("止めた");
 		if (abort.signal.aborted) sender.send("ai:event", { type: "error", text: "止めた" });
+		else if (err instanceof Anthropic.AuthenticationError && oauthToken)
+			sender.send("ai:event", { type: "error", text: `長期トークン（${TOKEN_ENV}）が正しくないか、期限が切れています。claude setup-token で発行し直してください` });
 		else if (err instanceof Anthropic.AuthenticationError) sender.send("ai:event", { type: "bad_key" });
 		else if (err instanceof Anthropic.RateLimitError) sender.send("ai:event", { type: "error", text: "使いすぎの制限に当たった。少し待ってから送り直す" });
 		else if (err instanceof Anthropic.APIConnectionError) sender.send("ai:event", { type: "error", text: "Anthropic の API につながらない（ネットワークを確かめる）" });
@@ -195,7 +205,7 @@ async function runTurn(sender, text) {
 }
 
 function setupAi() {
-	ipcMain.handle("ai:status", () => ({ hasKey: !!loadKey(), encrypted: safeStorage.isEncryptionAvailable() }));
+	ipcMain.handle("ai:status", () => ({ hasKey: !!oauthToken || !!loadKey(), encrypted: safeStorage.isEncryptionAvailable() }));
 	ipcMain.handle("ai:set-key", (_e, key) => {
 		key = String(key || "").trim();
 		if (!key) return false;

@@ -22,6 +22,9 @@ export class History {
 
 	private pressed = false;
 
+	/** モデルが編集された（控えが増えた・元に戻した・やり直した）時に呼ぶ。流しただけでは呼ばない */
+	onEdit: () => void = () => {};
+
 	/** 新しいモデルを開いた時 */
 	clear(): void {
 		this.undoStack = [];
@@ -58,6 +61,7 @@ export class History {
 		if (this.undoStack.length > 100) this.undoStack.shift();
 		this.redoStack = [];
 		this.current = text;
+		this.onEdit();
 	}
 
 	canUndo(): boolean { return this.undoStack.length > 0; }
@@ -89,5 +93,6 @@ export class History {
 			this.restoring = false;
 		}
 		this.onRestore();
+		this.onEdit();
 	}
 }

@@ -30,6 +30,26 @@ function createWindow() {
 	});
 	Menu.setApplicationMenu(null);  // メニューは画面の中に持つ（FlexSim と同じ位置）
 	win.loadURL("app://jsim/index.html");
+	// 閉じる時は、画面の側に保存していない変更があるかを聞く。画面が 5 秒応えなければ（固まった時など）そのまま閉じる
+	let allowClose = false;
+	let closeTimer = null;
+	win.on("close", ev => {
+		if (allowClose) return;
+		ev.preventDefault();
+		win.webContents.send("app:close-request");
+		clearTimeout(closeTimer);
+		closeTimer = setTimeout(() => { allowClose = true; win.destroy(); }, 5000);
+	});
+	ipcMain.removeHandler("app:close-ack");
+	ipcMain.handle("app:close-ack", () => clearTimeout(closeTimer));
+	ipcMain.removeHandler("app:close-now");
+	ipcMain.handle("app:close-now", () => { clearTimeout(closeTimer); allowClose = true; win.close(); });
+	ipcMain.removeHandler("app:confirm-close");
+	ipcMain.handle("app:confirm-close", async (_e, message, buttons) => {
+		clearTimeout(closeTimer);
+		const r = await dialog.showMessageBox(win, { type: "question", message, buttons, defaultId: 0, cancelId: 2, noLink: true });
+		return r.response;
+	});
 	if (process.env.JSIM_SELFTEST_SHOT) selfTest(process.env.JSIM_SELFTEST_SHOT);
 }
 

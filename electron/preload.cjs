@@ -4,6 +4,10 @@ contextBridge.exposeInMainWorld("jsimHost", {
 	openModel: () => ipcRenderer.invoke("open-model"),
 	saveModel: (path, text, as) => ipcRenderer.invoke("save-model", { path, text, as }),
 	relaunchSoftGL: () => ipcRenderer.invoke("relaunch-soft-gl"),
+	onCloseRequest: fn => ipcRenderer.on("app:close-request", () => { ipcRenderer.invoke("app:close-ack"); fn(); }),
+	confirmClose: (message, buttons) => ipcRenderer.invoke("app:confirm-close", message, buttons),
+	closeNow: () => ipcRenderer.invoke("app:close-now"),
+	cancelClose: () => {},
 	// AI チャット（キーは本体の側だけが持つ）
 	ai: {
 		status: () => ipcRenderer.invoke("ai:status"),
