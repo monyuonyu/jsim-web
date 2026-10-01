@@ -55,8 +55,7 @@
     },
     "asarUnpack": [
       "node_modules/@anthropic-ai/claude-agent-sdk-*/**"
-    ],
-    "afterPack": "tools/after-pack.cjs"
+    ]
   },
   "author": "shota",
   "dependencies": {

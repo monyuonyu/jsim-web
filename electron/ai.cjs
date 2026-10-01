@@ -112,15 +112,14 @@ function callTool(name, input) {
 	});
 }
 
-/** 同梱の claude の場所。asar の中のものは実行できないので、外に出した物（app.asar.unpacked）を指す。
- *  配布物では agent.bin という名前にしてある（tools/after-pack.cjs）。開発中は元の名前 */
+/** 同梱の claude の場所。asar の中のものは実行できないので、外に出した物（app.asar.unpacked）を指す */
 function claudePath() {
 	const pkg = `@anthropic-ai/claude-agent-sdk-${process.platform}-${process.arch}`;
 	let dir;
 	try { dir = path.dirname(require.resolve(`${pkg}/package.json`)); }
 	catch { return undefined; }   // 無ければ SDK に任せる
 	dir = dir.replace(/app\.asar([\\/])/, "app.asar.unpacked$1");
-	for (const name of ["agent.bin", "claude.exe", "claude"]) {
+	for (const name of ["claude.exe", "claude"]) {
 		const f = path.join(dir, name);
 		if (fs.existsSync(f)) return f;
 	}
