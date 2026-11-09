@@ -15,7 +15,7 @@
 
 ## ダウンロード
 
-**最新版: [Releases の Latest](https://github.com/monyuonyu/jsim-web/releases/latest)**（画面つきの試用版。Windows のインストーラーと Linux の AppImage。前の版は [Releases](https://github.com/monyuonyu/jsim-web/releases) の一覧に）。
+**まだ作りかけで、正式なリリースはありません。** 画面つきの試用版（プレリリース。Windows のインストーラーと Linux の AppImage）を [Releases](https://github.com/monyuonyu/jsim-web/releases) に置いています。画面や機能は変わることがあります。
 
 ## 動かし方（今できること）
 
