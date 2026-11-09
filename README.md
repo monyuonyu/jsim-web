@@ -13,6 +13,10 @@
 - 画面の言葉は最初から日本語（多言語にできる。`src/jaamsim/i18n`）。用語は `docs/glossary-ja.md`（案）。
 - 速さは今、Java 版のおよそ半分。
 
+## ダウンロード
+
+**最新版: [Releases の Latest](https://github.com/monyuonyu/jsim-web/releases/latest)**（画面つきの試用版。Windows のインストーラーと Linux の AppImage。前の版は [Releases](https://github.com/monyuonyu/jsim-web/releases) の一覧に）。
+
 ## 動かし方（今できること）
 
 Node.js 22 以降が要る。
